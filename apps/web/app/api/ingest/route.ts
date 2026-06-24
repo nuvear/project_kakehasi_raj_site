@@ -5,7 +5,22 @@ import * as yaml from "js-yaml";
 import admin from "firebase-admin";
 import { getEmbedding } from "@/lib/ai";
 
-const CONTENT_DIR = "/Users/rajkumarrajagobalan/raj-site/content";
+const CONTENT_DIR = (() => {
+  const localPath = "/Users/rajkumarrajagobalan/raj-site/content";
+  if (fs.existsSync(localPath)) return localPath;
+
+  const cwd = process.cwd();
+  const pathsToTry = [
+    path.join(cwd, "../../content"),
+    path.join(cwd, "content"),
+    path.join(cwd, "apps/web/content"),
+    "/workspace/content"
+  ];
+  for (const p of pathsToTry) {
+    if (fs.existsSync(p)) return p;
+  }
+  return path.join(cwd, "content");
+})();
 
 // Initial public media catalog mapping to load
 const defaultMediaCatalogs: Record<string, unknown> = {
