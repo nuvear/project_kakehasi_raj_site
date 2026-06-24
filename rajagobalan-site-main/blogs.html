@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogs — Rajkumar Rajagobalan</title>
+<meta name="description" content="Enterprise AI, transformation frameworks, and strategic insights from Rajkumar Rajagobalan.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2306B6D4'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/m3-tokens.css">
+<link rel="stylesheet" href="/layout.css?v=4">
+<style>
+/* Page Specific Overrides */
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-top: 40px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: var(--md-sys-typescale-display-small-size);
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.page-sub {
+  font-size: 1.25rem;
+  color: var(--md-sys-color-on-surface-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Blog Grid Layout */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+}
+
+/* Featured Card spans full width on desktop */
+.blog-card.featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+  padding: 48px;
+  background: linear-gradient(135deg, var(--md-sys-color-surface-container-low), var(--md-sys-color-surface-container));
+}
+
+.blog-card.featured .blog-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+/* Decorative visual for featured card */
+.blog-card.featured::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background-image: 
+    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  order: 2; /* Image on right */
+}
+
+/* Standard Blog Card */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  height: 100%;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(6, 182, 212, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.blog-card:hover::before {
+  opacity: 1;
+}
+
+.blog-card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  width: fit-content;
+}
+
+.blog-card.featured .blog-card-badge {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.blog-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.3;
+}
+
+.blog-card.featured .blog-card-title {
+  font-size: 2.5rem;
+}
+
+.blog-card-desc {
+  font-size: 1rem;
+  color: var(--md-sys-color-on-surface-secondary);
+  margin-bottom: 24px;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.blog-pill {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-secondary);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  font-weight: 500;
+}
+
+.blog-card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-tertiary);
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.blog-card-cta {
+  margin-top: 20px;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+}
+
+.blog-card-cta i {
+  transition: transform 0.2s ease;
+}
+
+.blog-card:hover .blog-card-cta i {
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .blog-card.featured {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .blog-card.featured::after {
+    height: 200px;
+    min-height: auto;
+    order: -1; /* Image on top */
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-card.featured {
+    padding: 24px;
+  }
+  .blog-card.featured .blog-card-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Foodie AI — image + copy (PWA) */
+.blog-card-foodie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 28px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.blog-card-foodie .blog-card-thumb-wrap {
+  border-radius: var(--md-sys-shape-corner-large);
+  overflow: hidden;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  aspect-ratio: 16 / 10;
+  background: var(--md-sys-color-surface-container);
+}
+.blog-card-foodie .blog-card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.blog-card-foodie .blog-card-desc {
+  -webkit-line-clamp: 8;
+}
+@media (max-width: 900px) {
+  .blog-card-foodie {
+    grid-template-columns: 1fr;
+  }
+  .blog-card-foodie .blog-card-thumb-wrap {
+    max-height: 220px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-header">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">RR</div>
+      Rajkumar Rajagobalan
+    </a>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/#about" class="nav-link">About</a></li>
+      <li><a href="/blogs.html" class="nav-link active">Blogs</a></li>
+      <li><a href="/foodie/" class="nav-link">Foodie</a></li>
+      <li><a href="/#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div class="container">
+    <header class="page-header fade-in">
+      <h1 class="page-title">Strategic Insights</h1>
+      <p class="page-sub">Frameworks, playbooks, and deep dives into Enterprise AI Transformation.</p>
+    </header>
+
+    <div class="blog-grid fade-in">
+      
+      <!-- Featured: Enterprise AI Framework -->
+      <a href="/framework.html" class="glass-card blog-card featured">
+        <div class="blog-card-content">
+          <span class="blog-card-badge"><i class="fas fa-star" style="margin-right:6px"></i> Featured Playbook</span>
+          <h2 class="blog-card-title">The Enterprise AI Transformation Framework</h2>
+          <div class="blog-pills">
+            <span class="blog-pill">Interactive</span>
+            <span class="blog-pill">6 Pillars</span>
+            <span class="blog-pill">12-Week Curriculum</span>
+          </div>
+          <p class="blog-card-desc" style="-webkit-line-clamp: 3;">An interactive strategic framework and playbook for enterprise AI transformation. Explore the six pillars — Business Strategy, Data Platform, Tech Stack, Operating Model, Governance, and Value — complete with a maturity model and execution roadmap.</p>
+          <div class="blog-card-meta">
+            <span><i class="fas fa-tools" style="margin-right:6px"></i>Interactive Tool</span>
+            <span><i class="fas fa-clock" style="margin-right:6px"></i>Comprehensive Guide</span>
+          </div>
+          <span class="blog-card-cta">Open Framework <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <!-- Foodie AI PWA -->
+      <a href="/foodie/" class="glass-card blog-card blog-card-foodie">
+        <div class="blog-card-thumb-wrap">
+          <img src="/blog_foodie.jpeg" alt="Foodie AI — meal photo and AI analysis" class="blog-card-thumb" width="640" height="400" loading="lazy" />
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-badge" style="background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container)"><i class="fas fa-mobile-alt" style="margin-right:6px"></i> PWA</span>
+          <h2 class="blog-card-title">Foodie AI</h2>
+          <div class="blog-pills">
+            <span class="blog-pill">Gemini</span>
+            <span class="blog-pill">USDA</span>
+            <span class="blog-pill">Meal diary</span>
+          </div>
+          <p class="blog-card-desc"><strong>Foodie AI</strong> is a Progressive Web App that uses Gemini vision to read your plate and estimate portion size, then pulls verified nutrient data from USDA FoodData Central (per 100&nbsp;g). Calories, protein, fat, carbs, and fiber for <em>your</em> portion are computed locally; you can switch display units between grams, ounces, and pounds without another API call. A lightweight on-device diary keeps thumbnails and scan metadata from recent meals.</p>
+          <div class="blog-card-meta">
+            <span><i class="fas fa-utensils" style="margin-right:6px"></i>Live app</span>
+            <span><i class="fas fa-database" style="margin-right:6px"></i>FoodData Central</span>
+          </div>
+          <span class="blog-card-cta">Open Foodie AI <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <!-- Singapore AI Strategy -->
+      <a href="/singapore-ai-strategy-status.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-secondary-container);color:var(--md-sys-color-on-secondary-container)">Regional Strategy</span>
+        <h2 class="blog-card-title">Singapore's AI Strategy (NAIS 2.0)</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">Singapore</span>
+          <span class="blog-pill">Public Sector</span>
+          <span class="blog-pill">2026 Outlook</span>
+        </div>
+        <p class="blog-card-desc">Deep dive into Singapore's National AI Strategy 2.0, Budget 2026 implications, and the S$1B+ investment landscape. Essential reading for regional leaders.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-map-marker-alt" style="margin-right:6px"></i>Singapore</span>
+          <span><i class="fas fa-chart-bar" style="margin-right:6px"></i>Strategic Analysis</span>
+        </div>
+        <span class="blog-card-cta">Read Analysis <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Responsible AI -->
+      <a href="/responsible-ai-governance-adoption.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-error-container);color:var(--md-sys-color-on-error-container)">Governance</span>
+        <h2 class="blog-card-title">Responsible AI Governance</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">EU AI Act</span>
+          <span class="blog-pill">Risk Management</span>
+          <span class="blog-pill">Ethics</span>
+        </div>
+        <p class="blog-card-desc">A strategic blueprint for navigating global AI regulations (EU, US, ASEAN). How to build an AIMS architecture that ensures compliance without stifling innovation.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-shield-alt" style="margin-right:6px"></i>Compliance</span>
+          <span><i class="fas fa-balance-scale" style="margin-right:6px"></i>Ethics</span>
+        </div>
+        <span class="blog-card-cta">Read Guide <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Executive Talking Points -->
+      <a href="/ai-executive-talking-points.html" class="glass-card blog-card">
+        <span class="blog-card-badge">Leadership</span>
+        <h2 class="blog-card-title">AI Executive Talking Points</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">Boardroom</span>
+          <span class="blog-pill">Strategy</span>
+          <span class="blog-pill">Economics</span>
+        </div>
+        <p class="blog-card-desc">The executive playbook for transitioning AI from a hobby to an appreciating asset. 26 directives on economics, talent, and risk for the C-Suite.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-user-tie" style="margin-right:6px"></i>Executive</span>
+          <span><i class="fas fa-comment-alt" style="margin-right:6px"></i>Communication</span>
+        </div>
+        <span class="blog-card-cta">View Talking Points <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Blood Pressure App Design -->
+      <a href="/blood-pressure-app-design.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-tertiary-container);color:var(--md-sys-color-on-tertiary-container)">UX Research</span>
+        <h2 class="blog-card-title">Optimal UI/UX for BP Monitoring</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">Healthcare</span>
+          <span class="blog-pill">Data Vis</span>
+          <span class="blog-pill">Accessibility</span>
+        </div>
+        <p class="blog-card-desc">A comprehensive design research study on architecting the optimal user experience for blood pressure monitoring applications. Covers data entry, visualization, and inclusive design for aging populations.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-heartbeat" style="margin-right:6px"></i>Digital Health</span>
+          <span><i class="fas fa-mobile-alt" style="margin-right:6px"></i>App Design</span>
+        </div>
+        <span class="blog-card-cta">View Research <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- BP Chart Workspace -->
+      <a href="/bp.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-tertiary-container);color:var(--md-sys-color-on-tertiary-container)">Prototyping</span>
+        <h2 class="blog-card-title">BP_Chart Visualization</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">Chart.js</span>
+          <span class="blog-pill">Interactive</span>
+          <span class="blog-pill">Sandbox</span>
+        </div>
+        <p class="blog-card-desc">An interactive workspace for experimenting with blood pressure data visualizations. Includes daily donut charts, multi-axis weekly trends, and long-term analysis views.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-flask" style="margin-right:6px"></i>Lab</span>
+          <span><i class="fas fa-chart-line" style="margin-right:6px"></i>Analytics</span>
+        </div>
+        <span class="blog-card-cta">Open Workspace <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- AI Command Center -->
+      <a href="/ai-transformation-command-center.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container)">Platform</span>
+        <h2 class="blog-card-title">AI Command Center</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">Enterprise</span>
+          <span class="blog-pill">Strategy</span>
+          <span class="blog-pill">Tools</span>
+        </div>
+        <p class="blog-card-desc">The operating system for your AI transformation. Manage discovery, maturity assessments, ROI simulations, and roadmaps in one unified platform.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-cubes" style="margin-right:6px"></i>Solution</span>
+          <span><i class="fas fa-cogs" style="margin-right:6px"></i>v7.0</span>
+        </div>
+        <span class="blog-card-cta">View Platform <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Deployment Guide -->
+      <a href="/deployment-guide.html" class="glass-card blog-card">
+        <span class="blog-card-badge" style="background:var(--md-sys-color-surface-container-high);color:var(--md-sys-color-on-surface)">Documentation</span>
+        <h2 class="blog-card-title">Platform Deployment Guide</h2>
+        <div class="blog-pills">
+          <span class="blog-pill">DevOps</span>
+          <span class="blog-pill">Docker</span>
+          <span class="blog-pill">v7.0</span>
+        </div>
+        <p class="blog-card-desc">Official deployment documentation for the AI Transformation Command Center. Includes architecture overview, Docker Compose orchestration, and production security checklists.</p>
+        <div class="blog-card-meta">
+          <span><i class="fas fa-server" style="margin-right:6px"></i>Infrastructure</span>
+          <span><i class="fas fa-book" style="margin-right:6px"></i>Guide</span>
+        </div>
+        <span class="blog-card-cta">View Guide <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Coming Soon -->
+      <div class="glass-card blog-card" style="opacity: 0.7; border-style: dashed; justify-content: center; align-items: center; text-align: center;">
+        <i class="fas fa-pencil-alt" style="font-size: 2rem; color: var(--md-sys-color-outline); margin-bottom: 16px;"></i>
+        <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--md-sys-color-on-surface-secondary);">More insights coming soon</h3>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Rajkumar Rajagobalan</h3>
+        <p class="footer-text">Building AI-Native Enterprises. Singapore.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="/" class="footer-link">Home</a></li>
+          <li><a href="/blogs.html" class="footer-link">Blogs</a></li>
+          <li><a href="/foodie/" class="footer-link">Foodie AI</a></li>
+          <li><a href="/#about" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.linkedin.com/in/rajkumar-rajagobalan/" class="footer-link">LinkedIn</a></li>
+          <li><a href="mailto:raj@nuvear.org" class="footer-link">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Rajkumar Rajagobalan</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('open');
+  const icon = menuToggle.querySelector('i');
+  if (navMenu.classList.contains('open')) {
+    icon.classList.remove('fa-bars');
+    icon.classList.add('fa-times');
+  } else {
+    icon.classList.remove('fa-times');
+    icon.classList.add('fa-bars');
+  }
+});
+
+// Fade In
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => observer.observe(el));
+</script>
+<script src="/theme-toggle.js"></script>
+</body>
+</html>

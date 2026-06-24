@@ -1,0 +1,316 @@
+
+AI TRANSFORMATION COMMAND CENTER
+Version 7.0 — Enterprise Edition
+
+DEPLOYMENT GUIDE
+For the Deployment & DevOps Team
+
+Date: March 8, 2026
+Classification: Internal — Confidential
+
+
+1. Solution Overview
+The AI Transformation Command Center is a full-stack platform that helps enterprise organizations discover, assess, and manage their AI transformation initiatives. It consists of three containerized services orchestrated via Docker Compose.
+1.1 Architecture Summary
+Service
+Technology
+Description
+Frontend
+Next.js 14 + React 18 + Tailwind
+Dashboard, 8 module UIs with Chart.js visualizations
+Backend
+Python 3.11 + FastAPI + SQLAlchemy
+REST API with 14 endpoints, OpenAI integration, PPTX export
+Database
+PostgreSQL 16 (Alpine)
+9 tables with UUID PKs, seeded demo data, health checks
+1.2 Default Port Assignments
+Service
+Port
+URL
+Frontend (Next.js)
+3000
+http://localhost:3000
+Backend API (FastAPI)
+8000
+http://localhost:8000
+API Documentation
+8000
+http://localhost:8000/docs
+PostgreSQL
+5432
+localhost:5432
+
+2. Prerequisites
+Ensure the following tools are installed on the target deployment machine before proceeding.
+2.1 Required Software
+Tool
+Min. Version
+Verification Command
+Docker Engine
+24.0+
+docker --version
+Docker Compose
+2.20+
+docker compose version
+Git
+2.30+
+git --version
+2.2 System Requirements
+	•	CPU: 2+ cores (4 recommended)
+	•	RAM: 4 GB minimum (8 GB recommended)
+	•	Disk: 5 GB free space for images and database volume
+	•	Network: Outbound internet access required for OpenAI API calls (if AI features enabled)
+2.3 Credentials Required
+	•	OpenAI API Key (optional) — enables AI-powered Discovery Engine, Architecture Generator, and Roadmap suggestions. Without it, the platform falls back to rule-based logic.
+	•	PostgreSQL credentials are preconfigured in docker-compose.yml (admin/changeme). Change these for production.
+
+3. Project Structure
+The repository is organized as a monorepo with clear separation between backend, frontend, and infrastructure concerns.
+enterprise-ai-platform/
+├── docker-compose.yml        # Orchestration (3 services)
+├── .env.example              # Environment variable template
+├── database/
+│   └── init.sql              # Schema + seed data (auto-runs on first boot)
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt      # Python dependencies
+│   └── app/
+│       ├── main.py           # FastAPI entrypoint
+│       ├── config.py         # Env-based settings
+│       ├── database.py       # SQLAlchemy setup
+│       ├── models/           # ORM models (9 tables)
+│       ├── schemas/          # Pydantic request/response models
+│       ├── services/         # AI service (OpenAI + fallbacks)
+│       └── api/              # Route handlers (9 routers)
+└── frontend/
+    ├── Dockerfile
+    ├── package.json          # Node dependencies
+    └── src/
+        ├── pages/            # 9 page routes + _app/_document
+        ├── components/       # 15 React components
+        └── utils/            # API client + constants
+
+4. Deployment Steps (Development / Staging)
+Step 1: Clone the Repository
+git clone <repository-url> enterprise-ai-platform
+cd enterprise-ai-platform
+Step 2: Configure Environment Variables
+Copy the example environment file and update it with your values:
+cp .env.example .env
+Open .env in your editor and set the following values:
+Variable
+Example Value
+Notes
+DATABASE_URL
+postgresql://admin:changeme@db:5432/ai_platform
+Auto-configured by Docker Compose; change credentials for prod
+OPENAI_API_KEY
+sk-proj-...
+Optional. Leave blank for rule-based fallback mode
+OPENAI_MODEL
+gpt-4o
+Model for AI features. Default: gpt-4o
+SECRET_KEY
+<random-string>
+Generate with: openssl rand -hex 32
+CORS_ORIGINS
+http://localhost:3000
+Comma-separated list of allowed origins
+Step 3: Build and Start All Services
+docker compose up --build -d
+This will build the backend and frontend Docker images, start PostgreSQL, run the init.sql schema and seed data, then bring up all three services. First build takes approximately 2–3 minutes.
+Step 4: Verify the Deployment
+Run the following checks to confirm all services are healthy:
+	•	Check container status:
+docker compose ps
+All three services (db, backend, frontend) should show status "running" or "Up".
+	•	Test the health endpoint:
+curl http://localhost:8000/api/health
+Expected response: {"status":"ok","version":"7.0"}
+	•	Verify database connectivity:
+docker exec -it enterprise-ai-platform-db-1 \
+  psql -U admin -d ai_platform -c "SELECT count(*) FROM ai_projects;"
+Expected result: 8 (the seeded demo projects).
+	•	Test the frontend:
+Open http://localhost:3000 in a browser. The Dashboard page should load with KPI cards and charts.
+	•	Test the API documentation:
+Open http://localhost:8000/docs to access the interactive Swagger UI. You can test all 14 endpoints directly from this interface.
+
+5. API Endpoint Reference
+All endpoints accept and return JSON. The demo company ID for testing is a0000000-0000-0000-0000-000000000001.
+Method
+Endpoint
+Description
+GET
+/api/health
+Health check and version info
+GET
+/api/projects?company_id=UUID
+List all AI projects for a company
+POST
+/api/projects
+Create a new AI project
+PUT
+/api/projects/{id}
+Update project scores, status, details
+DELETE
+/api/projects/{id}
+Delete a project
+POST
+/api/discovery/generate
+Generate AI opportunities from industry + problems
+POST
+/api/maturity/assess
+Submit maturity assessment answers
+GET
+/api/maturity/{company_id}
+Get latest maturity assessment results
+POST
+/api/roi/simulate
+Run ROI simulation with 3 scenarios
+POST
+/api/architecture/generate
+Generate ML pipeline architecture + SVG
+POST
+/api/roadmap/generate
+Generate 3-phase implementation roadmap
+POST
+/api/wardley/generate
+Generate Wardley map with build/buy/partner advice
+POST
+/api/slides/export
+Export strategy as a downloadable PPTX
+
+6. Production Deployment Checklist
+Before deploying to production, the following changes must be applied to the default development configuration.
+6.1 Security Hardening
+	•	Change the PostgreSQL credentials — replace "admin/changeme" in docker-compose.yml and .env with strong, unique credentials. Use environment variables or a secrets manager.
+	•	Generate a secure SECRET_KEY — run "openssl rand -hex 32" and set it in .env. Never use the default.
+	•	Restrict CORS_ORIGINS — set to your actual production domain (e.g., https://ai-platform.yourcompany.com) instead of localhost.
+	•	Remove exposed ports — the PostgreSQL port (5432) should not be exposed externally. Remove the ports mapping for the db service.
+	•	Disable debug/reload modes — update the backend Dockerfile CMD to remove --reload. Update the frontend to run "npm run build && npm start" instead of "npm run dev".
+	•	Remove source volume mounts — the "volumes" entries for backend/app and frontend/src are for hot-reload in development. Remove them in production.
+	•	Store the OpenAI API key securely — use Docker secrets, HashiCorp Vault, AWS Secrets Manager, or your cloud provider’s KMS. Do not store it in plain text in .env on production servers.
+6.2 Production Docker Compose Overrides
+Create a docker-compose.prod.yml file with these overrides:
+# docker-compose.prod.yml
+version: "3.9"
+services:
+  db:
+    ports: []  # Do NOT expose DB externally
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  # From secrets
+
+  backend:
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0",
+              "--port", "8000", "--workers", "4"]
+    volumes: []  # No hot-reload mounts
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/ai_platform
+
+  frontend:
+    command: ["sh", "-c", "npm run build && npm start"]
+    volumes: []  # No hot-reload mounts
+    environment:
+      NEXT_PUBLIC_API_URL: https://api.yourcompany.com
+Deploy with:
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+6.3 Reverse Proxy (Nginx)
+An nginx.conf is included in the docker/ directory. For production, place an Nginx or Traefik reverse proxy in front of both services to handle TLS termination, rate limiting, and load balancing. Key configuration points:
+	•	Route / to the frontend service (port 3000)
+	•	Route /api/* to the backend service (port 8000)
+	•	Enable HTTPS with a valid TLS certificate (Let’s Encrypt recommended)
+	•	Set appropriate request size limits, timeouts, and rate limiting
+6.4 Database Backup Strategy
+Schedule regular PostgreSQL backups using pg_dump:
+# Daily backup example (add to crontab)
+0 2 * * * docker exec enterprise-ai-platform-db-1 \
+  pg_dump -U admin -d ai_platform | gzip > /backups/ai_platform_$(date +%Y%m%d).sql.gz
+
+7. Monitoring & Logging
+7.1 Viewing Logs
+# All services
+docker compose logs -f
+
+# Specific service
+docker compose logs -f backend
+docker compose logs -f frontend
+docker compose logs -f db
+7.2 Health Monitoring
+Set up an uptime monitor (e.g., UptimeRobot, Datadog, or Prometheus) to poll the health endpoint periodically:
+GET http://your-domain.com/api/health
+Expected response: {"status":"ok","version":"7.0"}. Alert on non-200 responses or timeouts exceeding 5 seconds.
+7.3 Key Metrics to Monitor
+	•	Container resource usage (CPU, memory) via docker stats or cAdvisor
+	•	API response times (P50, P95, P99) from FastAPI access logs
+	•	PostgreSQL connection pool utilization and query performance
+	•	OpenAI API call latency and error rates (if AI features are enabled)
+	•	Disk usage on the pgdata Docker volume
+
+8. Troubleshooting
+Symptom
+Likely Cause
+Resolution
+Backend fails to start
+Database not ready yet
+The healthcheck + depends_on should handle this. If not, run: docker compose restart backend
+Frontend shows "Failed to fetch" errors
+Backend URL mismatch
+Verify NEXT_PUBLIC_API_URL matches the backend address. Rebuild frontend after changing env.
+Discovery Engine returns generic results
+No OpenAI API key configured
+Set OPENAI_API_KEY in .env. The platform works without it using rule-based fallbacks.
+Port conflicts (address already in use)
+Another service using the port
+Change port mappings in docker-compose.yml (e.g., "3001:3000")
+Database init.sql not running
+pgdata volume already initialized
+Remove the volume: docker compose down -v, then up again. Warning: this deletes existing data.
+OpenAI API timeout
+Network or rate limit issue
+Check outbound internet access. Verify API key is valid with: curl https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY"
+
+9. Common Operations Reference
+9.1 Restart Services
+docker compose restart              # Restart all
+docker compose restart backend       # Restart backend only
+9.2 Stop and Clean Up
+docker compose down                  # Stop containers (keep data)
+docker compose down -v               # Stop and delete database volume
+9.3 Update and Redeploy
+git pull origin main
+docker compose up --build -d
+9.4 Access the Database Directly
+docker exec -it enterprise-ai-platform-db-1 psql -U admin -d ai_platform
+
+-- Useful queries:
+SELECT name, impact_score, feasibility_score, quadrant, status FROM ai_projects;
+SELECT * FROM maturity_assessments ORDER BY created_at DESC LIMIT 1;
+SELECT count(*) FROM roi_simulations;
+9.5 View Container Resource Usage
+docker stats --no-stream
+
+10. Rollback Procedure
+If a deployment introduces issues, follow this rollback procedure:
+	•	Stop the current deployment: docker compose down
+	•	Check out the last known good commit: git checkout <previous-tag-or-commit>
+	•	Rebuild and restart: docker compose up --build -d
+	•	If the database schema changed, restore from the most recent pg_dump backup.
+	•	Verify health: curl http://localhost:8000/api/health
+
+11. Support & Contacts
+Role
+Contact
+Responsibility
+Platform Lead
+Raj Rajagobalan
+Architecture decisions, feature requests
+DevOps Team
+devops@yourcompany.com
+Infrastructure, scaling, monitoring
+DBA
+dba@yourcompany.com
+Database performance, backups, recovery
+
+— End of Deployment Guide —

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Foodie AI — Gemini vision + USDA FoodData Central. Portion estimate, per-100g nutrients, manual search fallback, local meal diary." />
+  <title>Foodie AI — Nutrition Tracker</title>
+  <meta name="theme-color" content="#0284c7" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2306B6D4'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body { font-family: "Inter", sans-serif; background-color: #f8fafc; }
+    .glass-panel { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+    .history-card { transition: transform 0.2s; }
+    .history-card:hover { transform: translateY(-2px); }
+    #manualSearchUI { transition: all 0.3s ease-in-out; }
+    /* Injected result markup (app.js) */
+    .foodie-error-panel {
+      text-align: left;
+      padding: 1rem 1.125rem;
+      border-radius: 0.75rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+    .foodie-error-title { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 600; }
+    .foodie-error-body { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+    .foodie-nutrition { text-align: left; }
+    .foodie-nut-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 0.5rem; color: #0f172a; }
+    .foodie-nut-desc { margin: 0 0 0.75rem; color: #64748b; font-size: 0.9375rem; }
+    .foodie-nut-portion-line { margin: 0 0 1rem; font-size: 0.9375rem; color: #334155; }
+    .foodie-nut-weight { color: #0284c7; font-size: 1.125rem; font-weight: 700; margin-left: 0.25rem; }
+    .foodie-nut-sub { display: block; font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
+    .foodie-nut-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .foodie-nut-table th,
+    .foodie-nut-table td { padding: 0.625rem 0.5rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
+    .foodie-nut-table th { background: #f1f5f9; color: #64748b; font-weight: 600; }
+    .foodie-nut-portion { color: #0284c7; }
+    .foodie-nut-source { font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; }
+    .foodie-nut-disclaimer { font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem; }
+    .history-item {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 1rem;
+      background: #fff;
+      padding: 0.875rem 1rem;
+      margin-bottom: 0.875rem;
+      border-radius: 0.75rem;
+      text-align: left;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+    .history-thumb {
+      width: 96px;
+      height: 96px;
+      min-width: 96px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      border: 1px solid #e2e8f0;
+      background: #f1f5f9;
+    }
+    .history-thumb--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 1.5rem;
+    }
+    .history-body { flex: 1; min-width: 0; }
+    .history-date { font-weight: 500; color: #64748b; margin-bottom: 0.35rem; font-size: 0.75rem; }
+    .history-dish { font-size: 1.0625rem; font-weight: 700; color: #0f172a; line-height: 1.3; margin-bottom: 0.25rem; }
+    .history-cuisine { font-size: 0.9375rem; color: #0284c7; font-weight: 600; margin-bottom: 0.5rem; }
+    .delete-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      margin-top: 0.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .delete-btn:hover { filter: brightness(1.06); }
+    .foodie-history-empty { color: #94a3b8; text-align: center; padding: 2rem; font-style: italic; }
+  </style>
+</head>
+<body class="min-h-screen pb-12">
+<script>
+(function () {
+  var h = location.hostname;
+  if (h === "rajagobalan.com") {
+    location.replace("https://www.rajagobalan.com" + location.pathname + location.search + location.hash);
+  }
+})();
+</script>
+
+  <div class="max-w-xl mx-auto px-4 pt-8">
+    <div id="configBanner" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm text-left">
+      Configure Firebase in <code class="bg-amber-100 px-1 rounded">firebase-config.js</code>. Functions need
+      <code class="bg-amber-100 px-1 rounded">GEMINI_API_KEY</code>, <code class="bg-amber-100 px-1 rounded">USDA_API_KEY</code>, and optional <code class="bg-amber-100 px-1 rounded">GEMINI_MODEL</code>.
+    </div>
+
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-sky-600 tracking-tight">🍔 Foodie AI</h1>
+      <p class="text-slate-500 mt-2">Instant Visual Nutrition Analysis</p>
+    </header>
+
+    <main class="bg-white rounded-3xl shadow-xl p-6 mb-8 border border-slate-100">
+      <div id="dropZone" class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center hover:border-sky-400 transition-colors cursor-pointer mb-6">
+        <input type="file" id="imageInput" accept="image/*" capture="environment" class="hidden" />
+        <div id="uploadPrompt">
+          <div class="text-4xl mb-3">📸</div>
+          <p class="text-slate-600 font-medium">Tap to Snap or Upload</p>
+          <p class="text-slate-400 text-sm mt-1">JPEG, PNG, WebP up to 4MB</p>
+        </div>
+        <img id="preview" class="hidden w-full rounded-xl shadow-inner mt-2 max-h-80 object-contain" alt="Food scan" />
+      </div>
+
+      <div class="flex gap-3">
+        <button type="button" id="analyzeBtn" disabled class="flex-1 bg-sky-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-sky-200 hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+          Recognize Food
+        </button>
+        <button type="button" id="clearBtn" class="px-6 bg-slate-100 text-slate-600 font-bold py-4 rounded-xl hover:bg-slate-200 transition-all">
+          Clear
+        </button>
+      </div>
+
+      <div id="loading" class="hidden mt-8 text-center">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-sky-600 border-t-transparent mb-3"></div>
+        <p id="loadingText" class="text-slate-600 font-medium italic">Analyzing dish...</p>
+      </div>
+
+      <div id="manualSearchUI" class="hidden mt-6 p-6 bg-slate-50 rounded-2xl border border-slate-200 text-left">
+        <p class="text-sm font-bold text-slate-700 mb-2">Identify manually:</p>
+        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
+          <input type="text" id="manualFoodInput" placeholder="e.g. Boiled spinach"
+            class="flex-1 min-w-0 px-4 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-sky-500 outline-none" />
+          <button type="button" id="manualSearchBtn" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold shrink-0">
+            Search
+          </button>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-2 italic">USDA FoodData Central lookup · 200&nbsp;g default portion.</p>
+      </div>
+
+      <div id="controls" class="hidden mt-8 p-4 bg-slate-50 rounded-xl flex items-center justify-between border border-slate-100 flex-wrap gap-2">
+        <span class="text-slate-700 font-bold text-sm">Weight Unit:</span>
+        <select id="unitSelect" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+          <option value="g">Grams (g)</option>
+          <option value="oz">Ounces (oz)</option>
+          <option value="lb">Pounds (lb)</option>
+        </select>
+      </div>
+
+      <div id="results" class="hidden mt-8 space-y-6 text-left" role="region" aria-label="Nutrition results"></div>
+    </main>
+
+    <section>
+      <div class="flex items-center justify-between mb-4 px-2">
+        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+          <span>📜</span> My Meal Diary
+        </h2>
+        <span id="userIdDisplay" class="text-[10px] text-slate-400 font-mono max-w-[120px] truncate" title=""></span>
+      </div>
+      <div id="historyContainer" class="space-y-4"></div>
+    </section>
+
+    <footer class="mt-12 text-center text-slate-400 text-sm">
+      <p>&copy; 2026 Foodie AI by Rajkumar Rajagobalan</p>
+    </footer>
+  </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function () {});
+      });
+    }
+  </script>
+  <script type="module" src="app.js?v=13"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Transformation Command Center — Rajkumar Rajagobalan</title>
+  <meta name="description" content="A production-grade AI Transformation Platform for enterprise consulting, internal transformation, and AI strategy workshops.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230A84FF'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/m3-tokens.css">
+  <link rel="stylesheet" href="/layout.css?v=4">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, var(--md-sys-color-surface-container-low), var(--md-sys-color-surface));
+      padding: 80px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      color: var(--md-sys-color-on-surface-variant);
+      max-width: 800px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--md-sys-color-primary);
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--md-sys-color-on-surface-variant);
+      line-height: 1.5;
+    }
+    .tech-stack {
+      background: var(--md-sys-color-surface-container);
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .tech-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .tech-badge {
+      background: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">RR</div>
+      Rajkumar Rajagobalan
+    </a>
+    <button class="menu-toggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/blogs.html" class="nav-link">Blogs</a></li>
+      <li><a href="/foodie/" class="nav-link">Foodie</a></li>
+      <li><a href="/framework.html" class="nav-link">Framework</a></li>
+      <li><a href="/#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">AI Transformation Command Center</h1>
+    <p class="hero-subtitle">The operating system for enterprise AI strategy. From discovery to deployment, manage your entire transformation portfolio in one unified platform.</p>
+    
+    <div class="cta-buttons">
+      <a href="/deployment-guide.html" class="btn btn-primary" style="text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500;">
+        <i class="fas fa-book" style="margin-right:8px"></i> View Deployment Guide
+      </a>
+      <a href="#" class="btn btn-secondary" style="text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; background: transparent; border: 1px solid var(--md-sys-color-outline);" onclick="alert('This is a demo link. Repository access requires authorization.'); return false;">
+        <i class="fab fa-github" style="margin-right:8px"></i> View Source Code
+      </a>
+    </div>
+  </section>
+
+  <!-- Key Features Grid -->
+  <section class="feature-grid">
+    <!-- Dashboard -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+      <h3 class="feature-title">Executive Dashboard</h3>
+      <p class="feature-desc">Real-time visibility into your AI portfolio health. Track ROI projections, maturity scores, and project status across the enterprise.</p>
+    </div>
+
+    <!-- Discovery Engine -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-search-dollar"></i></div>
+      <h3 class="feature-title">Discovery Engine</h3>
+      <p class="feature-desc">AI-powered opportunity identification. Input your industry and challenges to generate prioritized use cases with ROI estimates.</p>
+    </div>
+
+    <!-- Portfolio Manager -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-th-large"></i></div>
+      <h3 class="feature-title">Portfolio Manager</h3>
+      <p class="feature-desc">Visual Impact vs. Feasibility matrix. Drag-and-drop projects to optimize your investment strategy and balance risk.</p>
+    </div>
+
+    <!-- Maturity Assessment -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-clipboard-check"></i></div>
+      <h3 class="feature-title">Maturity Assessment</h3>
+      <p class="feature-desc">Comprehensive 40-point assessment across Strategy, Data, Tech, People, and Governance domains with industry benchmarking.</p>
+    </div>
+
+    <!-- ROI Simulator -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+      <h3 class="feature-title">ROI Simulator</h3>
+      <p class="feature-desc">Advanced financial modeling. Calculate NPV, IRR, and payback periods for your AI initiatives based on cost savings and revenue uplift.</p>
+    </div>
+
+    <!-- Architecture Generator -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-sitemap"></i></div>
+      <h3 class="feature-title">Architecture Generator</h3>
+      <p class="feature-desc">Instantly generate ML pipeline architecture diagrams tailored to your specific use cases and cloud environment.</p>
+    </div>
+
+    <!-- Wardley Mapping -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-map-signs"></i></div>
+      <h3 class="feature-title">Wardley Mapping</h3>
+      <p class="feature-desc">Strategic situational awareness. Determine "Build vs. Buy" decisions based on component evolution and commoditization.</p>
+    </div>
+
+    <!-- Roadmap Generator -->
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fas fa-road"></i></div>
+      <h3 class="feature-title">Roadmap Generator</h3>
+      <p class="feature-desc">Create 12-24 month phased transformation plans. Define milestones, dependencies, and resource requirements automatically.</p>
+    </div>
+  </section>
+
+  <!-- Technical Architecture -->
+  <section class="tech-stack">
+    <h2 style="font-family:'Playfair Display', serif; font-size:2rem; margin-bottom:16px; color:var(--md-sys-color-on-surface)">Built for Enterprise Scale</h2>
+    <p style="color:var(--md-sys-color-on-surface-variant); max-width:600px; margin:0 auto;">A modern, containerized full-stack architecture designed for security, scalability, and extensibility.</p>
+    
+    <div class="tech-badges">
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fab fa-react" style="margin-right:6px"></i>Next.js 14</span>
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fab fa-python" style="margin-right:6px"></i>FastAPI</span>
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fas fa-database" style="margin-right:6px"></i>PostgreSQL</span>
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fab fa-docker" style="margin-right:6px"></i>Docker</span>
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fas fa-brain" style="margin-right:6px"></i>OpenAI / LangChain</span>
+      <span class="tech-badge" style="background:var(--md-sys-color-surface-container-high); border-radius: 8px; padding: 8px 16px;"><i class="fas fa-chart-bar" style="margin-right:6px"></i>Chart.js</span>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">RR</div>
+        <p>Rajkumar Rajagobalan</p>
+        <p class="footer-tagline">Enterprise AI Transformation Leader</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blogs.html">Blogs</a>
+        <a href="/framework.html">Framework</a>
+        <a href="/deployment-guide.html">Deployment Guide</a>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Rajkumar Rajagobalan. All rights reserved.</p>
+    </div>
+  </footer>
+</main>
+
+<script src="/theme-toggle.js"></script>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

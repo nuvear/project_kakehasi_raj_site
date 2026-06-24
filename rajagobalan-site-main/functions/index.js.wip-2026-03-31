@@ -1,0 +1,569 @@
+"use strict";
+
+const path = require("path");
+if (process.env.FUNCTIONS_EMULATOR === "true") {
+  require("dotenv").config({ path: path.join(__dirname, ".env.example") });
+  require("dotenv").config({ path: path.join(__dirname, ".env"), override: true });
+}
+
+const { onCall, HttpsError } = require("firebase-functions/v2/https");
+const admin = require("firebase-admin");
+
+admin.initializeApp();
+
+/**
+ * Callable AI coach (2nd gen) — authenticated user only; reads last 7 daily_logs.
+ */
+exports.aiCoach = onCall({ region: "us-central1" }, async (request) => {
+  if (!request.auth || !request.auth.uid) {
+    throw new HttpsError("unauthenticated", "Sign in required.");
+  }
+
+  const uid = request.auth.uid;
+
+  const snap = await admin
+    .firestore()
+    .collection("daily_logs")
+    .where("uid", "==", uid)
+    .orderBy("date", "desc")
+    .limit(7)
+    .get();
+
+  let msg = "Stay consistent.";
+
+  snap.forEach((doc) => {
+    const d = doc.data() || {};
+    const sleep = d.activities && typeof d.activities.sleep === "number" ? d.activities.sleep : 0;
+    const physical = d.activities && typeof d.activities.physical === "number" ? d.activities.physical : 0;
+    if (sleep < 6) msg = "Sleep dropped. Fix tonight.";
+    else if (physical < 1) msg = "Move first tomorrow.";
+  });
+
+  return { message: msg };
+});
+
+/** Per 100 g/ml from FDC food detail (nutrient ids).
+ *  Core macros default to 0; extended fields null when not reported by USDA.
+ */
+function extractPer100g(food) {
+  const out = { energy: 0, protein: 0, fat: 0, carbs: 0, fiber: 0, sodium: 0 };
+  if (!food || !Array.isArray(food.foodNutrients)) return out;
+  const byId = {};
+  for (const fn of food.foodNutrients) {
+    const id = fn.nutrient && fn.nutrient.id;
+    if (id != null && typeof fn.amount === "number") byId[id] = fn.amount;
+  }
+  const get = (id) => (byId[id] != null ? byId[id] : null);
+
+  // Core macros (always present, default 0)
+  out.energy   = get(1008) ?? 0;
+  out.protein  = get(1003) ?? 0;
+  out.fat      = get(1004) ?? 0;
+  out.carbs    = get(1005) ?? 0;
+  out.fiber    = get(1079) ?? get(2031) ?? 0;
+  out.sodium   = get(1093) ?? 0;
+
+  // Fats
+  out.saturatedFat      = get(1258);
+  out.transFat          = get(1257);
+  out.monounsaturatedFat = get(1292);
+  out.polyunsaturatedFat = get(1293);
+  const epa = get(1278), dha = get(1272);
+  out.omega3            = (epa !== null || dha !== null) ? ((epa || 0) + (dha || 0)) * 1000 : null; // → mg
+  out.cholesterol       = get(1253);
+
+  // Carbs & Sugars
+  out.sugar             = get(2000);
+  out.addedSugar        = get(1235);
+  out.starch            = get(1009);
+  out.glucose           = get(1216);
+  out.fructose          = get(1195);
+  out.sucrose           = get(1199);
+  out.lactose           = get(1197);
+  out.maltose           = get(1198);
+  out.galactose         = get(1192);
+
+  // Minerals
+  out.potassium  = get(1092);
+  out.calcium    = get(1087);
+  out.iron       = get(1089);
+  out.phosphorus = get(1091);
+  out.selenium   = get(1103);
+  out.zinc       = get(1095);
+
+  // Vitamins
+  out.vitaminA    = get(1106); // RAE μg
+  out.retinol     = get(1105); // μg
+  out.betaCarotene = get(1107); // μg
+  out.thiamine    = get(1165); // B1 mg
+  out.riboflavin  = get(1166); // B2 mg
+  out.vitaminB6   = get(1175); // mg
+  out.folate      = get(1177); // B9 μg
+  out.vitaminB12  = get(1178); // μg
+  out.vitaminC    = get(1162); // mg
+  out.vitaminD    = get(1110); // IU
+  out.vitaminE    = get(1109); // mg
+  out.vitaminK    = get(1185); // μg
+
+  // Other
+  out.water    = get(1051); // g
+  out.nitrogen = get(1002); // g
+
+  return out;
+}
+
+function extractJsonObject(text) {
+  const t = String(text || "").trim();
+  const start = t.indexOf("{");
+  if (start === -1) return null;
+  let depth = 0;
+  for (let i = start; i < t.length; i++) {
+    const c = t[i];
+    if (c === "{") depth++;
+    else if (c === "}") {
+      depth--;
+      if (depth === 0) {
+        try {
+          return JSON.parse(t.slice(start, i + 1));
+        } catch {
+          return null;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function parseVisionJson(gText) {
+  const raw = String(gText || "").trim();
+  if (!raw) return null;
+  let stripped = raw.replace(/```json\s*|```/gi, "").trim();
+  const lead = stripped.indexOf("{");
+  if (lead > 0) stripped = stripped.slice(lead);
+  try {
+    return JSON.parse(stripped);
+  } catch {
+    /* fall through */
+  }
+  try {
+    return JSON.parse(raw.replace(/```json\s*|```/gi, "").trim());
+  } catch {
+    /* fall through */
+  }
+  return extractJsonObject(stripped) || extractJsonObject(raw);
+}
+
+function normalizeVisionFields(aiJson) {
+  const name =
+    pickTrimmedString(aiJson.dishName) ||
+    pickTrimmedString(aiJson.searchableName) ||
+    "food";
+  const grams =
+    aiJson.estimatedGrams != null
+      ? aiJson.estimatedGrams
+      : aiJson.estimatedWeightGrams;
+  const estimatedWeightGrams = normalizePositiveGrams(grams);
+  const description =
+    typeof aiJson.description === "string" ? aiJson.description : "";
+  const dish =
+    pickTrimmedString(aiJson.dish) ||
+    (name !== "food" ? name : "Meal");
+  const cuisine = pickTrimmedString(aiJson.cuisine) || "—";
+  const fb = aiJson.fallbackNutrients || aiJson.fallbackNutrientsPer100g;
+  return {
+    searchableName: name,
+    estimatedWeightGrams,
+    description,
+    dish,
+    cuisine,
+    fallbackPer100g: normalizeFallbackNutrientsPer100g(fb),
+  };
+}
+
+function pickTrimmedString(v) {
+  return typeof v === "string" && v.trim() ? v.trim() : "";
+}
+
+function normalizePositiveGrams(v) {
+  if (typeof v === "number" && v > 0 && Number.isFinite(v)) return v;
+  if (typeof v === "string") {
+    const n = parseFloat(v.replace(/,/g, ""));
+    if (n > 0 && Number.isFinite(n)) return n;
+  }
+  return 200;
+}
+
+function normalizeFallbackNutrientsPer100g(obj) {
+  const def = { energy: 200, protein: 8, fat: 8, carbs: 25, fiber: 2, sodium: 400 };
+  if (!obj || typeof obj !== "object") return buildFallbackNutrients(def);
+  const out = {};
+  const keys = ["energy", "protein", "fat", "carbs", "fiber", "sodium"];
+  for (const k of keys) {
+    let v = obj[k];
+    if (typeof v === "string") v = parseFloat(String(v).replace(/,/g, ""));
+    if (typeof v !== "number" || !Number.isFinite(v) || v < 0) v = def[k];
+    out[k] = v;
+  }
+  return buildFallbackNutrients(out);
+}
+
+/** Returns a full nutrient object with macros set and all extended fields null. */
+function buildFallbackNutrients(macros) {
+  return {
+    energy: macros.energy, protein: macros.protein, fat: macros.fat,
+    carbs: macros.carbs, fiber: macros.fiber, sodium: macros.sodium,
+    saturatedFat: null, transFat: null, monounsaturatedFat: null,
+    polyunsaturatedFat: null, omega3: null, cholesterol: null,
+    sugar: null, addedSugar: null, starch: null, glucose: null,
+    fructose: null, sucrose: null, lactose: null, maltose: null, galactose: null,
+    potassium: null, calcium: null, iron: null, phosphorus: null,
+    selenium: null, zinc: null,
+    vitaminA: null, retinol: null, betaCarotene: null, thiamine: null,
+    riboflavin: null, vitaminB6: null, folate: null, vitaminB12: null,
+    vitaminC: null, vitaminD: null, vitaminE: null, vitaminK: null,
+    water: null, nitrogen: null,
+  };
+}
+
+function geminiHttpErrorMessage(status, bodyText) {
+  let apiMsg = "";
+  try {
+    const j = JSON.parse(bodyText);
+    if (j.error && typeof j.error.message === "string") apiMsg = j.error.message;
+  } catch {
+    /* ignore */
+  }
+  if (status === 400 || status === 403) {
+    return "The vision API rejected this request. Check that GEMINI_API_KEY is valid and GEMINI_MODEL is correct.";
+  }
+  if (status === 429) {
+    return "Vision API rate limit reached. Please try again in a minute.";
+  }
+  if (status >= 500) {
+    return "The vision service is temporarily unavailable. Please try again shortly.";
+  }
+  return apiMsg ? apiMsg.slice(0, 240) : "Vision analysis failed. Please try again.";
+}
+
+function usdaHttpErrorMessage(status) {
+  if (status === 401 || status === 403) {
+    return "USDA FoodData Central rejected the request. Check that USDA_API_KEY is valid.";
+  }
+  if (status === 429) {
+    return "USDA API rate limit reached. Please try again later.";
+  }
+  if (status >= 500) {
+    return "USDA service is temporarily unavailable. Please try again shortly.";
+  }
+  return "Could not reach the USDA database. Please try again.";
+}
+
+async function resolveUsdaNutrients(usdaKey, searchableName, fallbackPer100g) {
+  const searchUrl =
+    "https://api.nal.usda.gov/fdc/v1/foods/search?query=" +
+    encodeURIComponent(searchableName) +
+    "&pageSize=1&api_key=" +
+    encodeURIComponent(usdaKey);
+
+  let uRes;
+  try {
+    uRes = await fetch(searchUrl);
+  } catch (err) {
+    console.error("USDA search fetch", err);
+    throw new HttpsError("unavailable", "Could not reach the USDA database. Check your network and try again.");
+  }
+
+  const uRaw = await uRes.text();
+  if (!uRes.ok) {
+    console.error("USDA search error", uRes.status, uRaw.slice(0, 300));
+    throw new HttpsError("internal", usdaHttpErrorMessage(uRes.status));
+  }
+
+  let uData;
+  try {
+    uData = JSON.parse(uRaw);
+  } catch (e) {
+    throw new HttpsError("internal", "Received an invalid response from USDA search.");
+  }
+
+  const first = uData.foods && uData.foods[0];
+  let per100g = fallbackPer100g;
+  let usdaLabel = (first && first.description) || searchableName;
+  let fdcId = null;
+  let nutrientSource = "ai_estimate";
+
+  if (first && first.fdcId) {
+    const resolvedFdcId = first.fdcId;
+    const foodUrl =
+      "https://api.nal.usda.gov/fdc/v1/food/" +
+      resolvedFdcId +
+      "?api_key=" +
+      encodeURIComponent(usdaKey);
+
+    let fRes;
+    try {
+      fRes = await fetch(foodUrl);
+    } catch (err) {
+      console.error("USDA food fetch", err);
+      console.warn("Using AI fallback nutrients (USDA detail fetch failed).");
+      per100g = fallbackPer100g;
+      nutrientSource = "ai_estimate";
+      usdaLabel = searchableName;
+    }
+
+    if (fRes) {
+      const fRaw = await fRes.text();
+      if (!fRes.ok) {
+        console.error("USDA food detail error", fRes.status, fRaw.slice(0, 300));
+        console.warn("Using AI fallback nutrients (USDA detail HTTP error).");
+        per100g = fallbackPer100g;
+        nutrientSource = "ai_estimate";
+        usdaLabel = searchableName;
+      } else {
+        let foodDetail;
+        try {
+          foodDetail = JSON.parse(fRaw);
+        } catch (e) {
+          console.warn("Using AI fallback nutrients (invalid USDA food JSON).");
+          per100g = fallbackPer100g;
+          nutrientSource = "ai_estimate";
+          usdaLabel = searchableName;
+        }
+
+        if (foodDetail) {
+          per100g = extractPer100g(foodDetail);
+          usdaLabel = (
+            foodDetail.description ||
+            first.description ||
+            searchableName
+          ).trim();
+          fdcId = resolvedFdcId;
+          nutrientSource = "usda";
+        }
+      }
+    }
+  } else {
+    console.warn(
+      'No USDA match for "' + searchableName + '"; using AI fallback nutrients.'
+    );
+  }
+
+  return { per100g, usdaLabel, fdcId, nutrientSource };
+}
+
+exports.lookupFoodByName = onCall({ region: "us-central1" }, async (request) => {
+  try {
+    return await runLookupFoodByName(request);
+  } catch (e) {
+    if (e instanceof HttpsError) throw e;
+    console.error("lookupFoodByName unexpected", e);
+    throw new HttpsError(
+      "internal",
+      "Something went wrong. Please try again in a moment."
+    );
+  }
+});
+
+async function runLookupFoodByName(request) {
+  const usdaKey = process.env.USDA_API_KEY || process.env.FDC_API_KEY;
+  if (!usdaKey) {
+    throw new HttpsError(
+      "failed-precondition",
+      "Set USDA_API_KEY (FoodData Central) on the Cloud Functions service (or functions/.env for the emulator)."
+    );
+  }
+  const raw = request.data && request.data.query;
+  if (typeof raw !== "string" || !raw.trim()) {
+    throw new HttpsError("invalid-argument", "Enter a food name to search.");
+  }
+  const searchableName = raw.trim().slice(0, 200);
+  const fallbackPer100g = normalizeFallbackNutrientsPer100g(null);
+  const usda = await resolveUsdaNutrients(usdaKey, searchableName, fallbackPer100g);
+  return {
+    ai: {
+      searchableName,
+      estimatedWeightGrams: 200,
+      description: "",
+      dish: searchableName,
+      cuisine: "—",
+    },
+    per100g: usda.per100g,
+    usdaLabel: usda.usdaLabel,
+    fdcId: usda.fdcId,
+    nutrientSource: usda.nutrientSource,
+  };
+}
+
+exports.recognizeFood = onCall({ region: "us-central1" }, async (request) => {
+  try {
+    return await runRecognizeFood(request);
+  } catch (e) {
+    if (e instanceof HttpsError) throw e;
+    console.error("recognizeFood unexpected", e);
+    throw new HttpsError(
+      "internal",
+      "Something went wrong. Please try again in a moment."
+    );
+  }
+});
+
+async function runRecognizeFood(request) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const usdaKey = process.env.USDA_API_KEY || process.env.FDC_API_KEY;
+
+  if (!geminiKey) {
+    throw new HttpsError(
+      "failed-precondition",
+      "Set GEMINI_API_KEY on the Cloud Functions service (or functions/.env for the emulator)."
+    );
+  }
+  if (!usdaKey) {
+    throw new HttpsError(
+      "failed-precondition",
+      "Set USDA_API_KEY (FoodData Central). Get a key at https://fdc.nal.usda.gov/api-key-signup.html"
+    );
+  }
+
+  const imageBase64 = request.data && request.data.imageBase64;
+  const mimeType = (request.data && request.data.mimeType) || "image/jpeg";
+
+  if (typeof imageBase64 !== "string" || imageBase64.length < 20) {
+    throw new HttpsError("invalid-argument", "Missing or invalid image data. Please choose another photo.");
+  }
+  if (imageBase64.length > 6 * 1024 * 1024) {
+    throw new HttpsError("invalid-argument", "Image is too large. Use a photo under about 4 MB.");
+  }
+
+  const geminiModel = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+  const genUrl =
+    "https://generativelanguage.googleapis.com/v1beta/models/" +
+    geminiModel +
+    ":generateContent?key=" +
+    encodeURIComponent(geminiKey);
+
+  const body = {
+    contents: [
+      {
+        parts: [
+          {
+            text:
+              "Identify this meal from the image. Return ONLY a single JSON object. " +
+              "Do not include markdown fences, preamble, recipes, or cooking steps.\n\n" +
+              "Structure:\n" +
+              "{\n" +
+              '  "dishName": "Generic name for USDA database search",\n' +
+              '  "estimatedGrams": number,\n' +
+              '  "description": "One short sentence describing what you see.",\n' +
+              '  "cuisine": "cuisine or region",\n' +
+              '  "fallbackNutrients": {\n' +
+              '    "energy": number,\n' +
+              '    "protein": number,\n' +
+              '    "fat": number,\n' +
+              '    "carbs": number,\n' +
+              '    "fiber": number,\n' +
+              '    "sodium": number\n' +
+              "  }\n" +
+              "}\n\n" +
+              "dishName must be simple and generic (no brands). estimatedGrams is total edible portion in grams. " +
+              "fallbackNutrients are your best estimates per 100 g (energy kcal; protein, fat, carbs, fiber, sodium in g or mg — sodium in mg).",
+          },
+          {
+            inline_data: {
+              mime_type: mimeType.startsWith("image/") ? mimeType : "image/jpeg",
+              data: imageBase64,
+            },
+          },
+        ],
+      },
+    ],
+    generationConfig: {
+      temperature: 0.25,
+      maxOutputTokens: 1024,
+    },
+  };
+
+  let gRes;
+  try {
+    gRes = await fetch(genUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch (err) {
+    console.error("Gemini fetch", err);
+    throw new HttpsError(
+      "unavailable",
+      "Could not reach the vision service. Check your network and try again."
+    );
+  }
+
+  const gRaw = await gRes.text();
+  if (!gRes.ok) {
+    console.error("Gemini error", gRes.status, gRaw.slice(0, 500));
+    throw new HttpsError("internal", geminiHttpErrorMessage(gRes.status, gRaw));
+  }
+
+  let gData;
+  try {
+    gData = JSON.parse(gRaw);
+  } catch (e) {
+    throw new HttpsError("internal", "Received an invalid response from the vision service.");
+  }
+
+  const cand0 = gData.candidates && gData.candidates[0];
+  if (!cand0) {
+    const block = gData.promptFeedback && gData.promptFeedback.blockReason;
+    throw new HttpsError(
+      "failed-precondition",
+      block
+        ? "This image could not be processed (content policy). Try a different photo."
+        : "The model returned no result for this image. Try another photo or angle."
+    );
+  }
+
+  const finish = cand0.finishReason;
+  if (finish === "SAFETY" || finish === "RECITATION") {
+    throw new HttpsError(
+      "failed-precondition",
+      "This image could not be analyzed (safety policy). Try a different food photo."
+    );
+  }
+
+  const gText =
+    cand0.content && cand0.content.parts
+      ? cand0.content.parts.map((p) => p.text || "").join("")
+      : "";
+
+  const aiJson = parseVisionJson(gText);
+  if (!aiJson || typeof aiJson !== "object") {
+    console.error("Vision JSON parse failed. Raw:", (gText || "").slice(0, 800));
+    throw new HttpsError(
+      "internal",
+      "Could not read the AI response for this image. Try again with a clearer food photo."
+    );
+  }
+
+  const v = normalizeVisionFields(aiJson);
+  const searchableName = v.searchableName;
+  const estimatedWeightGrams = v.estimatedWeightGrams;
+  const description = v.description;
+  const dishName = v.dish;
+  const cuisine = v.cuisine;
+  const fallbackPer100g = v.fallbackPer100g;
+
+  const usda = await resolveUsdaNutrients(usdaKey, searchableName, fallbackPer100g);
+
+  return {
+    ai: {
+      searchableName,
+      estimatedWeightGrams,
+      description,
+      dish: dishName,
+      cuisine,
+    },
+    per100g: usda.per100g,
+    usdaLabel: usda.usdaLabel,
+    fdcId: usda.fdcId,
+    nutrientSource: usda.nutrientSource,
+  };
+}

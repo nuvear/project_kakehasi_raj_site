@@ -1,0 +1,18 @@
+id: venture.aagnaa
+type: venture
+canonical_slug: aagnaa
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - company_hero
+  - timeline
+company_name: Aagnaa India / Aagnaa Singapore
+role: Co-Founder & Director
+start_date: 2011-09
+end_date: 2020-02

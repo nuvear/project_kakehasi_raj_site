@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajkumar Rajagobalan — Building AI-Native Enterprises</title>
+<meta name="description" content="Enterprise AI Transformation Leader, HealthTech Founder (Nuvear), Stanford SEP Alumni, MIT Alumni. 27+ years scaling digital engineering across APAC and Japan.">
+<meta property="og:title" content="Rajkumar Rajagobalan — Building AI-Native Enterprises">
+<meta property="og:description" content="Enterprise AI Transformation Leader, HealthTech Founder (Nuvear), Stanford SEP Alumni, MIT Alumni. 27+ years scaling digital engineering across APAC and Japan.">
+<meta property="og:url" content="https://www.rajagobalan.com">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2306B6D4'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/m3-tokens.css">
+<link rel="stylesheet" href="/layout.css?v=4">
+<style>
+/* Page-Specific Styles */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 60px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.hero-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid var(--md-sys-color-surface);
+  box-shadow: 0 20px 40px -10px rgba(6, 182, 212, 0.25);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: var(--md-sys-typescale-display-medium-size);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--md-sys-color-on-surface-secondary);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--md-sys-color-primary);
+  margin-bottom: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+section {
+  padding: 100px 0;
+}
+
+.about-chapter {
+  padding: 24px;
+  background: var(--md-sys-color-surface-container);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--md-sys-color-primary);
+}
+
+.about-chapter:nth-child(3) { border-color: var(--md-sys-color-secondary); }
+.about-chapter:nth-child(4) { border-color: var(--md-sys-color-tertiary); }
+
+.about-chapter h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  margin-bottom: 8px;
+}
+
+.about-text {
+  font-size: 1.125rem;
+  color: var(--md-sys-color-on-surface-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: var(--md-sys-color-outline-variant);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -40px;
+  top: 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 4px solid var(--md-sys-color-surface);
+  background: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 1px var(--md-sys-color-outline-variant);
+  z-index: 1;
+}
+
+.timeline-card {
+  /* Using global glass-card style, adding padding */
+  padding: 32px;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.timeline-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+}
+
+.timeline-company {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+.timeline-dates {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: 20px;
+  color: var(--md-sys-color-on-surface-secondary);
+}
+
+.timeline-body p {
+  margin-bottom: 12px;
+  color: var(--md-sys-color-on-surface-secondary);
+}
+
+.timeline-body .highlight {
+  font-style: italic;
+  color: var(--md-sys-color-tertiary);
+  font-weight: 500;
+  padding-left: 16px;
+  border-left: 2px solid var(--md-sys-color-tertiary);
+}
+
+/* Education Grid */
+.edu-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.edu-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.edu-school {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 4px;
+}
+
+.edu-program {
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* Skills */
+.skill-tag {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-secondary);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.skill-primary {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-color: transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px; /* Reduced from 32px */
+  }
+  
+  .hero-photo {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .hero-ctas {
+    justify-content: center;
+  }
+  
+  .timeline-header {
+    flex-direction: column;
+    gap: 4px; /* Reduced from 8px */
+  }
+
+  /* Tighter Mobile Vertical Spacing */
+  section {
+    padding: 48px 0; /* Reduced from 100px */
+  }
+
+  .hero {
+    padding: 80px 20px 40px; /* Reduced top/bottom padding */
+  }
+
+  .timeline-item {
+    margin-bottom: 24px; /* Reduced from 40px */
+  }
+
+  .timeline-card {
+    padding: 20px; /* Reduced from 32px */
+  }
+
+  .edu-card {
+    padding: 16px; /* Reduced from 24px */
+  }
+
+  .about-chapter {
+    padding: 20px; /* Reduced from 24px */
+    margin-bottom: 16px; /* Reduced from 24px */
+  }
+  
+  .about-text {
+    margin-bottom: 24px; /* Reduced from 32px */
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-header">
+  <div class="nav-container">
+    <a href="#hero" class="nav-brand">
+      <div class="nav-logo">RR</div>
+      Rajkumar Rajagobalan
+    </a>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
+      <li><a href="/blogs.html" class="nav-link">Blogs</a></li>
+      <li><a href="/foodie/" class="nav-link">Foodie</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="main-content">
+
+<!-- Hero -->
+<header class="hero" id="hero">
+  <div class="hero-inner fade-in">
+    <img src="profile.jpg" alt="Rajkumar Rajagobalan" class="hero-photo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjZTI2YjFmIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNMjAgOTBhMzAgMzAgMCAwIDEgNjAgMHYxMEgyMHYtMTB6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg=='">
+    <div class="hero-text">
+      <h1 class="hero-name">Rajkumar <span class="gradient-text">Rajagobalan</span></h1>
+      <p class="hero-tagline">Building AI-Native Enterprises. <br>From Strategy to Scale.</p>
+      <p class="hero-sub">Stanford SEP · MIT Alumni · Singapore</p>
+      <div class="hero-ctas">
+        <a href="#about" class="btn btn-primary">About Me</a>
+        <a href="https://www.linkedin.com/in/rajkumar-rajagobalan/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-linkedin" style="margin-right:8px"></i>LinkedIn</a>
+        <a href="/blogs.html" class="btn btn-secondary"><i class="fas fa-pen-nib" style="margin-right:8px"></i>Insights</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- About -->
+<section id="about">
+  <div class="container fade-in">
+    <h2 class="section-title">About</h2>
+    <p class="about-text">I've spent 27+ years at the intersection of engineering, AI, and enterprise transformation — leading programs that change how global organizations operate, decide, and compete.</p>
+    
+    <div class="grid-3">
+      <div class="glass-card about-chapter">
+        <h3>Founder DNA</h3>
+        <p class="section-sub" style="margin-bottom:0;font-size:0.9375rem;line-height:1.6">I build ventures from zero. Today, I'm building <strong style="color:var(--md-sys-color-secondary)">Nuvear</strong> — a HealthTech venture creating a longitudinal health identity layer for cross-provider continuity, powered by AI and designed with privacy-first principles. Before this, I founded <strong style="color:var(--md-sys-color-accent-amber)">AAGNAA</strong> — an IoT/AR-VR retail startup where I raised $700K, secured patents, and pioneered real-time personalization.</p>
+      </div>
+      <div class="glass-card about-chapter">
+        <h3>Strategic Leadership</h3>
+        <p class="section-sub" style="margin-bottom:0;font-size:0.9375rem;line-height:1.6">My strategic thinking was sharpened at <strong>Stanford GSB</strong> (SEP) and <strong>MIT</strong> (COO Program) — immersions that reinforced my conviction that the best leaders navigate global systems, not just manage local teams. I believe Enterprise AI Transformation is not a technology program — it is a business transformation that rewires how decisions are made and how organizations compete.</p>
+      </div>
+      <div class="glass-card about-chapter">
+        <h3>Enterprise Scale</h3>
+        <p class="section-sub" style="margin-bottom:0;font-size:0.9375rem;line-height:1.6">At <strong>Capgemini Engineering</strong>, I led a €160M portfolio across APAC and Japan — 320+ projects, 35.4% profit margins, and sustained client satisfaction of 4.5/5. I drove the post-acquisition integration of Altran Engineering, led an efficiency pod introducing AI for predictive maintenance, and expanded digital engineering into aerospace, healthcare, and heavy industries in Japan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" style="background: var(--md-sys-color-surface-container-low)">
+  <div class="container fade-in">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <!-- Role 1: Nuvear -->
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--md-sys-color-secondary);background:var(--md-sys-color-secondary)"></div>
+        <div class="glass-card timeline-card" style="border-color:rgba(48,209,88,0.2)">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Founder</div>
+              <div class="timeline-company" style="color:var(--md-sys-color-secondary)">Nuvear (HealthTech)</div>
+              <div class="timeline-location">Singapore</div>
+            </div>
+            <div class="timeline-dates">Oct 2025 – Present</div>
+          </div>
+          <div class="timeline-body">
+            <p><strong>Building the health identity layer the system is missing.</strong></p>
+            <p>Nuvear is a HealthTech venture creating a longitudinal patient identity platform that gives individuals continuity across providers — and gives healthcare systems the intelligence to deliver connected, AI-enabled care.</p>
+            <p>◆ Architecting the strategic vision, product roadmap, and go-to-market for a privacy-first health data layer designed for cross-provider interoperability. ◆ Designing consent and data-sharing frameworks with auditability, traceability, and minimum-necessary access as foundational principles. ◆ Evaluating and assembling the AI/ML technology stack for patient support, connected care, and IoMT integration.</p>
+            <p class="highlight">The healthcare system doesn't have a data problem — it has a continuity problem.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 2: Capgemini APAC -->
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--md-sys-color-primary);background:var(--md-sys-color-primary)"></div>
+        <div class="glass-card timeline-card" style="border-color:color-mix(in srgb,var(--md-sys-color-primary) 22%,transparent)">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Senior Director | Head of Delivery & Global Program Office, APAC</div>
+              <div class="timeline-company" style="color:var(--md-sys-color-primary)">Capgemini Engineering</div>
+              <div class="timeline-location">Singapore</div>
+            </div>
+            <div class="timeline-dates">Feb 2022 – Sep 2025</div>
+          </div>
+          <div class="timeline-body">
+            <p>Led the APAC engineering delivery organization — owning P&L, client strategy, and governance for the region's portfolio.</p>
+            <p>◆ Directed a €160M revenue portfolio of 320+ projects at 35.4% profit margin with sustained client satisfaction of 4.5/5. ◆ Drove the post-acquisition integration of Altran Engineering into Capgemini — redesigning bid, delivery, risk, and governance processes across APAC. ◆ Led an efficiency pod introducing AI for predictive maintenance across the APAC portfolio. ◆ Established robust project management frameworks, governance standards, and tooling for streamlined delivery and continuous improvement.</p>
+            <p class="highlight">Career progression: Head of Global Program Office APAC (2022–2023) → Head of Delivery APAC (2024–2025)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 3: Capgemini Japan -->
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--md-sys-color-primary);background:var(--md-sys-color-primary)"></div>
+        <div class="glass-card timeline-card" style="border-color:color-mix(in srgb,var(--md-sys-color-primary) 22%,transparent)">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Director | Digital Engineering & Manufacturing Services, Country Head</div>
+              <div class="timeline-company" style="color:var(--md-sys-color-primary)">Capgemini Engineering</div>
+              <div class="timeline-location">Japan</div>
+            </div>
+            <div class="timeline-dates">Sep 2017 – Jan 2022</div>
+          </div>
+          <div class="timeline-body">
+            <p>Built the digital engineering business in Japan from the ground up — growing revenue to €20M+ within 3 years through consultative selling and deep client relationships.</p>
+            <p>◆ Assembled and scaled the engineering team from scratch; established Capgemini Engineering as a trusted partner in the Japanese market. ◆ Partnered with clients across the Toyota ecosystem, MHI, Hitachi, and healthcare OEMs on enterprise PLM, MES, and IIoT programs. ◆ Advanced MBSE for autonomous and connected vehicle programs. ◆ Led cybersecurity audit programs aligned to Japan's Society 5.0 national strategy.</p>
+            <p class="highlight">Promoted to Senior Director, Head of Global Program Office APAC (Jun 2021) — managed the APAC portfolio from Japan before relocating to Singapore in early 2022.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 4: AAGNAA -->
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--md-sys-color-accent-amber);background:var(--md-sys-color-accent-amber)"></div>
+        <div class="glass-card timeline-card" style="border-color:rgba(255,159,10,0.2)">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Founder & Chief Innovation Officer</div>
+              <div class="timeline-company" style="color:var(--md-sys-color-accent-amber)">AAGNAA (IoT / AR-VR Retail)</div>
+              <div class="timeline-location">Singapore</div>
+            </div>
+            <div class="timeline-dates">Sep 2013 – Aug 2017</div>
+          </div>
+          <div class="timeline-body">
+            <p>Pioneered a venture at the intersection of IoT, augmented reality, and retail analytics — from concept through $700K in angel funding to product-market execution.</p>
+            <p>◆ Built immersive shopping experiences bridging physical and digital retail for traditional apparel markets across Singapore and India. ◆ Secured patents for novel digitization techniques; established R&D partnerships with leading research institutions. ◆ Developed real-time data collection and analytics platform to personalize customer journeys and increase basket size.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 5: HCL / Eli Lilly -->
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--md-sys-color-tertiary);background:var(--md-sys-color-tertiary)"></div>
+        <div class="glass-card timeline-card" style="border-color:rgba(191,90,242,0.2)">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">General Manager | Eli Lilly Co-Innovation Lab</div>
+              <div class="timeline-company" style="color:var(--md-sys-color-tertiary)">HCL Technologies</div>
+              <div class="timeline-location">Singapore</div>
+            </div>
+            <div class="timeline-dates">Apr 2011 – Sep 2013</div>
+          </div>
+          <div class="timeline-body">
+            <p>Orchestrated a strategic co-innovation partnership between HCL and Eli Lilly — building a model where technology and pharma R&D operated as one team.</p>
+            <p>◆ Delivered 42 proof-of-value initiatives; transitioned 9 to production in 18 months. Won 'Best Project Award' from Lilly senior executives. ◆ Designed the governance and innovation framework: ideation → incubation → production handoff. ◆ Built solutions across SMAC (Social, Mobility, Analytics, Cloud) to improve pharmaceutical operations and clinical decision support.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Earlier Career Toggle -->
+    <button class="btn btn-secondary" id="earlierToggle" style="margin: 0 0 32px 40px; display: inline-flex; align-items: center; gap: 8px;">
+      <i class="fas fa-chevron-down" style="font-size:10px"></i> Earlier Career (1995–2011)
+    </button>
+    <div id="earlierContent" style="display:none; padding-left:40px">
+      <div class="timeline">
+
+        <!-- Role 6 -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color:var(--md-sys-color-outline-variant);background:var(--md-sys-color-surface)"></div>
+          <div class="glass-card timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-title">Portfolio Manager | Pfizer Japan AMS Head</div>
+                <div class="timeline-company" style="color:var(--md-sys-color-on-surface-secondary)">Mahindra Satyam</div>
+                <div class="timeline-location">Japan</div>
+              </div>
+              <div class="timeline-dates">Jan 2006 – Jan 2011</div>
+            </div>
+            <div class="timeline-body">
+              <p>Built and scaled the outsourced application management organization for Pfizer Japan — 120+ enterprise applications, Japanese-standard quality, ITIL-driven service transformation.</p>
+              <p>◆ Drove application rationalization, vendor consolidation, and PMO implementation to improve service quality and reduce cost. ◆ Expanded into automotive sector: led Six-Sigma certified consultants for quality engagements with global OEM parts suppliers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 7 -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color:var(--md-sys-color-outline-variant);background:var(--md-sys-color-surface)"></div>
+          <div class="glass-card timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-title">Senior Consultant → Assistant Manager</div>
+                <div class="timeline-company" style="color:var(--md-sys-color-on-surface-secondary)">Dassault Systèmes (DELMIA)</div>
+                <div class="timeline-location">Japan</div>
+              </div>
+              <div class="timeline-dates">Mar 1999 – Dec 2005</div>
+            </div>
+            <div class="timeline-body">
+              <p>The foundational chapter: led digital manufacturing consulting for Toyota Japan on digital factory initiatives targeting zero-prototyping for new vehicle manufacturing. Extended to Nissan, Mitsubishi Heavy Industries, Hitachi, and Makino-J — streamlining production processes and accelerating digital transformation across automotive and heavy manufacturing.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role 8 -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color:var(--md-sys-color-outline-variant);background:var(--md-sys-color-surface)"></div>
+          <div class="glass-card timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-title">Technical Engineer</div>
+                <div class="timeline-company" style="color:var(--md-sys-color-on-surface-secondary)">Y.S Inc</div>
+                <div class="timeline-location">Japan</div>
+              </div>
+              <div class="timeline-dates">Jan 1995 – Oct 1996</div>
+            </div>
+            <div class="timeline-body">
+              <p>Designed and programmed factory automation systems (PLC) for electro-ceramics manufacturing. Where the engineering journey began.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="container fade-in">
+    <h2 class="section-title">Education</h2>
+    <div class="grid-3">
+      <div class="glass-card edu-card" style="border-color:color-mix(in srgb,var(--md-sys-color-primary) 32%,transparent);background:color-mix(in srgb,var(--md-sys-color-primary) 4%,transparent)">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">Stanford University Graduate School of Business</div>
+        <div class="edu-program">Stanford Executive Program (SEP)</div>
+        <div class="edu-dates">Oct 2025 – Feb 2026</div>
+        <div class="edu-desc" style="font-size:0.875rem;color:var(--md-sys-color-on-surface-secondary);margin-top:8px">Immersion in Silicon Valley innovation. Leading People, Organizations, and Global Systems. Stanford GSB Alumni.</div>
+      </div>
+      <div class="glass-card edu-card" style="border-color:color-mix(in srgb,var(--md-sys-color-primary) 32%,transparent);background:color-mix(in srgb,var(--md-sys-color-primary) 4%,transparent)">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">Massachusetts Institute of Technology</div>
+        <div class="edu-program">Chief Operating Officer (COO) Program</div>
+        <div class="edu-dates">Dec 2022 – Oct 2023</div>
+        <div class="edu-desc" style="font-size:0.875rem;color:var(--md-sys-color-on-surface-secondary);margin-top:8px">Operational excellence, enterprise transformation, and strategic decision-making at global scale.</div>
+      </div>
+      <div class="glass-card edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">Anaheim University</div>
+        <div class="edu-program">MBA</div>
+        <div class="edu-dates">2006 – 2008</div>
+      </div>
+      <div class="glass-card edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">The Shizuoka University, Japan</div>
+        <div class="edu-program">M.Eng, Systems Engineering</div>
+        <div class="edu-dates">1997 – 1999</div>
+      </div>
+      <div class="glass-card edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">Madras Institute of Technology</div>
+        <div class="edu-program">B.Tech, Electronics</div>
+        <div class="edu-dates">1991 – 1994</div>
+      </div>
+      <div class="glass-card edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-school">The American College</div>
+        <div class="edu-program">BSc, Physics</div>
+        <div class="edu-dates">1988 – 1991</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certifications" style="background:var(--md-sys-color-surface-container-low)">
+  <div class="container fade-in">
+    <h2 class="section-title">Certifications</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <div class="skill-tag">Stanford GSB Professional Certificate <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2026)</span></div>
+      <div class="skill-tag">MIT — Chief Operating Officer Program <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2023)</span></div>
+      <div class="skill-tag">MIT — Designing and Building AI Products and Services <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2023)</span></div>
+      <div class="skill-tag">MIT — IoT Design and Application <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2023)</span></div>
+      <div class="skill-tag">MIT — No Code AI and Machine Learning <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2023)</span></div>
+      <div class="skill-tag">AWS Partner — Generative AI Essentials <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2024)</span></div>
+      <div class="skill-tag">BTA — Certified Blockchain Solution Architect <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2019)</span></div>
+      <div class="skill-tag">EMC — Data Science Associate <span style="opacity:0.7;font-size:0.8em;margin-left:4px">(2013)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" style="background: var(--md-sys-color-surface-container-low)">
+  <div class="container fade-in">
+    <h2 class="section-title">Expertise</h2>
+    <div class="skills-row">
+      <span class="skill-tag skill-primary">Enterprise AI Transformation</span>
+      <span class="skill-tag skill-primary">P&L Ownership</span>
+      <span class="skill-tag skill-primary">HealthTech</span>
+      <span class="skill-tag skill-primary">Digital Engineering</span>
+      <span class="skill-tag">AI Strategy & Governance</span>
+      <span class="skill-tag">Agentic AI Systems</span>
+      <span class="skill-tag">Cross-Cultural Leadership</span>
+    </div>
+
+    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--md-sys-color-on-surface); margin: 32px 0 16px;">Languages</h3>
+    <div class="skills-row">
+      <span class="skill-tag">English <span style="opacity:0.7;font-size:0.9em;margin-left:4px">(Native / Bilingual)</span></span>
+      <span class="skill-tag">Japanese <span style="opacity:0.7;font-size:0.9em;margin-left:4px">(Full Professional Proficiency)</span></span>
+      <span class="skill-tag">Tamil <span style="opacity:0.7;font-size:0.9em;margin-left:4px">(Native)</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container fade-in" style="text-align:center">
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto">I'm always open to meaningful conversations about AI, healthcare, and building the future.</p>
+    <div class="contact-icons">
+      <a href="https://www.linkedin.com/in/rajkumar-rajagobalan/" class="btn btn-primary" style="border-radius:12px;width:auto;height:auto;padding:12px 24px"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>Rajkumar Rajagobalan</h3>
+      <p class="footer-text">Building AI-Native Enterprises. Singapore.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+        <ul class="footer-links">
+        <li><a href="/" class="footer-link">Home</a></li>
+        <li><a href="/blogs.html" class="footer-link">Blogs</a></li>
+        <li><a href="/foodie/" class="footer-link">Foodie AI</a></li>
+        <li><a href="#about" class="footer-link">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/rajkumar-rajagobalan/" class="footer-link">LinkedIn</a></li>
+        <li><a href="mailto:raj@nuvear.org" class="footer-link">Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Rajkumar Rajagobalan</div>
+  </div>
+</footer>
+
+</div>
+
+<script src="/theme-toggle.js"></script>
+<script>
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('open');
+  const icon = menuToggle.querySelector('i');
+  if (navMenu.classList.contains('open')) {
+    icon.classList.remove('fa-bars');
+    icon.classList.add('fa-times');
+  } else {
+    icon.classList.remove('fa-times');
+    icon.classList.add('fa-bars');
+  }
+});
+
+// Fade In Observer
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => observer.observe(el));
+
+// Earlier Career Toggle
+const earlierToggle = document.getElementById('earlierToggle');
+const earlierContent = document.getElementById('earlierContent');
+if (earlierToggle && earlierContent) {
+  earlierToggle.addEventListener('click', () => {
+    const isHidden = earlierContent.style.display === 'none';
+    earlierContent.style.display = isHidden ? 'block' : 'none';
+    const icon = earlierToggle.querySelector('i');
+    if (icon) {
+      icon.className = isHidden ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+    }
+    earlierToggle.innerHTML = isHidden 
+      ? '<i class="fas fa-chevron-up" style="font-size:10px"></i> Hide Earlier Career' 
+      : '<i class="fas fa-chevron-down" style="font-size:10px"></i> Earlier Career (1995–2011)';
+  });
+}
+</script>
+</body>
+</html>

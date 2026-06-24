@@ -1,0 +1,110 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local",
+        ".env",
+        ".env.*"
+      ]
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": [
+    {
+      "target": "main",
+      "public": "dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "redirects": [
+        {
+          "source": "**",
+          "destination": "https://www.rajagobalan.com/:path*",
+          "type": 301,
+          "has": [{ "type": "host", "value": "rajagobalan.com" }]
+        },
+        { "source": "/discipline-app", "destination": "/discipline/", "type": 301 },
+        { "source": "/discipline-app/**", "destination": "/discipline/", "type": 301 }
+      ],
+      "rewrites": [
+        { "source": "/blogs", "destination": "/blogs.html" },
+        { "source": "/blogs/", "destination": "/blogs.html" },
+        { "source": "/discipline", "destination": "/discipline/index.html" },
+        { "source": "/discipline/", "destination": "/discipline/index.html" },
+        { "source": "/discipline/**", "destination": "/discipline/index.html" },
+        { "source": "/foodie", "destination": "/foodie/index.html" },
+        { "source": "/foodie/", "destination": "/foodie/index.html" }
+      ],
+      "headers": [
+        {
+          "source": "**/*.html",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        },
+        {
+          "source": "service-worker.js",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        },
+        {
+          "source": "**/sw.js",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "healthkitsync",
+      "public": "healthkitsync",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        { "source": "**", "destination": "/index.html" }
+      ],
+      "headers": [
+        {
+          "source": "**/*.html",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        },
+        {
+          "source": "**/*.js",
+          "headers": [
+            { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+          ]
+        },
+        {
+          "source": "**/*.css",
+          "headers": [
+            { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+          ]
+        },
+        {
+          "source": "**/tasks.json",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          ]
+        }
+      ]
+    }
+  ],
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
+  }
+}

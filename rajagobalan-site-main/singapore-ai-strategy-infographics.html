@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore AI Adoption Strategy & Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Palette: Brilliant Blues & Vibrant Cyan (Deep Blue #0F172A, Cyan #06B6D4, Neon Blue #3B82F6, Accent Coral #F43F5E) -->
+    <!-- Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. -->
+    <!-- Plan: 1. Hero/KPIs (Status) -> 2. NAIS 2.0 Pillars (Strategy) -> 3. Enterprise Adoption (Status) -> 4. Sectoral Impact (Analysis) -> 5. Workforce Growth (Projection). -->
+    <!-- Choices: KPI -> Big Numbers (Inform). NAIS Pillars -> Grid/Unicode (Organize). Adoption -> Stacked Bar (Compare). Sector Impact -> Polar Area (Compare/Relationships). Workforce -> Area Chart (Change). All use Chart.js/HTML, NO SVG. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .gradient-text { background: linear-gradient(to right, #06B6D4, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <nav class="bg-slate-900 text-slate-400 py-4 px-6 lg:px-12 border-b border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto">
+            <a href="/blogs.html" class="hover:text-white transition-colors">← Back to Blogs</a>
+            <span class="mx-2">·</span>
+            <a href="/" class="hover:text-white transition-colors">Home</a>
+            <span class="mx-2">·</span>
+            <a href="/foodie/" class="hover:text-white transition-colors">Foodie</a>
+            <span class="mx-2">·</span>
+            <span class="text-slate-200 font-medium">Singapore AI Strategy Infographic</span>
+        </div>
+    </nav>
+
+    <header class="bg-slate-900 text-white py-16 px-6 lg:px-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#06B6D4 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Singapore's <span class="gradient-text">AI Frontier</span></h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl font-light">Status, adoption, and the National AI Strategy (NAIS 2.0) driving the Smart Nation forward.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-12 -mt-10 relative z-20">
+        
+        <section class="mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-8 shadow-xl text-center transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Compute Investment</h3>
+                    <p class="text-4xl font-bold text-slate-900">S$1B+</p>
+                    <p class="text-sm text-slate-500 mt-2">Allocated in 2024 for AI compute, talent, and industry development.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 shadow-xl text-center transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-3">👨‍💻</div>
+                    <h3 class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Target AI Practitioners</h3>
+                    <p class="text-4xl font-bold text-cyan-600">15,000</p>
+                    <p class="text-sm text-slate-500 mt-2">NAIS 2.0 goal to triple the local AI workforce within 3-5 years.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-8 shadow-xl text-center transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-3">📈</div>
+                    <h3 class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Est. Economic Uplift</h3>
+                    <p class="text-4xl font-bold text-blue-600">US$198B</p>
+                    <p class="text-sm text-slate-500 mt-2">Potential gross value added to Singapore's economy by 2030 via AI.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="glass-card rounded-2xl p-8 md:p-12 shadow-lg">
+                <div class="max-w-3xl mb-8">
+                    <h2 class="text-3xl font-bold mb-4 text-slate-900">The 5 Pillars of NAIS 2.0</h2>
+                    <p class="text-slate-600 leading-relaxed">The National AI Strategy 2.0 (launched Dec 2023) shifts Singapore from local experimentation to global scaling. It establishes five structural pillars designed to build a trusted, thriving AI ecosystem rather than isolated projects.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center hover:bg-cyan-50 transition">
+                        <div class="text-3xl mb-2">🏭</div>
+                        <h4 class="font-bold text-slate-800 mb-2">Industry</h4>
+                        <p class="text-xs text-slate-600">Spurring aggressive enterprise AI adoption and creating centers of excellence.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center hover:bg-blue-50 transition">
+                        <div class="text-3xl mb-2">🎓</div>
+                        <h4 class="font-bold text-slate-800 mb-2">Talent</h4>
+                        <p class="text-xs text-slate-600">Tripling the AI workforce and integrating AI literacy across all education levels.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center hover:bg-indigo-50 transition">
+                        <div class="text-3xl mb-2">🖥️</div>
+                        <h4 class="font-bold text-slate-800 mb-2">Compute</h4>
+                        <p class="text-xs text-slate-600">Securing access to high-performance computing (HPC) and green data centers.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center hover:bg-rose-50 transition">
+                        <div class="text-3xl mb-2">📊</div>
+                        <h4 class="font-bold text-slate-800 mb-2">Data</h4>
+                        <p class="text-xs text-slate-600">Enhancing secure, privacy-preserving data sharing across government and private sectors.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center hover:bg-emerald-50 transition">
+                        <div class="text-3xl mb-2">🔒</div>
+                        <h4 class="font-bold text-slate-800 mb-2">Trust</h4>
+                        <p class="text-xs text-slate-600">Leading global AI governance, ethics (A.I. Verify), and safe deployment standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-card rounded-2xl p-8 shadow-lg flex flex-col">
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">Enterprise AI Adoption Gap</h2>
+                <p class="text-slate-600 mb-6 text-sm flex-grow">While Singapore leads regionally, a distinct gap exists between Multi-National Corporations (MNCs) and Small-to-Medium Enterprises (SMEs). Government grants (like the SMEs Go Digital program) are actively targeting this disparity to ensure inclusive technological growth.</p>
+                <div class="chart-container">
+                    <canvas id="adoptionChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-8 shadow-lg flex flex-col">
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">Sectoral AI Maturity</h2>
+                <p class="text-slate-600 mb-6 text-sm flex-grow">Financial Services and the Public Sector (Smart Nation initiatives) exhibit the highest AI maturity, driven by massive datasets and automation needs. Advanced Manufacturing and Healthcare are rapidly accelerating their integration of predictive models and computer vision.</p>
+                <div class="chart-container">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <div class="glass-card rounded-2xl p-8 md:p-12 shadow-lg">
+                <div class="max-w-3xl mb-8">
+                    <h2 class="text-3xl font-bold mb-4 text-slate-900">Projected AI Workforce Trajectory</h2>
+                    <p class="text-slate-600 leading-relaxed">To sustain its position as a global AI hub, Singapore is aggressively expanding its talent pool. Through initiatives like the TechSkills Accelerator (TeSA) and AI Apprenticeship Programmes (AIAP), the nation aims to more than triple its specialized AI workforce by the end of the decade.</p>
+                </div>
+                <div class="chart-container w-full max-w-4xl">
+                    <canvas id="talentChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function wrapLabel(label) {
+            if (label.length <= 16) return label;
+            let words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    if (currentLine.trim() !== '') lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            if (currentLine.trim() !== '') lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const commonTooltip = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        const adoptionLabels = ['Large Enterprises / MNCs', 'Medium Enterprises', 'Small Enterprises'].map(wrapLabel);
+        const ctxAdoption = document.getElementById('adoptionChart').getContext('2d');
+        new Chart(ctxAdoption, {
+            type: 'bar',
+            data: {
+                labels: adoptionLabels,
+                datasets: [
+                    {
+                        label: 'Piloting or Scaled AI (%)',
+                        data: [78, 45, 22],
+                        backgroundColor: '#06B6D4',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Evaluating / No Plans (%)',
+                        data: [22, 55, 78],
+                        backgroundColor: '#E2E8F0',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, max: 100, ticks: { callback: function(value){return value+"%"} } }
+                },
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        const sectorLabels = ['Financial Services', 'Public Sector & Smart City', 'Healthcare & Biomed', 'Advanced Manufacturing', 'Logistics & Transport', 'Retail & Consumer'].map(wrapLabel);
+        const ctxSector = document.getElementById('sectorChart').getContext('2d');
+        new Chart(ctxSector, {
+            type: 'polarArea',
+            data: {
+                labels: sectorLabels,
+                datasets: [{
+                    data: [90, 85, 75, 70, 60, 50],
+                    backgroundColor: [
+                        'rgba(6, 182, 212, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(99, 102, 241, 0.7)',
+                        'rgba(244, 63, 94, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(245, 158, 11, 0.7)'
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        ticks: { display: false },
+                        grid: { color: 'rgba(226, 232, 240, 0.5)' }
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { position: 'right', labels: { boxWidth: 12 } }
+                }
+            }
+        });
+
+        const talentLabels = ['2020', '2022', '2024 (Current)', '2026', '2028', '2030 (Target)'];
+        const ctxTalent = document.getElementById('talentChart').getContext('2d');
+        new Chart(ctxTalent, {
+            type: 'line',
+            data: {
+                labels: talentLabels,
+                datasets: [{
+                    label: 'Dedicated AI Practitioners',
+                    data: [3500, 4800, 6500, 9000, 12000, 15000],
+                    borderColor: '#3B82F6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#06B6D4',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(226, 232, 240, 0.6)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

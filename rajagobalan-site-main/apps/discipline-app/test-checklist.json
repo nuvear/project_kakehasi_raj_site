@@ -1,0 +1,120 @@
+{
+  "project": "Raj Discipline Tracker MVP",
+  "version": "v1",
+  "test_suites": [
+    {
+      "suite": "Authentication",
+      "cases": [
+        {
+          "id": "AUTH-01",
+          "description": "Correct password unlocks app",
+          "steps": ["Enter correct password", "Click Enter or tap Enter"],
+          "expected": "App dashboard loads with score and sliders"
+        },
+        {
+          "id": "AUTH-02",
+          "description": "Wrong password is rejected",
+          "steps": ["Enter incorrect password", "Submit"],
+          "expected": "Error message shown, app remains locked"
+        }
+      ]
+    },
+    {
+      "suite": "Mobile UX (Critical)",
+      "cases": [
+        {
+          "id": "UX-01",
+          "description": "Sliders usable with thumb",
+          "steps": ["Open /discipline/ on iPhone Safari", "Adjust each slider"],
+          "expected": "Smooth interaction; thumb-sized thumb control"
+        },
+        {
+          "id": "UX-02",
+          "description": "Text readability",
+          "steps": ["View in daylight", "Check contrast"],
+          "expected": "Readable without strain"
+        },
+        {
+          "id": "UX-03",
+          "description": "No layout break",
+          "steps": ["Rotate phone", "Scroll entire page"],
+          "expected": "No UI distortion"
+        }
+      ]
+    },
+    {
+      "suite": "Core Functionality",
+      "cases": [
+        {
+          "id": "FUNC-01",
+          "description": "Slider updates value and score in real time",
+          "steps": ["Move slider", "Observe score"],
+          "expected": "Label and score update while dragging"
+        },
+        {
+          "id": "FUNC-02",
+          "description": "Score at full completion",
+          "steps": ["Set all activities to max hours"],
+          "expected": "Score = 100"
+        },
+        {
+          "id": "FUNC-03",
+          "description": "Partial completion scales",
+          "steps": ["Set partial values"],
+          "expected": "Score proportional to sum of hours / max total hours"
+        },
+        {
+          "id": "FUNC-04",
+          "description": "Max cap enforced",
+          "steps": ["Slide to maximum for each activity"],
+          "expected": "Cannot exceed per-activity max; total score caps at 100"
+        }
+      ]
+    },
+    {
+      "suite": "Persistence",
+      "cases": [
+        {
+          "id": "DATA-01",
+          "description": "Refresh persistence",
+          "steps": ["Enter values", "Refresh page", "Unlock again"],
+          "expected": "Values retained in localStorage"
+        },
+        {
+          "id": "DATA-02",
+          "description": "Browser restart persistence",
+          "steps": ["Enter values", "Close browser", "Reopen and unlock"],
+          "expected": "Values retained"
+        }
+      ]
+    },
+    {
+      "suite": "Performance",
+      "cases": [
+        {
+          "id": "PERF-01",
+          "description": "Load time",
+          "steps": ["Open app"],
+          "expected": "Loads quickly (single HTML, no heavy deps)"
+        }
+      ]
+    },
+    {
+      "suite": "Behavioral Validation",
+      "cases": [
+        {
+          "id": "BEH-01",
+          "description": "Quick logging",
+          "steps": ["Log full day"],
+          "expected": "Target under 60 seconds"
+        },
+        {
+          "id": "BEH-02",
+          "description": "Immediate feedback",
+          "steps": ["Adjust slider"],
+          "expected": "Score updates on input (live)"
+        }
+      ]
+    }
+  ]
+}

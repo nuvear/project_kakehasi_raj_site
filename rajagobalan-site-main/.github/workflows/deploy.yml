@@ -1,0 +1,62 @@
+name: Deploy to Firebase
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: deploy-firebase-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+      # ── 2. Set up Node.js (main site) ────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            functions/package-lock.json
+      # ── 3. Install root & functions dependencies ─────────────────────────────
+      - name: Install root dependencies
+        run: npm ci
+      - name: Install functions dependencies
+        working-directory: functions
+        run: npm ci
+      # ── 4. Build main site (Vite → dist + app copies) ────────────────────────
+      - name: Build site (Vite → dist + app copies)
+        run: npm run build
+      # ── 5. Build HealthKitSync project plan (pnpm) ───────────────────────────
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Setup Node.js for HealthKitSync build
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+          cache-dependency-path: healthkitsync-src/pnpm-lock.yaml
+      - name: Install HealthKitSync dependencies
+        working-directory: healthkitsync-src
+        run: pnpm install
+      - name: Build HealthKitSync project plan
+        working-directory: healthkitsync-src
+        run: pnpm run build
+      - name: Copy HealthKitSync build to hosting folder
+        run: |
+          rm -rf healthkitsync
+          mkdir -p healthkitsync
+          cp -r healthkitsync-src/dist/public/. healthkitsync/
+      # ── 6. Deploy to Firebase (hosting + firestore + functions) ──────────────
+      - name: Deploy to Firebase
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: npx firebase deploy --only hosting,firestore,functions --project rajagobalan-site --non-interactive

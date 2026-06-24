@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitals App UX/UI Research Infographic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8FAFC;
+    color: #1E3A8A;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
+@media (min-width: 768px) {
+    .chart-container {
+        height: 400px;
+    }
+}
+.metric-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    transition: transform 0.2s;
+}
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+.gradient-text {
+    background: linear-gradient(90deg, #14B8A6, #1E3A8A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bg-teal-custom { background-color: #14B8A6; }
+.bg-coral-custom { background-color: #F43F5E; }
+.bg-amber-custom { background-color: #F59E0B; }
+.bg-navy-custom { background-color: #1E3A8A; }
+.text-teal-custom { color: #14B8A6; }
+.text-coral-custom { color: #F43F5E; }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <header class="text-center mb-16">
+        <div class="inline-block p-4 rounded-full bg-white shadow-lg mb-6 text-4xl text-coral-custom">
+            &#10084;
+        </div>
+        <h1 class="text-5xl font-extrabold tracking-tight mb-4 gradient-text">Flow & Rhythm</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">A UI/UX Research Infographic for Mobile & iPad Blood Pressure and Pulse Tracking Applications. This analysis breaks down the optimal user experience across daily, weekly, monthly, and yearly recording views.</p>
+    </header>
+
+    <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-6 border-b-4 border-teal-custom pb-2 inline-block">The Daily View: Immediate Clarity</h2>
+        <p class="text-lg text-gray-700 mb-8">The daily view is the app's home screen. Its primary goal is frictionless data entry and immediate feedback. Users need to know instantly if their current readings are within safe parameters. The design must minimize cognitive load, using large typography and clear color-coding (Inform Goal).</p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="metric-card flex flex-col justify-center items-center text-center">
+                <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-2">Latest Systolic</h3>
+                <div class="text-6xl font-extrabold text-teal-custom mb-2">118</div>
+                <div class="text-sm font-medium text-gray-400">mmHg &bull; Normal</div>
+            </div>
+            
+            <div class="metric-card flex flex-col justify-center items-center text-center">
+                <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-2">Latest Diastolic</h3>
+                <div class="text-6xl font-extrabold text-teal-custom mb-2">76</div>
+                <div class="text-sm font-medium text-gray-400">mmHg &bull; Normal</div>
+            </div>
+
+            <div class="metric-card flex flex-col justify-center items-center text-center">
+                <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-2">Resting Pulse</h3>
+                <div class="text-6xl font-extrabold text-coral-custom mb-2">72</div>
+                <div class="text-sm font-medium text-gray-400">BPM &bull; Steady</div>
+            </div>
+        </div>
+        
+        <div class="mt-8 bg-white rounded-xl shadow-lg p-6 flex flex-col lg:flex-row items-center gap-8">
+            <div class="w-full lg:w-1/2">
+                <div class="chart-container">
+                    <canvas id="dailyDonutChart"></canvas>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <h3 class="text-2xl font-bold mb-4">Reading Distribution Status</h3>
+                <p class="text-gray-600 mb-4">A donut chart effectively contextualizes the user's latest reading against their overall daily target zones. Instead of complex historical data, the daily view uses simple proportions. This visualization confirms that 70% of today's checks remain in the "Normal" zone, providing immediate peace of mind.</p>
+                <ul class="space-y-2">
+                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-teal-custom mr-3"></span> Normal Zone (Systolic < 120)</li>
+                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-amber-custom mr-3"></span> Elevated Zone (Systolic 120-129)</li>
+                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-coral-custom mr-3"></span> Hypertension Zone (Systolic 130+)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-6 border-b-4 border-amber-custom pb-2 inline-block">The Weekly View: Spotting Short-Term Trends</h2>
+        <p class="text-lg text-gray-700 mb-8">When a user rotates to landscape on an iPad or selects the "Week" tab, the objective shifts to trend analysis (Change Goal). The UI must illustrate how lifestyle factors (stress, diet, medication) over the past 7 days correlate with vital fluctuations. Multi-axis line charts are ideal here.</p>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-2">7-Day Vitals Trajectory</h3>
+                <p class="text-gray-600">This line chart tracks Systolic, Diastolic, and Pulse concurrently. By observing the lines together, users and physicians can spot immediate anomalies—such as a mid-week spike in both blood pressure and pulse, potentially indicating a high-stress event.</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="weeklyLineChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-6 border-b-4 border-navy-custom pb-2 inline-block">The Monthly View: Patterns & Categorization</h2>
+        <p class="text-lg text-gray-700 mb-8">The monthly view aggregates 30 days of data to reveal established patterns (Organize/Compare Goal). Rather than showing every individual reading, the UI should group data into health categories to assess overall regimen adherence and health stability.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-2">Monthly Reading Categories</h3>
+                <p class="text-gray-600 mb-6">A stacked bar chart perfectly visualizes the composition of blood pressure categories over four weeks. It quickly answers the question: "Am I having more normal days this week compared to last week?" The shift from Amber/Coral to Teal indicates improving health management.</p>
+                <div class="chart-container">
+                    <canvas id="monthlyStackedChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-2">Time of Day Impact</h3>
+                <p class="text-gray-600 mb-6">A bubble chart reveals relationships (Relationship Goal) between the time of reading and the blood pressure level. Larger bubbles indicate higher pulse rates. This UI component helps users realize if their mornings are consistently higher than evenings, prompting medication timing adjustments.</p>
+                <div class="chart-container">
+                    <canvas id="monthlyBubbleChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-6 border-b-4 border-coral-custom pb-2 inline-block">The Yearly View: Long-Term Progression</h2>
+        <p class="text-lg text-gray-700 mb-8">For the yearly view, noise reduction is critical. Users are looking at macro-trends, seasonal variations, and the long-term effectiveness of medical interventions. Area charts showing the envelope of readings provide a smooth, digestible overview of a full year's progress.</p>
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-2">Annual Blood Pressure Envelope</h3>
+                <p class="text-gray-600">This area chart displays the historical gap between average monthly Systolic and Diastolic readings. A narrowing gap or a general downward slope in both lines signifies long-term cardiovascular improvement. The shaded area emphasizes the pulse pressure.</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="yearlyAreaChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12">
+        <div class="bg-navy-custom text-white rounded-xl shadow-lg p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">UI/UX Core Principles for Vitals Apps</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
+                <div class="bg-white/10 p-6 rounded-lg">
+                    <div class="text-2xl mb-3 text-teal-400">&#10003;</div>
+                    <h4 class="font-bold text-xl mb-2">Progressive Disclosure</h4>
+                    <p class="text-sm text-gray-300">Start with simple numbers (Daily), reveal complex charts (Weekly/Monthly) only upon interaction or rotation.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-lg">
+                    <div class="text-2xl mb-3 text-coral-400">&#9888;</div>
+                    <h4 class="font-bold text-xl mb-2">Actionable Color Use</h4>
+                    <p class="text-sm text-gray-300">Reserve high-alert colors (Coral/Red) strictly for hypertensive crisis levels to avoid user fatigue and anxiety.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-lg">
+                    <div class="text-2xl mb-3 text-amber-400">&#9733;</div>
+                    <h4 class="font-bold text-xl mb-2">Data Smoothing</h4>
+                    <p class="text-sm text-gray-300">In yearly views, average data points to prevent jagged, unreadable charts that overwhelm the patient.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+function wrapLabels(labels) {
+    return labels.map(label => {
+        if (label.length <= 16) return label;
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > 16) {
+                if (currentLine) lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine += word + ' ';
+            }
+        });
+        if (currentLine) lines.push(currentLine.trim());
+        return lines;
+    });
+}
+
+const commonOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+        tooltip: {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        }
+    }
+};
+
+const dailyCtx = document.getElementById('dailyDonutChart').getContext('2d');
+new Chart(dailyCtx, {
+    type: 'doughnut',
+    data: {
+        labels: wrapLabels(['Normal Readings Today', 'Elevated Readings Today', 'Hypertensive Readings Today']),
+        datasets: [{
+            data: [70, 20, 10],
+            backgroundColor: ['#14B8A6', '#F59E0B', '#F43F5E'],
+            borderWidth: 0,
+            hoverOffset: 4
+        }]
+    },
+    options: {
+        ...commonOptions,
+        cutout: '75%',
+        plugins: {
+            ...commonOptions.plugins,
+            legend: { position: 'bottom' }
+        }
+    }
+});
+
+const weeklyCtx = document.getElementById('weeklyLineChart').getContext('2d');
+new Chart(weeklyCtx, {
+    type: 'line',
+    data: {
+        labels: wrapLabels(['Monday Morning', 'Tuesday Morning', 'Wednesday Morning', 'Thursday Morning', 'Friday Morning', 'Saturday Morning', 'Sunday Morning']),
+        datasets: [
+            {
+                label: 'Systolic (mmHg)',
+                data: [120, 122, 135, 128, 118, 115, 119],
+                borderColor: '#1E3A8A',
+                backgroundColor: '#1E3A8A',
+                tension: 0.4,
+                yAxisID: 'y'
+            },
+            {
+                label: 'Diastolic (mmHg)',
+                data: [78, 80, 88, 82, 76, 74, 75],
+                borderColor: '#14B8A6',
+                backgroundColor: '#14B8A6',
+                tension: 0.4,
+                yAxisID: 'y'
+            },
+            {
+                label: 'Pulse (BPM)',
+                data: [70, 72, 85, 75, 68, 65, 70],
+                borderColor: '#F43F5E',
+                backgroundColor: '#F43F5E',
+                borderDash: [5, 5],
+                tension: 0.4,
+                yAxisID: 'y1'
+            }
+        ]
+    },
+    options: {
+        ...commonOptions,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: { display: true, text: 'Blood Pressure (mmHg)' }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: { display: true, text: 'Pulse (BPM)' },
+                grid: { drawOnChartArea: false }
+            }
+        }
+    }
+});
+
+const monthlyStackedCtx = document.getElementById('monthlyStackedChart').getContext('2d');
+new Chart(monthlyStackedCtx, {
+    type: 'bar',
+    data: {
+        labels: wrapLabels(['Week 1 Overview', 'Week 2 Overview', 'Week 3 Overview', 'Week 4 Overview']),
+        datasets: [
+            {
+                label: 'Normal (<120/80)',
+                data: [5, 7, 10, 12],
+                backgroundColor: '#14B8A6'
+            },
+            {
+                label: 'Elevated (120-129)',
+                data: [6, 5, 3, 2],
+                backgroundColor: '#F59E0B'
+            },
+            {
+                label: 'Stage 1+ (130+)',
+                data: [3, 2, 1, 0],
+                backgroundColor: '#F43F5E'
+            }
+        ]
+    },
+    options: {
+        ...commonOptions,
+        scales: {
+            x: { stacked: true },
+            y: { stacked: true, title: { display: true, text: 'Number of Readings' } }
+        }
+    }
+});
+
+const monthlyBubbleCtx = document.getElementById('monthlyBubbleChart').getContext('2d');
+new Chart(monthlyBubbleCtx, {
+    type: 'bubble',
+    data: {
+        datasets: [
+            {
+                label: 'Morning Readings',
+                data: [
+                    {x: 7, y: 125, r: 10}, {x: 8, y: 130, r: 15}, {x: 7.5, y: 128, r: 12},
+                    {x: 6.5, y: 120, r: 8}, {x: 8.5, y: 135, r: 18}
+                ],
+                backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                borderColor: '#F59E0B'
+            },
+            {
+                label: 'Evening Readings',
+                data: [
+                    {x: 18, y: 115, r: 8}, {x: 19, y: 118, r: 9}, {x: 20, y: 112, r: 7},
+                    {x: 21, y: 110, r: 6}, {x: 18.5, y: 116, r: 8}
+                ],
+                backgroundColor: 'rgba(20, 184, 166, 0.6)',
+                borderColor: '#14B8A6'
+            }
+        ]
+    },
+    options: {
+        ...commonOptions,
+        scales: {
+            x: { 
+                title: { display: true, text: 'Time of Day (24h)' },
+                min: 0,
+                max: 24
+            },
+            y: { 
+                title: { display: true, text: 'Systolic Pressure (mmHg)' }
+            }
+        },
+        plugins: {
+            ...commonOptions.plugins,
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `Time: ${context.parsed.x}h, Systolic: ${context.parsed.y}, Pulse: ${context.raw.r * 5} BPM`;
+                    }
+                }
+            }
+        }
+    }
+});
+
+const yearlyAreaCtx = document.getElementById('yearlyAreaChart').getContext('2d');
+new Chart(yearlyAreaCtx, {
+    type: 'line',
+    data: {
+        labels: wrapLabels(['January Data', 'February Data', 'March Data', 'April Data', 'May Data', 'June Data', 'July Data', 'August Data', 'September Data', 'October Data', 'November Data', 'December Data']),
+        datasets: [
+            {
+                label: 'Avg Systolic',
+                data: [135, 132, 130, 128, 125, 126, 124, 122, 120, 118, 119, 117],
+                borderColor: '#1E3A8A',
+                backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                fill: '+1',
+                tension: 0.4
+            },
+            {
+                label: 'Avg Diastolic',
+                data: [85, 84, 83, 81, 80, 81, 79, 78, 76, 75, 76, 74],
+                borderColor: '#14B8A6',
+                backgroundColor: 'transparent',
+                fill: false,
+                tension: 0.4
+            }
+        ]
+    },
+    options: {
+        ...commonOptions,
+        scales: {
+            y: { title: { display: true, text: 'Average Blood Pressure (mmHg)' } }
+        }
+    }
+});
+</script>
+
+<!-- Palette Name: Energetic Health (#1E3A8A, #14B8A6, #F43F5E, #F59E0B) -->
+<!-- Confirming NO SVG: Neither Mermaid JS nor SVG graphics were used anywhere in the output. -->
+<!-- Narrative Plan: 1. Daily View (Inform/Immediate Status) 2. Weekly View (Change/Short-term Trend) 3. Monthly View (Organize/Categorization) 4. Yearly View (Relationships/Long-term Progression) -->
+<!-- Chart Selections: 
+     - Daily: Donut Chart (Goal: Inform proportion. Library: Chart.js. Method: Canvas, NO SVG)
+     - Weekly: Multi-axis Line Chart (Goal: Change over 7 days. Library: Chart.js. Method: Canvas, NO SVG)
+     - Monthly A: Stacked Bar Chart (Goal: Compare categories. Library: Chart.js. Method: Canvas, NO SVG)
+     - Monthly B: Bubble Chart (Goal: Relationships time vs BP. Library: Chart.js. Method: Canvas, NO SVG)
+     - Yearly: Area/Line Chart (Goal: Long term trends. Library: Chart.js. Method: Canvas, NO SVG) -->
+
+</body>
+</html>

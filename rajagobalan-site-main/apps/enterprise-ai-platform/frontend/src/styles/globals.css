@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════
+   M3 Expressive — Singapore AI Theme (Brilliant Blues & Vibrant Cyan)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Primary — Vibrant Blue/Cyan Gradient Feel */
+  --md-sys-color-primary: #0284c7; /* Sky-600 */
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #e0f2fe; /* Sky-100 */
+  --md-sys-color-on-primary-container: #0c4a6e; /* Sky-900 */
+
+  /* Secondary — Teal/Green for Data/Success */
+  --md-sys-color-secondary: #0d9488; /* Teal-600 */
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #ccfbf1; /* Teal-100 */
+  --md-sys-color-on-secondary-container: #115e59; /* Teal-800 */
+
+  /* Tertiary — Indigo/Purple for Strategic depth */
+  --md-sys-color-tertiary: #6366f1; /* Indigo-500 */
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #e0e7ff; /* Indigo-100 */
+  --md-sys-color-on-tertiary-container: #312e81; /* Indigo-900 */
+
+  /* Error */
+  --md-sys-color-error: #ef4444; /* Red-500 */
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #fee2e2; /* Red-100 */
+  --md-sys-color-on-error-container: #7f1d1d; /* Red-900 */
+
+  /* Surface — Slate-50 Base */
+  --md-sys-color-surface: #f8fafc; /* Slate-50 */
+  --md-sys-color-on-surface: #0f172a; /* Slate-900 */
+  --md-sys-color-surface-variant: #f1f5f9; /* Slate-100 */
+  --md-sys-color-on-surface-variant: #64748b; /* Slate-500 */
+  --md-sys-color-surface-dim: #e2e8f0; /* Slate-200 */
+  --md-sys-color-surface-bright: #ffffff; /* White */
+  
+  /* Container Levels */
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f8fafc; /* Slate-50 */
+  --md-sys-color-surface-container: #f1f5f9; /* Slate-100 */
+  --md-sys-color-surface-container-high: #e2e8f0; /* Slate-200 */
+  --md-sys-color-surface-container-highest: #cbd5e1; /* Slate-300 */
+
+  /* Outline */
+  --md-sys-color-outline: #94a3b8; /* Slate-400 */
+  --md-sys-color-outline-variant: #cbd5e1; /* Slate-300 */
+
+  /* Text Variants */
+  --md-sys-color-on-surface-secondary: #475569; /* Slate-600 */
+  --md-sys-color-on-surface-tertiary: #64748b; /* Slate-500 */
+
+  /* Inverse */
+  --md-sys-color-inverse-surface: #0f172a; /* Slate-900 */
+  --md-sys-color-inverse-on-surface: #f1f5f9; /* Slate-100 */
+  --md-sys-color-inverse-primary: #38bdf8; /* Sky-400 */
+
+  /* Scrim / Shadow */
+  --md-sys-color-scrim: rgba(15, 23, 42, 0.5); /* Slate-900 @ 50% */
+  --md-sys-color-shadow: rgba(15, 23, 42, 0.1); /* Slate-900 @ 10% */
+
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: 12px;
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Brand Accents */
+  --md-sys-color-accent-blue: #3b82f6; /* Blue-500 */
+  --md-sys-color-accent-cyan: #06b6d4; /* Cyan-500 */
+  --md-sys-color-accent-teal: #14b8a6; /* Teal-500 */
+  --md-sys-color-accent-indigo: #6366f1; /* Indigo-500 */
+  --md-sys-color-accent-rose: #f43f5e; /* Rose-500 */
+  --md-sys-color-accent-amber: #f59e0b; /* Amber-500 */
+
+  /* Shape Scale */
+  --md-sys-shape-corner-none: 0;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 24px;
+  --md-sys-shape-corner-full: 9999px;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+  .card-hover {
+    @apply card transition-shadow hover:shadow-md;
+  }
+  .btn-primary {
+    @apply bg-brand-600 text-white px-4 py-2 rounded-lg font-medium
+           hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-white text-gray-700 px-4 py-2 rounded-lg font-medium border border-gray-300
+           hover:bg-gray-50 transition-colors;
+  }
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg
+           focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition;
+  }
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-teal {
+    @apply badge bg-teal-100 text-teal-800;
+  }
+  .badge-amber {
+    @apply badge bg-amber-100 text-amber-800;
+  }
+  .badge-blue {
+    @apply badge bg-blue-100 text-blue-800;
+  }
+  .badge-gray {
+    @apply badge bg-gray-100 text-gray-600;
+  }
+}

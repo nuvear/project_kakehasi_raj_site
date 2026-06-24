@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BP_Chart — Rajkumar Rajagobalan</title>
+  <meta name="description" content="Visualizing Blood Pressure data using Chart.js to find the optimal user experience.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230A84FF'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/m3-tokens.css">
+  <link rel="stylesheet" href="/layout.css?v=4">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Chart Container Overrides for this specific page */
+    .chart-wrapper {
+        position: relative;
+        height: 400px;
+        width: 100%;
+        margin-bottom: 40px;
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid var(--md-sys-color-outline-variant);
+    }
+    
+    .chart-section {
+        margin-bottom: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">RR</div>
+      Rajkumar Rajagobalan
+    </a>
+    <button class="menu-toggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/blogs.html" class="nav-link active">Blogs</a></li>
+      <li><a href="/foodie/" class="nav-link">Foodie</a></li>
+      <li><a href="/#about" class="nav-link">About</a></li>
+      <li><a href="/#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="docs-layout" style="grid-template-columns: 1fr 240px;">
+  <!-- LEFT SIDEBAR REMOVED for maximum chart space -->
+
+  <!-- MAIN CONTENT -->
+  <main class="docs-content" style="max-width: 100%;">
+    <h1>BP_Chart Visualization Workspace</h1>
+    <p class="subtitle">Iterative design workspace for optimizing blood pressure and pulse visualizations.</p>
+
+    <p>This page serves as a sandbox to experiment with Chart.js configurations to achieve the optimal "Small Multiples" and "LOWESS Smoothing" visualizations described in the design research.</p>
+
+    <div class="chart-section">
+        <h2>1. Daily View (Donut)</h2>
+        <p>Goal: Immediate clarity on the proportion of readings within target ranges.</p>
+        <div class="chart-wrapper">
+            <canvas id="dailyDonutChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>2. Weekly View (Multi-Axis Line)</h2>
+        <p>Goal: Spotting short-term trends and correlations between BP and Pulse.</p>
+        <div class="chart-wrapper">
+            <canvas id="weeklyLineChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>3. Monthly View (Stacked Bar)</h2>
+        <p>Goal: Categorization of reading status over longer periods.</p>
+        <div class="chart-wrapper">
+            <canvas id="monthlyStackedChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>4. Monthly View (Bubble)</h2>
+        <p>Goal: Exploring time-of-day impact on readings.</p>
+        <div class="chart-wrapper">
+            <canvas id="monthlyBubbleChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>5. Yearly View (Area)</h2>
+        <p>Goal: Long-term progression and envelope analysis.</p>
+        <div class="chart-wrapper">
+            <canvas id="yearlyAreaChart"></canvas>
+        </div>
+    </div>
+
+    <footer class="site-footer" style="margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--md-sys-color-outline-variant);">
+      <p style="font-size: 0.875rem; color: var(--md-sys-color-on-surface-secondary);">
+        <a href="/blogs.html" style="color: var(--md-sys-color-primary); text-decoration: none;">← Back to Blogs</a> · 
+        <a href="/" style="color: var(--md-sys-color-primary); text-decoration: none;">Home</a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- RIGHT SIDEBAR: Page TOC -->
+  <aside class="docs-sidebar docs-sidebar-right">
+    <nav class="docs-toc">
+      <h3>Charts</h3>
+      <ul>
+        <li><a href="#dailyDonutChart">1. Daily View</a></li>
+        <li><a href="#weeklyLineChart">2. Weekly View</a></li>
+        <li><a href="#monthlyStackedChart">3. Monthly View (Bar)</a></li>
+        <li><a href="#monthlyBubbleChart">4. Monthly View (Bubble)</a></li>
+        <li><a href="#yearlyAreaChart">5. Yearly View</a></li>
+      </ul>
+    </nav>
+  </aside>
+</div>
+
+<script src="/theme-toggle.js"></script>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('open');
+  });
+
+  // --- CHART.JS IMPLEMENTATION ---
+
+  // Helper for wrapping labels
+  function wrapLabels(labels) {
+      return labels.map(label => {
+          if (label.length <= 16) return label;
+          const words = label.split(' ');
+          const lines = [];
+          let currentLine = '';
+          words.forEach(word => {
+              if ((currentLine + word).length > 16) {
+                  if (currentLine) lines.push(currentLine.trim());
+                  currentLine = word + ' ';
+              } else {
+                  currentLine += word + ' ';
+              }
+          });
+          if (currentLine) lines.push(currentLine.trim());
+          return lines;
+      });
+  }
+
+  const commonOptions = {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+          legend: {
+              labels: {
+                  font: {
+                      family: "'Inter', sans-serif",
+                      size: 12
+                  },
+                  usePointStyle: true,
+                  boxWidth: 8
+              }
+          },
+          tooltip: {
+              backgroundColor: 'rgba(30, 41, 59, 0.9)',
+              titleFont: { family: "'Inter', sans-serif", size: 13 },
+              bodyFont: { family: "'Inter', sans-serif", size: 12 },
+              padding: 10,
+              cornerRadius: 8,
+              displayColors: true
+          }
+      }
+  };
+
+  // 1. Daily View: Donut Chart
+  const dailyCtx = document.getElementById('dailyDonutChart').getContext('2d');
+  new Chart(dailyCtx, {
+      type: 'doughnut',
+      data: {
+          labels: wrapLabels(['Normal Readings', 'Elevated Readings', 'Hypertensive Readings']),
+          datasets: [{
+              data: [70, 20, 10],
+              backgroundColor: ['#14B8A6', '#F59E0B', '#F43F5E'],
+              borderWidth: 0,
+              hoverOffset: 4
+          }]
+      },
+      options: {
+          ...commonOptions,
+          cutout: '70%',
+          plugins: {
+              ...commonOptions.plugins,
+              legend: { position: 'right' }
+          }
+      }
+  });
+
+  // 2. Weekly View: Multi-Axis Line Chart
+  const weeklyCtx = document.getElementById('weeklyLineChart').getContext('2d');
+  new Chart(weeklyCtx, {
+      type: 'line',
+      data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [
+              {
+                  label: 'Systolic (mmHg)',
+                  data: [120, 122, 135, 128, 118, 115, 119],
+                  borderColor: '#1E3A8A',
+                  backgroundColor: '#1E3A8A',
+                  tension: 0.4,
+                  yAxisID: 'y'
+              },
+              {
+                  label: 'Diastolic (mmHg)',
+                  data: [78, 80, 88, 82, 76, 74, 75],
+                  borderColor: '#14B8A6',
+                  backgroundColor: '#14B8A6',
+                  tension: 0.4,
+                  yAxisID: 'y'
+              },
+              {
+                  label: 'Pulse (BPM)',
+                  data: [70, 72, 85, 75, 68, 65, 70],
+                  borderColor: '#F43F5E',
+                  backgroundColor: '#F43F5E',
+                  borderDash: [5, 5],
+                  tension: 0.4,
+                  yAxisID: 'y1'
+              }
+          ]
+      },
+      options: {
+          ...commonOptions,
+          interaction: { mode: 'index', intersect: false },
+          scales: {
+              y: {
+                  type: 'linear',
+                  display: true,
+                  position: 'left',
+                  title: { display: true, text: 'Blood Pressure (mmHg)' },
+                  grid: { color: '#e2e8f0' }
+              },
+              y1: {
+                  type: 'linear',
+                  display: true,
+                  position: 'right',
+                  title: { display: true, text: 'Pulse (BPM)' },
+                  grid: { drawOnChartArea: false }
+              },
+              x: {
+                  grid: { display: false }
+              }
+          }
+      }
+  });
+
+  // 3. Monthly View: Stacked Bar Chart
+  const monthlyStackedCtx = document.getElementById('monthlyStackedChart').getContext('2d');
+  new Chart(monthlyStackedCtx, {
+      type: 'bar',
+      data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [
+              {
+                  label: 'Normal',
+                  data: [5, 7, 10, 12],
+                  backgroundColor: '#14B8A6',
+                  borderRadius: 4
+              },
+              {
+                  label: 'Elevated',
+                  data: [6, 5, 3, 2],
+                  backgroundColor: '#F59E0B',
+                  borderRadius: 4
+              },
+              {
+                  label: 'Stage 1+',
+                  data: [3, 2, 1, 0],
+                  backgroundColor: '#F43F5E',
+                  borderRadius: 4
+              }
+          ]
+      },
+      options: {
+          ...commonOptions,
+          scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { 
+                  stacked: true, 
+                  title: { display: true, text: 'Number of Readings' },
+                  grid: { color: '#e2e8f0' }
+              }
+          }
+      }
+  });
+
+  // 4. Monthly View: Bubble Chart
+  const monthlyBubbleCtx = document.getElementById('monthlyBubbleChart').getContext('2d');
+  new Chart(monthlyBubbleCtx, {
+      type: 'bubble',
+      data: {
+          datasets: [
+              {
+                  label: 'Morning',
+                  data: [
+                      {x: 7, y: 125, r: 10}, {x: 8, y: 130, r: 15}, {x: 7.5, y: 128, r: 12},
+                      {x: 6.5, y: 120, r: 8}, {x: 8.5, y: 135, r: 18}
+                  ],
+                  backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                  borderColor: '#F59E0B'
+              },
+              {
+                  label: 'Evening',
+                  data: [
+                      {x: 18, y: 115, r: 8}, {x: 19, y: 118, r: 9}, {x: 20, y: 112, r: 7},
+                      {x: 21, y: 110, r: 6}, {x: 18.5, y: 116, r: 8}
+                  ],
+                  backgroundColor: 'rgba(20, 184, 166, 0.6)',
+                  borderColor: '#14B8A6'
+              }
+          ]
+      },
+      options: {
+          ...commonOptions,
+          scales: {
+              x: { 
+                  title: { display: true, text: 'Time of Day (24h)' },
+                  min: 0, 
+                  max: 24,
+                  grid: { color: '#e2e8f0' }
+              },
+              y: { 
+                  title: { display: true, text: 'Systolic Pressure (mmHg)' },
+                  grid: { color: '#e2e8f0' }
+              }
+          }
+      }
+  });
+
+  // 5. Yearly View: Area Chart
+  const yearlyAreaCtx = document.getElementById('yearlyAreaChart').getContext('2d');
+  new Chart(yearlyAreaCtx, {
+      type: 'line',
+      data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [
+              {
+                  label: 'Avg Systolic',
+                  data: [135, 132, 130, 128, 125, 126, 124, 122, 120, 118, 119, 117],
+                  borderColor: '#1E3A8A',
+                  backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                  fill: '+1',
+                  tension: 0.4
+              },
+              {
+                  label: 'Avg Diastolic',
+                  data: [85, 84, 83, 81, 80, 81, 79, 78, 76, 75, 76, 74],
+                  borderColor: '#14B8A6',
+                  backgroundColor: 'transparent',
+                  fill: false,
+                  tension: 0.4
+              }
+          ]
+      },
+      options: {
+          ...commonOptions,
+          scales: {
+              y: { 
+                  title: { display: true, text: 'Average Blood Pressure (mmHg)' },
+                  grid: { color: '#e2e8f0' }
+              },
+              x: {
+                  grid: { display: false }
+              }
+          }
+      }
+  });
+</script>
+</body>
+</html>

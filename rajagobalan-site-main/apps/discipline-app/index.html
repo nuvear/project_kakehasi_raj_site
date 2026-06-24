@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f0d14" />
+  <title>Raj Discipline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* M3-style semantic roles (dark) */
+      --md-sys-color-primary: #b69df8;
+      --md-sys-color-on-primary: #1e0b4f;
+      --md-sys-color-primary-container: #4a2d8a;
+      --md-sys-color-on-primary-container: #e6ddff;
+      --md-sys-color-secondary: #c7c0dc;
+      --md-sys-color-surface: #0f0d14;
+      --md-sys-color-surface-dim: #0c0a10;
+      --md-sys-color-surface-bright: #1a1624;
+      --md-sys-color-surface-container-lowest: #0a080e;
+      --md-sys-color-surface-container-low: #14111c;
+      --md-sys-color-surface-container: #1c1826;
+      --md-sys-color-surface-container-high: #242030;
+      --md-sys-color-surface-container-highest: #2e2a3a;
+      --md-sys-color-on-surface: #e6e1ec;
+      --md-sys-color-on-surface-variant: #b9b0c8;
+      --md-sys-color-outline: #4a4458;
+      --md-sys-color-outline-variant: #2e2a38;
+      --md-sys-color-tertiary: #7ddcff;
+      --md-sys-color-error: #ffb4ab;
+      --shape-corner-medium: 12px;
+      --shape-corner-large: 16px;
+      --shape-corner-full: 9999px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --ease-spring: cubic-bezier(0.34, 1.2, 0.64, 1);
+      --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--md-sys-color-on-surface);
+      background: var(--md-sys-color-surface-dim);
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% -30%, rgba(106, 76, 180, 0.35), transparent 55%),
+        radial-gradient(ellipse 80% 50% at 100% 50%, rgba(45, 90, 120, 0.12), transparent 45%),
+        radial-gradient(ellipse 60% 40% at 0% 100%, rgba(90, 50, 120, 0.1), transparent 40%);
+    }
+
+    .app-shell {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-4) var(--space-4) calc(var(--space-6) + env(safe-area-inset-bottom, 0));
+    }
+
+    /* —— Auth —— */
+    #auth {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-6) var(--space-4);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .auth-card {
+      background: var(--md-sys-color-surface-container-high);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--shape-corner-large);
+      padding: var(--space-6) var(--space-5);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .auth-brand {
+      font-family: "Outfit", sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .auth-card h1 {
+      font-family: "Outfit", sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--space-1);
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .auth-lead {
+      font-size: 14px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin: 0 0 var(--space-5);
+      line-height: 1.5;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .field-label:first-of-type { margin-top: 0; }
+
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--shape-corner-medium);
+      border: 1px solid var(--md-sys-color-outline);
+      background: var(--md-sys-color-surface-container-lowest);
+      color: var(--md-sys-color-on-surface);
+      font-size: 16px;
+      font-family: inherit;
+      transition: border-color 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard);
+    }
+
+    input[type="email"]::placeholder, input[type="password"]::placeholder {
+      color: var(--md-sys-color-on-surface-variant);
+      opacity: 0.7;
+    }
+
+    input[type="email"]:focus, input[type="password"]:focus {
+      outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 3px rgba(182, 157, 248, 0.25);
+    }
+
+    button.btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 20px;
+      margin-top: var(--space-5);
+      border: none;
+      border-radius: var(--shape-corner-full);
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      transition: transform 0.2s var(--ease-spring), filter 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard);
+      box-shadow: 0 2px 8px rgba(106, 76, 180, 0.35);
+    }
+
+    button.btn:hover { filter: brightness(1.08); }
+    button.btn:active { transform: scale(0.98); }
+    button.btn:focus-visible {
+      outline: 2px solid var(--md-sys-color-tertiary);
+      outline-offset: 3px;
+    }
+
+    button.btn.secondary {
+      background: var(--md-sys-color-surface-container-highest);
+      color: var(--md-sys-color-on-surface);
+      box-shadow: none;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    button.btn.secondary:hover { filter: brightness(1.08); }
+
+    .err {
+      color: var(--md-sys-color-error);
+      font-size: 13px;
+      margin-top: var(--space-3);
+      min-height: 1.25em;
+    }
+
+    /* —— App shell —— */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+
+    .logo-mark {
+      font-family: "Outfit", sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-primary);
+    }
+
+    .today-line {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-on-surface-variant);
+      text-align: center;
+      margin: var(--space-4) 0 var(--space-3);
+    }
+
+    .hero-score {
+      text-align: center;
+      padding: var(--space-5) var(--space-4);
+      background: linear-gradient(165deg, var(--md-sys-color-surface-container-high) 0%, var(--md-sys-color-surface-container) 100%);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--shape-corner-large);
+      margin-bottom: var(--space-4);
+    }
+
+    .score {
+      font-family: "Outfit", sans-serif;
+      font-weight: 800;
+      font-size: clamp(52px, 16vw, 72px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #faf8ff 0%, var(--md-sys-color-primary) 55%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 2px 20px rgba(182, 157, 248, 0.25));
+    }
+
+    .score-caption {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: var(--space-4);
+    }
+
+    .sub {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--md-sys-color-on-primary-container);
+      margin-top: var(--space-2);
+    }
+
+    .reserve {
+      font-size: 13px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-top: var(--space-3);
+      line-height: 1.5;
+    }
+
+    .progress-wrap {
+      margin: 0 0 var(--space-2);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: var(--space-2);
+    }
+
+    .progress-label strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
+
+    .progress {
+      height: 8px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: var(--shape-corner-full);
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      border-radius: var(--shape-corner-full);
+      background: linear-gradient(90deg, #5e3bc5, var(--md-sys-color-primary), #c4b5fd);
+      transition: width 0.35s var(--ease-spring);
+    }
+
+    .section-title {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-on-surface-variant);
+      margin: var(--space-5) 0 var(--space-3);
+    }
+
+    .container { padding: 0; }
+
+    .activity-card {
+      background: var(--md-sys-color-surface-container-low);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--shape-corner-medium);
+      padding: var(--space-4);
+      margin-bottom: var(--space-3);
+      transition: border-color 0.2s var(--ease-standard), background 0.2s var(--ease-standard);
+    }
+
+    .activity-card:focus-within {
+      border-color: var(--md-sys-color-outline);
+      background: var(--md-sys-color-surface-container);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .row span:last-child {
+      font-variant-numeric: tabular-nums;
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: var(--space-3);
+      height: 40px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: var(--shape-corner-full);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--md-sys-color-primary);
+      margin-top: -11px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      border: 2px solid var(--md-sys-color-surface-container-high);
+      transition: transform 0.15s var(--ease-spring);
+    }
+
+    input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.08); }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: var(--shape-corner-full);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--md-sys-color-primary);
+      border: 2px solid var(--md-sys-color-surface-container-high);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .card {
+      background: var(--md-sys-color-surface-container-high);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--shape-corner-large);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-4);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+
+    .card-header b {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--shape-corner-full);
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    #ai {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      font-size: 11px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: var(--space-3);
+      justify-content: center;
+    }
+
+    .cal-legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: var(--space-2) 0;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      min-height: 32px;
+      max-height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+      transition: transform 0.15s var(--ease-spring);
+    }
+
+    .day:hover { transform: scale(1.04); }
+
+    .green { background: #22c55e; }
+    .yellow { background: #eab308; }
+    .red { background: #ef4444; }
+    .grey { background: #3f3f46; }
+
+    .footer {
+      text-align: center;
+      padding: var(--space-5) 0 var(--space-2);
+      margin-top: var(--space-2);
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .footer a {
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--md-sys-color-primary); }
+
+    #configBanner {
+      display: none;
+      background: #422006;
+      color: #fdba74;
+      padding: var(--space-3);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    #configBanner.show { display: block; }
+
+    #snackbar {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0));
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--md-sys-color-surface-container-highest);
+      color: var(--md-sys-color-on-surface);
+      padding: 12px 20px;
+      border-radius: var(--shape-corner-full);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      z-index: 100;
+      transition: transform 0.35s var(--ease-spring), opacity 0.25s var(--ease-standard);
+    }
+
+    #snackbar.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+<script>
+(function () {
+  var h = location.hostname;
+  if (h === "rajagobalan.com") {
+    location.replace("https://www.rajagobalan.com" + location.pathname + location.search + location.hash);
+  }
+})();
+</script>
+<div id="configBanner" class="banner">Configure <code>firebase-config.js</code> with your Firebase Web config, then redeploy.</div>
+
+<div id="auth">
+  <div class="auth-card">
+    <div class="auth-brand">Raj</div>
+    <h1>Discipline</h1>
+    <p class="auth-lead">Sign in to sync your day across devices. Your data stays in your account.</p>
+    <label class="field-label" for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" placeholder="you@example.com" />
+    <label class="field-label" for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+    <button type="button" class="btn" id="btnLogin">Sign in</button>
+    <p class="err" id="authErr" aria-live="polite"></p>
+  </div>
+</div>
+
+<div id="app" class="app-shell" style="display: none" role="main">
+  <div class="top-bar">
+    <span class="logo-mark">Discipline</span>
+  </div>
+  <p class="today-line" id="todayLine"></p>
+
+  <section class="hero-score" aria-labelledby="scoreLabel">
+    <div class="score" id="score" aria-live="polite">0</div>
+    <div class="score-caption" id="scoreLabel">Today’s points (100 @ 19h)</div>
+    <div class="sub" id="streak">🔥 0 day streak</div>
+    <div class="reserve" id="reserve"></div>
+  </section>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>19h = 100 pts · bar <strong id="basePct">0%</strong></span>
+      <span id="plannedLine">0h × 100÷19</span>
+    </div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+      <div class="bar" id="bar"></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Today’s activities</h2>
+  <div class="container" id="activities"></div>
+
+  <div class="card">
+    <div class="card-header">
+      <b>AI insight</b>
+      <span class="badge">Coach</span>
+    </div>
+    <div id="ai">—</div>
+  </div>
+
+  <h2 class="section-title">Last 21 days</h2>
+  <div class="cal-legend" aria-hidden="true">
+    <span><i class="dot" style="background:#22c55e"></i>80–100</span>
+    <span><i class="dot" style="background:#eab308"></i>50–79</span>
+    <span><i class="dot" style="background:#ef4444"></i>&lt;50</span>
+    <span><i class="dot" style="background:#3f3f46"></i>No log</span>
+  </div>
+  <div class="calendar" id="calendar" role="grid" aria-label="Last 21 days discipline"></div>
+
+  <div style="text-align: center; padding-top: var(--space-2)">
+    <button type="button" class="btn secondary" id="btnLogout">Sign out</button>
+  </div>
+
+  <div class="footer"><p><a href="/">Home</a></p></div>
+</div>
+
+<div id="snackbar" role="status" aria-live="polite">Saved</div>
+
+<script type="module">
+import { firebaseConfig } from "./firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-functions.js";
+
+const STREAK_THRESHOLD = 80;
+const FX_REGION = "us-central1";
+
+/**
+ * Points (linear on total logged hours)
+ * ─────────────────────────────────────
+ * totalHours = sum of all sliders (raw hours logged).
+ * 19h → 100 pts  ⇒  pts/h = 100/19  ⇒  score = round(totalHours × 100/19).
+ * Examples: 0h → 0 · 1h → round(100/19) · 19h → 100 · 24h → round(24×100/19).
+ */
+const HOURS_FOR_100 = 19;
+const POINTS_PER_HOUR = 100 / HOURS_FOR_100;
+
+const activities = [
+  { key: "learning", label: "Learning", max: 2 },
+  { key: "physical", label: "Physical", max: 2 },
+  { key: "meditation", label: "Meditation", max: 0.5 },
+  { key: "skin", label: "Skin", max: 0.5 },
+  { key: "sleep", label: "Sleep", max: 6 },
+  { key: "innuir", label: "Innuir Work", max: 8 }
+];
+
+let app, auth, db, fx;
+let user = null;
+let todayKey = "";
+let state = { activities: {} };
+let saveTimer = null;
+
+function localDateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function sameLocalDay(a, b) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function showSnackbar() {
+  const el = document.getElementById("snackbar");
+  if (!el) return;
+  el.classList.add("show");
+  clearTimeout(showSnackbar._t);
+  showSnackbar._t = setTimeout(() => el.classList.remove("show"), 1600);
+}
+
+function computeScoreFromActivities(activityState) {
+  let actual = 0;
+  let planned = 0;
+  activities.forEach((a) => {
+    let v = parseFloat(activityState[a.key] || 0);
+    if (isNaN(v) || v < 0) v = 0;
+    actual += v;
+    planned += Math.min(v, a.max);
+  });
+  const reserve = 24 - actual;
+  const score = Math.round(actual * POINTS_PER_HOUR);
+  return { planned, actual, reserve, score };
+}
+
+function calc() {
+  const o = computeScoreFromActivities(state.activities);
+  state.score = o.score;
+  state.reserve = o.reserve;
+  state.baseScore = o.score;
+
+  document.getElementById("score").textContent = String(o.score);
+  const barPct = Math.min(100, Math.round((o.actual / HOURS_FOR_100) * 100));
+  document.getElementById("bar").style.width = `${barPct}%`;
+  const pb = document.getElementById("progressBar");
+  if (pb) {
+    pb.setAttribute("aria-valuenow", String(barPct));
+    pb.setAttribute(
+      "aria-valuetext",
+      `${o.score} points · ${o.actual.toFixed(1)}h logged (${barPct}% of ${HOURS_FOR_100}h bar)`
+    );
+  }
+  const bpEl = document.getElementById("basePct");
+  if (bpEl) bpEl.textContent = `${barPct}%`;
+  const plEl = document.getElementById("plannedLine");
+  if (plEl) {
+    plEl.textContent = `${o.actual.toFixed(1)}h × 100÷19 → ${o.score} pts`;
+  }
+
+  document.getElementById("reserve").innerHTML =
+    `<span>${o.actual.toFixed(1)}h total · ${o.planned.toFixed(1)}h within caps</span><br/>` +
+    (o.reserve > 0
+      ? `🟢 ${o.reserve.toFixed(1)}h left in 24h day`
+      : o.reserve === 0
+        ? "⚪ 24h day fully allocated"
+        : `🔴 ${Math.abs(o.reserve).toFixed(1)}h over 24h (check sliders)`);
+}
+
+async function loadToday() {
+  const id = `${user.uid}_${todayKey}`;
+  const snap = await getDoc(doc(db, "daily_logs", id));
+  if (snap.exists()) {
+    const d = snap.data();
+    state = {
+      activities: { ...(d.activities || {}) },
+      score: d.score,
+      reserve: d.reserve
+    };
+  } else {
+    state = { activities: {}, score: 0, reserve: 24 };
+  }
+  calc();
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    persist().catch((e) => console.error(e));
+  }, 400);
+}
+
+async function persist() {
+  if (!user) return;
+  const { baseScore, score, reserve } = state;
+  const payload = {
+    uid: user.uid,
+    date: todayKey,
+    activities: { ...state.activities },
+    score,
+    reserve,
+    baseScore: typeof baseScore === "number" ? baseScore : 0,
+    updatedAt: new Date().toISOString()
+  };
+  await setDoc(doc(db, "daily_logs", `${user.uid}_${todayKey}`), payload, { merge: true });
+  showSnackbar();
+}
+
+async function loadStreak() {
+  const uid = user.uid;
+  let streak = 0;
+  const now = new Date();
+  let d = new Date(now);
+  let guard = 0;
+  while (guard++ < 400) {
+    const key = localDateKey(d);
+    const snap = await getDoc(doc(db, "daily_logs", `${uid}_${key}`));
+    if (!snap.exists()) {
+      if (sameLocalDay(d, now)) {
+        d.setDate(d.getDate() - 1);
+        continue;
+      }
+      break;
+    }
+    const sc = typeof snap.data().score === "number" ? snap.data().score : 0;
+    if (sc < STREAK_THRESHOLD) break;
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+  document.getElementById("streak").textContent =
+    `🔥 ${streak} day streak` + (streak === 1 ? "" : "s") + ` (≥${STREAK_THRESHOLD})`;
+}
+
+async function loadCalendar() {
+  const uid = user.uid;
+  const cal = document.getElementById("calendar");
+  cal.innerHTML = "";
+  const today = new Date();
+  const keys = [];
+  for (let i = 20; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    keys.push(localDateKey(d));
+  }
+  const snaps = await Promise.all(keys.map((k) => getDoc(doc(db, "daily_logs", `${uid}_${k}`))));
+  snaps.forEach((snap, idx) => {
+    let cls = "day grey";
+    let s = null;
+    if (snap.exists()) {
+      s = typeof snap.data().score === "number" ? snap.data().score : 0;
+      if (s >= 80) cls = "day green";
+      else if (s >= 50) cls = "day yellow";
+      else cls = "day red";
+    }
+    const div = document.createElement("div");
+    div.className = cls;
+    const label = keys[idx] + (s !== null ? ` — ${s}` : " — no log");
+    div.title = label;
+    div.setAttribute("aria-label", label);
+    div.setAttribute("role", "gridcell");
+    cal.appendChild(div);
+  });
+}
+
+async function loadAI() {
+  const el = document.getElementById("ai");
+  if (!fx || !user) {
+    el.textContent = "—";
+    return;
+  }
+  el.textContent = "Loading insight…";
+  try {
+    const fn = httpsCallable(fx, "aiCoach");
+    const res = await fn({});
+    el.textContent = res.data && res.data.message ? res.data.message : "Stay consistent.";
+  } catch (e) {
+    console.error(e);
+    el.textContent = "Coach unavailable. Stay consistent.";
+  }
+}
+
+function renderActivities() {
+  const c = document.getElementById("activities");
+  c.innerHTML = "";
+  activities.forEach((a) => {
+    const v = parseFloat(state.activities[a.key] || 0) || 0;
+    const wrap = document.createElement("div");
+    wrap.className = "activity-card";
+    const top = document.createElement("div");
+    top.className = "row";
+    top.innerHTML = `<span>${a.label}</span><span>${v} / ${a.max} hrs</span>`;
+    const range = document.createElement("input");
+    range.type = "range";
+    range.min = "0";
+    range.max = String(a.max + 4);
+    range.step = "0.5";
+    range.value = String(v);
+    range.setAttribute("aria-label", `${a.label} hours`);
+    range.addEventListener("input", () => {
+      const num = Math.max(0, parseFloat(range.value) || 0);
+      state.activities[a.key] = num;
+      top.innerHTML = `<span>${a.label}</span><span>${num} / ${a.max} hrs</span>`;
+      calc();
+      scheduleSave();
+    });
+    wrap.appendChild(top);
+    wrap.appendChild(range);
+    c.appendChild(wrap);
+  });
+}
+
+async function boot() {
+  todayKey = localDateKey(new Date());
+  const now = new Date();
+  document.getElementById("todayLine").textContent = now.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  await loadToday();
+  renderActivities();
+  await loadStreak();
+  await loadCalendar();
+  await loadAI();
+}
+
+function initFirebase() {
+  if (!firebaseConfig.apiKey || firebaseConfig.apiKey.indexOf("REPLACE") !== -1) {
+    document.getElementById("configBanner").classList.add("show");
+  }
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  fx = getFunctions(app, FX_REGION);
+}
+
+initFirebase();
+
+document.getElementById("btnLogin").onclick = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const errEl = document.getElementById("authErr");
+  errEl.textContent = "";
+  if (!email || !password) {
+    errEl.textContent = "Enter email and password.";
+    return;
+  }
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    errEl.textContent = e.message || String(e);
+  }
+};
+
+document.getElementById("btnLogout").onclick = () => signOut(auth);
+
+onAuthStateChanged(auth, async (u) => {
+  const authEl = document.getElementById("auth");
+  const appEl = document.getElementById("app");
+  if (!u) {
+    user = null;
+    authEl.style.display = "block";
+    appEl.style.display = "none";
+    return;
+  }
+  user = u;
+  authEl.style.display = "none";
+  appEl.style.display = "block";
+  try {
+    await boot();
+  } catch (e) {
+    console.error(e);
+    const ai = document.getElementById("ai");
+    if (ai) ai.textContent = "Could not load data. Check console / Firestore rules.";
+  }
+});
+</script>
+</body>
+</html>

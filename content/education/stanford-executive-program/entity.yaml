@@ -1,0 +1,23 @@
+id: education.stanford-executive-program
+type: education
+canonical_slug: stanford-executive-program
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - institution_hero
+  - media_gallery
+  - timeline
+  - reflection_cards
+institution:
+  id: institution.stanford-gsb
+  official_name: Stanford University Graduate School of Business
+programme:
+  official_name: Stanford Executive Program
+start_date: 2025-10
+end_date: 2026-02

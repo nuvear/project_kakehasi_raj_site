@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /** Foodie AI — per-user meal history (anonymous or signed-in). */
+    match /artifacts/{appId}/users/{userId}/mealHistory/{mealId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasAll(["name", "weight", "nutrients", "timestamp"]);
+      allow update: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /daily_logs/{docId} {
+      /* Allow get() when doc is missing (first log of the day); otherwise owner-only. */
+      allow read: if request.auth != null && (
+        !exists(/databases/$(database)/documents/daily_logs/$(docId)) ||
+        request.auth.uid == resource.data.uid
+      );
+
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasAll(['uid', 'date', 'activities']);
+
+      allow update, delete: if request.auth != null
+        && resource.data.uid == request.auth.uid;
+    }
+  }
+}

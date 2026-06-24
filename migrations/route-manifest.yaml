@@ -1,0 +1,122 @@
+# Project Kakehashi — Route Migration Manifest
+# Maps legacy www.rajagobalan.com routes to the new bilingual /en/ and /ja/ paths
+
+version: 1.0.0
+routes:
+  - source: "/"
+    target_en: "/en"
+    target_ja: "/ja"
+    type: "rewrite"
+    status: "active"
+    notes: "New interactive bilingual profile homepage replacing simple static resume."
+
+  - source: "/blogs"
+    target_en: "/en/insights"
+    target_ja: "/ja/insights"
+    type: "redirect_301"
+    status: "active"
+
+  - source: "/blogs.html"
+    target_en: "/en/insights"
+    target_ja: "/ja/insights"
+    type: "redirect_301"
+    status: "active"
+
+  - source: "/framework.html"
+    target_en: "/en/frameworks/enterprise-ai-transformation"
+    target_ja: "/ja/frameworks/enterprise-ai-transformation"
+    type: "rewrite"
+    status: "active"
+    notes: "Interactive React component for AI transformation framework."
+
+  - source: "/enterprise-ai-reference-guide.html"
+    target_en: "/en/insights/enterprise-ai-reference-guide"
+    target_ja: "/ja/insights/enterprise-ai-reference-guide"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/singapore-ai-strategy-status.html"
+    target_en: "/en/insights/singapore-ai-strategy"
+    target_ja: "/ja/insights/singapore-ai-strategy"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/singapore-ai-strategy-infographics.html"
+    target_en: "/en/insights/singapore-ai-strategy#infographics"
+    target_ja: "/ja/insights/singapore-ai-strategy#infographics"
+    type: "redirect_301"
+    status: "active"
+    notes: "Merge infographic page into parent article."
+
+  - source: "/responsible-ai-governance-adoption.html"
+    target_en: "/en/insights/responsible-ai-governance"
+    target_ja: "/ja/insights/responsible-ai-governance"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/responsible-ai-infographic.html"
+    target_en: "/en/insights/responsible-ai-governance#infographic"
+    target_ja: "/ja/insights/responsible-ai-governance#infographic"
+    type: "redirect_301"
+    status: "active"
+
+  - source: "/ai-executive-talking-points.html"
+    target_en: "/en/insights/ai-executive-talking-points"
+    target_ja: "/ja/insights/ai-executive-talking-points"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/ai-talking-points-infographic.html"
+    target_en: "/en/insights/ai-executive-talking-points#infographic"
+    target_ja: "/ja/insights/ai-executive-talking-points#infographic"
+    type: "redirect_301"
+    status: "active"
+
+  - source: "/blood-pressure-app-design.html"
+    target_en: "/en/insights/blood-pressure-app-design"
+    target_ja: "/ja/insights/blood-pressure-app-design"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/bp-chart-infographic.html"
+    target_en: "/en/insights/blood-pressure-app-design#chart"
+    target_ja: "/ja/insights/blood-pressure-app-design#chart"
+    type: "redirect_301"
+    status: "active"
+
+  - source: "/bp.html"
+    target_en: "/en/labs/blood-pressure-chart"
+    target_ja: "/ja/labs/blood-pressure-chart"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/ai-transformation-command-center.html"
+    target_en: "/en/apps/ai-transformation-command-center"
+    target_ja: "/ja/apps/ai-transformation-command-center"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/deployment-guide.html"
+    target_en: "/en/apps/ai-transformation-command-center/docs/deployment"
+    target_ja: "/ja/apps/ai-transformation-command-center/docs/deployment"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/foodie/"
+    target_en: "/en/apps/foodie"
+    target_ja: "/ja/apps/foodie"
+    type: "rewrite"
+    status: "active"
+
+  - source: "/discipline/"
+    target_en: "/en/apps/discipline"
+    target_ja: "/ja/apps/discipline"
+    type: "rewrite"
+    status: "active"
+
+  - source: "healthkitsync.rajagobalan.com"
+    target_en: "healthkitsync.rajagobalan.com"
+    target_ja: "healthkitsync.rajagobalan.com"
+    type: "subdomain"
+    status: "active"
+    notes: "Keep as separate subdomain routing or proxy to Next.js under /apps/healthkitsync."

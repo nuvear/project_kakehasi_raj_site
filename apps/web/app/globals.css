@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Project Kakehashi — Core Design Tokens & Global CSS (M3 Expressive)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ═══ LIGHT THEME ═══ */
+  --color-primary: #0284c7; /* Sky-600 */
+  --color-on-primary: #ffffff;
+  --color-primary-container: #e0f2fe; /* Sky-100 */
+  --color-on-primary-container: #0c4a6e; /* Sky-900 */
+
+  --color-secondary: #0d9488; /* Teal-600 */
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ccfbf1; /* Teal-100 */
+  --color-on-secondary-container: #115e59; /* Teal-800 */
+
+  --color-tertiary: #6366f1; /* Indigo-500 */
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #e0e7ff; /* Indigo-100 */
+  --color-on-tertiary-container: #312e81; /* Indigo-900 */
+
+  --color-error: #ef4444;
+  --color-on-error: #ffffff;
+  --color-error-container: #fee2e2;
+  --color-on-error-container: #7f1d1d;
+
+  --color-background: #f8fafc; /* Slate-50 */
+  --color-on-background: #0f172a; /* Slate-900 */
+  --color-surface: #ffffff;
+  --color-on-surface: #0f172a;
+  --color-surface-variant: #f1f5f9; /* Slate-100 */
+  --color-on-surface-variant: #64748b; /* Slate-500 */
+
+  --color-outline: #94a3b8;
+  --color-outline-variant: #cbd5e1;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: 16px;
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+
+  /* Fonts */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, Cambria, serif;
+
+  /* Shapes */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* ═══ DARK THEME ═══ */
+    --color-primary: #38bdf8; /* Sky-400 */
+    --color-on-primary: #0c4a6e;
+    --color-primary-container: #075985; /* Sky-800 */
+    --color-on-primary-container: #e0f2fe;
+
+    --color-secondary: #2dd4bf; /* Teal-400 */
+    --color-on-secondary: #134e4a;
+    --color-secondary-container: #115e59;
+    --color-on-secondary-container: #ccfbf1;
+
+    --color-tertiary: #818cf8; /* Indigo-400 */
+    --color-on-tertiary: #312e81;
+    --color-tertiary-container: #3730a3;
+    --color-on-tertiary-container: #e0e7ff;
+
+    --color-background: #0b0f19; /* Deep Slate-950 */
+    --color-on-background: #f8fafc;
+    --color-surface: #111827; /* Gray-900 */
+    --color-on-surface: #f8fafc;
+    --color-surface-variant: #1f2937; /* Gray-800 */
+    --color-on-surface-variant: #9ca3af;
+
+    --color-outline: #4b5563;
+    --color-outline-variant: #374151;
+
+    --glass-bg: rgba(17, 24, 39, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Resets */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Helper Glassmorphism Utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg, 16px);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), 
+              box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.3s ease;
+}
+
+/* Hover Interaction elevation */
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* English Typography Presets */
+:lang(en) {
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, Cambria, serif;
+  --line-height-body: 1.5;
+  --letter-spacing-body: -0.01em;
+}
+
+/* Japanese Typography Presets (Optimized for readability) */
+:lang(ja) {
+  --font-sans: var(--font-inter), "BIZ UDPGothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --font-serif: var(--font-playfair), "BIZ UDMincho", "Hiragino Mincho ProN", serif;
+  --line-height-body: 1.75;      /* Increased line-height prevents Japanese characters from feeling crowded */
+  --letter-spacing-body: 0.03em; /* Slight letter-spacing improvement for Japanese readability */
+  word-break: keep-all;          /* Prevents awkward mid-word breaks in Japanese characters */
+  overflow-wrap: break-word;
+}
+
+/* Apply variables */
+html:lang(en) body {
+  font-family: var(--font-sans);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+html:lang(ja) body {
+  font-family: var(--font-sans);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}

@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+vite.config.js.timestamp-*.mjs
+
+# Firebase
+.firebase/
+
+# Environment
+.env
+.env.local
+.env.*.local
+# Cloud Functions local secrets (GEMINI_API_KEY, USDA_API_KEY)
+functions/.env
+functions/.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+firebase-debug.log
+firebase-debug.*.log
+
+# HealthKitSync build artefacts — built by CI, never committed
+healthkitsync/

@@ -1,0 +1,22 @@
+id: education.mit-coo-program
+type: education
+canonical_slug: mit-coo-program
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - institution_hero
+  - timeline
+  - reflection_cards
+institution:
+  id: institution.mit
+  official_name: Massachusetts Institute of Technology
+programme:
+  official_name: Advanced Certificate for Executives (MIT Sloan)
+start_date: 2023-01
+end_date: 2023-12

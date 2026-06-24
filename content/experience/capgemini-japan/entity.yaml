@@ -1,0 +1,21 @@
+id: experience.capgemini-japan
+type: experience
+canonical_slug: capgemini-japan
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - company_hero
+  - timeline
+  - related_experience
+company:
+  id: company.capgemini
+  official_name: Capgemini Japan K.K.
+role: VP & Head of Digital Engineering (APAC & Japan)
+start_date: 2020-03
+end_date: 2024-05

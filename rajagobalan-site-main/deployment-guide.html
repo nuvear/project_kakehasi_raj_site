@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Transformation Deployment Guide — Rajkumar Rajagobalan</title>
+  <meta name="description" content="Official deployment guide for the AI Transformation Command Center (Enterprise Edition v7.0). Architecture, prerequisites, and production checklist.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230A84FF'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>RR</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/m3-tokens.css">
+  <link rel="stylesheet" href="/layout.css?v=4">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* Specific styles for technical documentation */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+    .tech-table th, .tech-table td {
+      border: 1px solid var(--md-sys-color-outline-variant);
+      padding: 12px 16px;
+      text-align: left;
+    }
+    .tech-table th {
+      background-color: var(--md-sys-color-surface-container);
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+    }
+    .tech-table tr:nth-child(even) {
+      background-color: var(--md-sys-color-surface-container-low);
+    }
+    
+    code {
+      background-color: var(--md-sys-color-surface-container-highest);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+      font-size: 0.85em;
+      color: var(--md-sys-color-primary);
+    }
+    
+    pre {
+      background-color: #1e293b; /* Slate-800 */
+      color: #f8fafc; /* Slate-50 */
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-internal {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">RR</div>
+      Rajkumar Rajagobalan
+    </a>
+    <button class="menu-toggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/blogs.html" class="nav-link active">Blogs</a></li>
+      <li><a href="/foodie/" class="nav-link">Foodie</a></li>
+      <li><a href="/#about" class="nav-link">About</a></li>
+      <li><a href="/#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="docs-layout">
+  <!-- LEFT SIDEBAR: Global Navigation -->
+  <aside class="docs-sidebar docs-sidebar-left">
+    <nav class="docs-nav-tree">
+      <ul>
+        <li><a href="/" class="docs-nav-item">Home</a></li>
+        <li>
+          <div class="docs-nav-header">Blogs</div>
+          <ul>
+            <li>
+              <a href="/singapore-ai-strategy-status.html" class="docs-nav-item">Singapore AI Strategy</a>
+              <ul class="docs-nav-group">
+                <li><a href="/singapore-ai-strategy-infographics.html" class="docs-nav-item">Infographics</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/responsible-ai-governance-adoption.html" class="docs-nav-item">Responsible AI</a>
+              <ul class="docs-nav-group">
+                <li><a href="/responsible-ai-infographic.html" class="docs-nav-item">Infographics</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/ai-executive-talking-points.html" class="docs-nav-item">AI Executive Talking Points</a>
+              <ul class="docs-nav-group">
+                <li><a href="/ai-talking-points-infographic.html" class="docs-nav-item">Infographics</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/blood-pressure-app-design.html" class="docs-nav-item">Blood Pressure App Design</a>
+              <ul class="docs-nav-group">
+                <li><a href="/bp-chart-infographic.html" class="docs-nav-item">Infographics</a></li>
+                <li><a href="/bp.html" class="docs-nav-item">BP_Chart</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <div class="docs-nav-header">Resources</div>
+          <ul>
+             <li><a href="/framework.html" class="docs-nav-item">Interactive Framework</a></li>
+             <li><a href="/enterprise-ai-reference-guide.html" class="docs-nav-item">Reference Guide</a></li>
+             <li><a href="/deployment-guide.html" class="docs-nav-item active">Deployment Guide</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="docs-content">
+    <div style="margin-bottom: 24px;">
+      <span class="status-badge status-internal">Internal — Confidential</span>
+      <span style="font-size: 0.875rem; color: var(--md-sys-color-on-surface-secondary); margin-left: 12px;">March 8, 2026</span>
+    </div>
+    
+    <h1>AI Transformation Command Center — Deployment Guide</h1>
+    <p class="subtitle">Version 7.0 — Enterprise Edition. A comprehensive guide for DevOps and Deployment teams.</p>
+
+    <h2 id="overview">1. Solution Overview</h2>
+    <p>The AI Transformation Command Center is a full-stack platform that helps enterprise organizations discover, assess, and manage their AI transformation initiatives. It consists of three containerized services orchestrated via Docker Compose.</p>
+    
+    <h3>1.1 Architecture Summary</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Technology</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend</strong></td>
+          <td>Next.js 14 + React 18 + Tailwind</td>
+          <td>Dashboard, 8 module UIs with Chart.js visualizations</td>
+        </tr>
+        <tr>
+          <td><strong>Backend</strong></td>
+          <td>Python 3.11 + FastAPI + SQLAlchemy</td>
+          <td>REST API with 14 endpoints, OpenAI integration, PPTX export</td>
+        </tr>
+        <tr>
+          <td><strong>Database</strong></td>
+          <td>PostgreSQL 16 (Alpine)</td>
+          <td>9 tables with UUID PKs, seeded demo data, health checks</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>1.2 Default Port Assignments</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Port</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Frontend</td>
+          <td>3000</td>
+          <td>http://localhost:3000</td>
+        </tr>
+        <tr>
+          <td>Backend API</td>
+          <td>8000</td>
+          <td>http://localhost:8000</td>
+        </tr>
+        <tr>
+          <td>API Docs</td>
+          <td>8000</td>
+          <td>http://localhost:8000/docs</td>
+        </tr>
+        <tr>
+          <td>PostgreSQL</td>
+          <td>5432</td>
+          <td>localhost:5432</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="prerequisites">2. Prerequisites</h2>
+    <p>Ensure the following tools are installed on the target deployment machine before proceeding.</p>
+    
+    <h3>2.1 Required Software</h3>
+    <ul>
+      <li><strong>Docker Engine:</strong> v24.0+ (Verify: <code>docker --version</code>)</li>
+      <li><strong>Docker Compose:</strong> v2.20+ (Verify: <code>docker compose version</code>)</li>
+      <li><strong>Git:</strong> v2.30+ (Verify: <code>git --version</code>)</li>
+    </ul>
+
+    <h3>2.2 System Requirements</h3>
+    <ul>
+      <li><strong>CPU:</strong> 2+ cores (4 recommended)</li>
+      <li><strong>RAM:</strong> 4 GB minimum (8 GB recommended)</li>
+      <li><strong>Disk:</strong> 5 GB free space for images and database volume</li>
+      <li><strong>Network:</strong> Outbound internet access required for OpenAI API calls (if AI features enabled)</li>
+    </ul>
+
+    <h3>2.3 Credentials Required</h3>
+    <ul>
+      <li><strong>OpenAI API Key (Optional):</strong> Enables AI-powered Discovery Engine, Architecture Generator, and Roadmap suggestions. Without it, the platform falls back to rule-based logic.</li>
+      <li><strong>PostgreSQL Credentials:</strong> Preconfigured in <code>docker-compose.yml</code> (admin/changeme). <strong>Change these for production.</strong></li>
+    </ul>
+
+    <h2 id="structure">3. Project Structure</h2>
+    <pre><code>enterprise-ai-platform/
+├── docker-compose.yml        # Orchestration (3 services)
+├── .env.example              # Environment variable template
+├── database/
+│   └── init.sql              # Schema + seed data (auto-runs on first boot)
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt      # Python dependencies
+│   └── app/
+│       ├── main.py           # FastAPI entrypoint
+│       ├── config.py         # Env-based settings
+│       ├── database.py       # SQLAlchemy setup
+│       ├── models/           # ORM models (9 tables)
+│       ├── schemas/          # Pydantic request/response models
+│       ├── services/         # AI service (OpenAI + fallbacks)
+│       └── api/              # Route handlers (9 routers)
+└── frontend/
+    ├── Dockerfile
+    ├── package.json          # Node dependencies
+    └── src/
+        ├── pages/            # 9 page routes + _app/_document
+        ├── components/       # 15 React components
+        └── utils/            # API client + constants</code></pre>
+
+    <h2 id="deployment">4. Deployment Steps (Dev/Staging)</h2>
+    
+    <h3>Step 1: Clone the Repository</h3>
+    <pre><code>git clone &lt;repository-url&gt; enterprise-ai-platform
+cd enterprise-ai-platform</code></pre>
+
+    <h3>Step 2: Configure Environment Variables</h3>
+    <p>Copy the example environment file:</p>
+    <pre><code>cp .env.example .env</code></pre>
+    <p>Open <code>.env</code> and configure:</p>
+    <ul>
+        <li><code>OPENAI_API_KEY</code>: (Optional) <code>sk-proj-...</code></li>
+        <li><code>SECRET_KEY</code>: Generate with <code>openssl rand -hex 32</code></li>
+        <li><code>CORS_ORIGINS</code>: <code>http://localhost:3000</code></li>
+    </ul>
+
+    <h3>Step 3: Build and Start</h3>
+    <pre><code>docker compose up --build -d</code></pre>
+    <p>This builds images, starts PostgreSQL, runs <code>init.sql</code>, and brings up services. First build takes ~2-3 minutes.</p>
+
+    <h3>Step 4: Verify Deployment</h3>
+    <pre><code># Check container status
+docker compose ps
+
+# Test health endpoint
+curl http://localhost:8000/api/health
+# Expected: {"status":"ok","version":"7.0"}
+
+# Test Database
+docker exec -it enterprise-ai-platform-db-1 psql -U admin -d ai_platform -c "SELECT count(*) FROM ai_projects;"
+# Expected: 8</code></pre>
+
+    <h2 id="production">6. Production Checklist</h2>
+    
+    <h3>6.1 Security Hardening</h3>
+    <ul>
+        <li><strong>Change DB Credentials:</strong> Replace <code>admin/changeme</code> with strong credentials via secrets.</li>
+        <li><strong>Secure <code>SECRET_KEY</code>:</strong> Never use defaults.</li>
+        <li><strong>Restrict CORS:</strong> Set to production domain (e.g., <code>https://ai-platform.yourcompany.com</code>).</li>
+        <li><strong>Close Ports:</strong> Remove port 5432 mapping for the DB service.</li>
+        <li><strong>Disable Debug:</strong> Remove <code>--reload</code> from backend. Run <code>npm run build && npm start</code> for frontend.</li>
+    </ul>
+
+    <h3>6.2 Production Overrides</h3>
+    <p>Create <code>docker-compose.prod.yml</code> to enforce security and performance settings (workers, no volumes, secrets).</p>
+    <pre><code>docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d</code></pre>
+
+    <h2 id="monitoring">7. Monitoring & Logging</h2>
+    <h3>Viewing Logs</h3>
+    <pre><code>docker compose logs -f          # All services
+docker compose logs -f backend  # Backend only</code></pre>
+
+    <h3>Health Monitoring</h3>
+    <p>Poll <code>GET /api/health</code>. Alert on non-200 responses or timeouts > 5s.</p>
+
+    <h2 id="troubleshooting">8. Troubleshooting</h2>
+    <table class="tech-table">
+        <thead>
+            <tr>
+                <th>Symptom</th>
+                <th>Likely Cause</th>
+                <th>Resolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Backend fails to start</td>
+                <td>Database not ready</td>
+                <td><code>docker compose restart backend</code></td>
+            </tr>
+            <tr>
+                <td>Frontend "Failed to fetch"</td>
+                <td>URL mismatch</td>
+                <td>Verify <code>NEXT_PUBLIC_API_URL</code>. Rebuild frontend.</td>
+            </tr>
+            <tr>
+                <td>Generic Discovery results</td>
+                <td>No API Key</td>
+                <td>Set <code>OPENAI_API_KEY</code>. Platform uses fallback logic.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="support">11. Support</h2>
+    <p><strong>Platform Lead:</strong> Raj Rajagobalan<br>
+    <strong>DevOps Team:</strong> devops@yourcompany.com</p>
+
+    <footer class="site-footer" style="margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--md-sys-color-outline-variant);">
+      <p style="font-size: 0.875rem; color: var(--md-sys-color-on-surface-secondary);">
+        <a href="/blogs.html" style="color: var(--md-sys-color-primary); text-decoration: none;">← Back to Blogs</a> · 
+        <a href="/" style="color: var(--md-sys-color-primary); text-decoration: none;">Home</a> · 
+        <a href="/framework.html" style="color: var(--md-sys-color-primary); text-decoration: none;">View Framework</a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- RIGHT SIDEBAR: Page TOC -->
+  <aside class="docs-sidebar docs-sidebar-right">
+    <nav class="docs-toc">
+      <h3>On this page</h3>
+      <ul>
+        <li><a href="#overview">1. Solution Overview</a></li>
+        <li><a href="#prerequisites">2. Prerequisites</a></li>
+        <li><a href="#structure">3. Project Structure</a></li>
+        <li><a href="#deployment">4. Deployment Steps</a></li>
+        <li><a href="#production">6. Production Checklist</a></li>
+        <li><a href="#monitoring">7. Monitoring</a></li>
+        <li><a href="#troubleshooting">8. Troubleshooting</a></li>
+        <li><a href="#support">11. Support</a></li>
+      </ul>
+    </nav>
+  </aside>
+</div>
+
+<script src="/theme-toggle.js"></script>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
