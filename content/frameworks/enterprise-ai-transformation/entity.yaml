@@ -1,0 +1,13 @@
+id: framework.enterprise-ai-transformation
+type: framework
+canonical_slug: enterprise-ai-transformation
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+version: 1.2.0
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities: []

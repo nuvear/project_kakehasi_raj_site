@@ -1,0 +1,17 @@
+id: insight.enterprise-ai-reference-guide
+type: insight
+canonical_slug: enterprise-ai-reference-guide
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+category: Enterprise AI
+tags:
+  - AI Strategy
+  - Enterprise
+  - Reference Guide
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities: []
