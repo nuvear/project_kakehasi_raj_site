@@ -68,7 +68,89 @@ export async function POST(req: NextRequest) {
       // Generate dynamic mock UI Plan based on query keywords
       let mockPlan: UIPlan;
 
-      if (queryLower.includes("stanford") || queryLower.includes("gsb")) {
+      if (queryLower.includes("seo") || queryLower.includes("audit")) {
+        mockPlan = {
+          schemaVersion: "1.0",
+          surface: "seo-audit",
+          locale: locale as "en" | "ja",
+          entityId: "seo-report",
+          title: locale === "ja" ? "SEO メタデータ監査レポート (Mock)" : "SEO Metadata Audit Report (Mock)",
+          components: [
+            {
+              id: "seo-audit-1",
+              type: "SEOAuditReport",
+              props: {
+                issues: [
+                  {
+                    entityId: "education.stanford-executive-program",
+                    entityType: "education",
+                    locale: "ja",
+                    issueType: "title_too_long",
+                    severity: "warning",
+                    details: "Meta title is too long (65 chars). Target is <= 60.",
+                    fix: "Shorten title to less than 60 characters."
+                  },
+                  {
+                    entityId: "venture.nuvear",
+                    entityType: "venture",
+                    locale: "en",
+                    issueType: "description_missing",
+                    severity: "error",
+                    details: "Meta summary/description is empty.",
+                    fix: "Provide a summary in the frontmatter."
+                  },
+                  {
+                    entityId: "experience.capgemini-japan",
+                    entityType: "experience",
+                    locale: "en",
+                    issueType: "stale_review",
+                    severity: "warning",
+                    details: "Content has not been reviewed since 2025-09-01 (over 6 months ago).",
+                    fix: "Perform content review and update last_editorial_review."
+                  }
+                ]
+              }
+            }
+          ],
+          sources: ["system.seo-scanner@rev-mock"],
+          cachePolicy: { scope: "private", maxAgeSeconds: 60 }
+        };
+      } else if (queryLower.includes("brief") || queryLower.includes("proposal")) {
+        mockPlan = {
+          schemaVersion: "1.0",
+          surface: "article-brief",
+          locale: locale as "en" | "ja",
+          entityId: "article-brief-new-enterprise-ai",
+          title: locale === "ja" ? "記事構成案: エンタープライズAIフレームワーク (Mock)" : "Article Brief: Enterprise AI Framework (Mock)",
+          components: [
+            {
+              id: "article-brief-1",
+              type: "ArticleBrief",
+              props: {
+                titleSuggested: locale === "ja" ? "エンタープライズAIフレームワーク: 信頼できる展開" : "Enterprise AI Framework: Trusted Deployment Strategy",
+                descriptionSuggested: locale === "ja" ? "大規模組織にエンタープライズAIを展開するための実用的なフレームワークとガバナンス。" : "A practical framework and governance blueprint for deploying enterprise AI across large organizations.",
+                audience: locale === "ja" ? "技術リーダー、CTO、AIストラテジスト" : "Technical Leaders, CTOs, and AI Strategists",
+                keywords: ["Enterprise AI", "AI Framework", "Responsible AI", "AI Governance"],
+                structure: [
+                  "## Introduction to Enterprise AI",
+                  "### The Need for Systemic Governance",
+                  "## Core Pillars of the Framework",
+                  "### 1. Robustness & Trustworthiness",
+                  "### 2. Explainable Integration Layers",
+                  "## Implementation Blueprint",
+                  "### Phased Migration Paths"
+                ],
+                references: [
+                  "insights.enterprise-ai-reference-guide",
+                  "principles.responsible-ai-governance"
+                ]
+              }
+            }
+          ],
+          sources: ["editorial.advisor@rev-mock"],
+          cachePolicy: { scope: "private", maxAgeSeconds: 60 }
+        };
+      } else if (queryLower.includes("stanford") || queryLower.includes("gsb")) {
         mockPlan = {
           schemaVersion: "1.0",
           surface: "education-story",
@@ -265,9 +347,21 @@ export async function POST(req: NextRequest) {
     const matches = await db.searchSimilarContent(embedding, 5);
 
     // C. Stuff context text
-    let contextText = "";
-    const seenEntityIds = new Set<string>();
+    let auditIssuesText = "";
     const sourceIds: string[] = [];
+    if (queryLower.includes("seo") || queryLower.includes("audit")) {
+      try {
+        const { runMetadataAudit } = await import("@/lib/seo-scanner");
+        const issues = await runMetadataAudit();
+        auditIssuesText = `PROGRAMMATIC METADATA SEO AUDIT RESULTS:\n` + JSON.stringify(issues, null, 2) + `\n\n`;
+        sourceIds.push("system.seo-scanner@rev-live");
+      } catch (err) {
+        console.error("Programmatic metadata audit failed in route:", err);
+      }
+    }
+
+    let contextText = auditIssuesText;
+    const seenEntityIds = new Set<string>();
 
     for (const match of matches) {
       if (seenEntityIds.has(match.entity_id)) continue;

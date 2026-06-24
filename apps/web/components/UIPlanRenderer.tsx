@@ -9,6 +9,8 @@ import MarkdownContent from "./components-library/MarkdownContent";
 import SourcePanel from "./components-library/SourcePanel";
 import ContactForm from "./components-library/ContactForm";
 import FeedbackForm from "./components-library/FeedbackForm";
+import SEOAuditReport from "./components-library/SEOAuditReport";
+import ArticleBrief from "./components-library/ArticleBrief";
 
 interface UIPlanRendererProps {
   uiPlan: unknown;
@@ -137,6 +139,30 @@ export default function UIPlanRenderer({ uiPlan, locale }: UIPlanRendererProps) 
         if (typeLower === "feedbackform") {
           return (
             <FeedbackForm
+              key={comp.id}
+              id={comp.id}
+              type={comp.type}
+              locale={locale}
+              props={comp.props}
+            />
+          );
+        }
+
+        if (typeLower === "seoauditreport") {
+          return (
+            <SEOAuditReport
+              key={comp.id}
+              id={comp.id}
+              type={comp.type}
+              locale={locale}
+              props={comp.props}
+            />
+          );
+        }
+
+        if (typeLower === "articlebrief") {
+          return (
+            <ArticleBrief
               key={comp.id}
               id={comp.id}
               type={comp.type}

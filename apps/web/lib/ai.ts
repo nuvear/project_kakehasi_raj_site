@@ -87,13 +87,15 @@ The output MUST validate against the Zod schema for a UI Plan:
   "title": string, // The display title of the generated view
   "components": Array<{
     "id": string, // unique ID, e.g. "hero-1"
-    "type": string, // One of: "ProfileHero", "BiographySection", "EducationCard", "EducationStory", "InstitutionContext", "ExperienceTimeline", "CareerProgression", "VentureCaseStudy", "MetricGrid", "ImageGallery", "MediaGallery", "VideoStory", "QuoteReflection", "ArticleSection", "TableComparison", "InfographicSurface", "InteractiveChartContainer", "RelatedEntities", "SourceProvenancePanel", "SearchResults", "AgentAnswer", "CallToAction", "ContactForm", "FeedbackForm", "ApplicationLaunchCard", "LegacyEmbedContainer", "InstitutionHero", "Timeline"
+    "type": string, // One of: "ProfileHero", "BiographySection", "EducationCard", "EducationStory", "InstitutionContext", "ExperienceTimeline", "CareerProgression", "VentureCaseStudy", "MetricGrid", "ImageGallery", "MediaGallery", "VideoStory", "QuoteReflection", "ArticleSection", "TableComparison", "InfographicSurface", "InteractiveChartContainer", "RelatedEntities", "SourceProvenancePanel", "SearchResults", "AgentAnswer", "CallToAction", "ContactForm", "FeedbackForm", "SEOAuditReport", "ArticleBrief", "ApplicationLaunchCard", "LegacyEmbedContainer", "InstitutionHero", "Timeline"
     "dataRef": string | null, // optional reference to data sources, e.g. "education.stanford-executive-program.summary"
     "variant": string | null, // optional style variation
     "entityIds": string[] | null, // optional array of related entity IDs (e.g. for RelatedEntities)
     "title": string | null, // optional inline title
     "content": string | null, // optional inline markdown/text content
-    "props": object | null // optional custom attributes
+    "props": object | null // optional custom attributes:
+    // - For "SEOAuditReport": {"issues": Array<{entityId: string, entityType: string, locale: "en"|"ja"|"all", issueType: string, severity: "error"|"warning"|"info", details: string, fix: string}>}
+    // - For "ArticleBrief": {"titleSuggested": string, "descriptionSuggested": string, "audience": string, "keywords": string[], "structure": string[], "references": string[]}
   }>,
   "sources": string[], // list of source IDs used (e.g., "education.stanford-executive-program@rev-12")
   "cachePolicy": {
@@ -105,7 +107,9 @@ The output MUST validate against the Zod schema for a UI Plan:
 Guidelines:
 1. ONLY use information present in the context. Do not invent or hallucinate credentials, dates, or affiliations.
 2. Ground all component details in the provided context.
-3. Keep the JSON strictly valid and return only the JSON object.
+3. When the context contains programmatic SEO Audit results (list of issues), map them to an "SEOAuditReport" component in the components list.
+4. When requested to generate an article brief or writing outline, use the "ArticleBrief" component with suggested meta title/description, target audience, keywords, structure/headings, and references from the context.
+5. Keep the JSON strictly valid and return only the JSON object.
 `;
 
   const prompt = `
