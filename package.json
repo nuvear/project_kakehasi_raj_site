@@ -9,6 +9,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "start": "node apps/web/.next/standalone/apps/web/server.js",
     "test": "turbo run test"
   },
   "devDependencies": {

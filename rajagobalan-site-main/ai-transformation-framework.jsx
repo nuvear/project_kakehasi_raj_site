@@ -726,7 +726,7 @@ export default function AITransformationFramework(){
             <h4>Connect</h4>
             <ul className="footer-links">
               <li><a href="https://www.linkedin.com/in/rajkumar-rajagobalan/" className="footer-link">LinkedIn</a></li>
-              <li><a href="mailto:raj@nuvear.org" className="footer-link">Email</a></li>
+              <li><a href="mailto:raj@innuir.com" className="footer-link">Email</a></li>
             </ul>
           </div>
         </div>
