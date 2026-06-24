@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDatabase } from "@kakehashi/db";
 import type { Metadata } from "next";
+import AgentSandbox from "@/components/AgentSandbox";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -348,73 +349,8 @@ export default async function HomePage({ params }: PageProps) {
 
         {/* Right Column: Dynamic Agent Sandbox */}
         <div>
-          <div className="glass-panel" style={{
-            position: "sticky",
-            top: "6rem",
-            padding: "2rem",
-            borderRadius: "1.5rem",
-            border: "1px solid var(--color-outline-variant)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem"
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <div style={{
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
-                backgroundColor: "#22c55e",
-                boxShadow: "0 0 8px #22c55e"
-              }} />
-              <h4 style={{ fontWeight: 700, fontSize: "1.15rem", margin: 0 }}>
-                {i18n.agentSandboxTitle}
-              </h4>
-            </div>
-            <p style={{ fontSize: "0.9rem", lineHeight: 1.5, color: "var(--color-on-surface-variant)" }}>
-              {i18n.agentSandboxDesc}
-            </p>
-            <div style={{
-              flexGrow: 1,
-              minHeight: "150px",
-              backgroundColor: "var(--color-surface-variant)",
-              borderRadius: "0.75rem",
-              padding: "1rem",
-              fontSize: "0.9rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--color-on-surface-variant)",
-              border: "1px solid var(--color-outline-variant)"
-            }}>
-              Agent offline (Ready for Phase 3)
-            </div>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <input
-                type="text"
-                disabled
-                placeholder={i18n.agentPlaceholder}
-                style={{
-                  flexGrow: 1,
-                  padding: "0.75rem 1rem",
-                  borderRadius: "2rem",
-                  border: "1px solid var(--color-outline)",
-                  fontSize: "0.9rem",
-                  backgroundColor: "var(--color-surface-variant)"
-                }}
-              />
-              <button disabled style={{
-                padding: "0.75rem 1.25rem",
-                borderRadius: "2rem",
-                backgroundColor: "var(--color-primary)",
-                color: "#ffffff",
-                border: "none",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                opacity: 0.6
-              }}>
-                {i18n.agentBtn}
-              </button>
-            </div>
+          <div style={{ position: "sticky", top: "6rem" }}>
+            <AgentSandbox locale={locale} />
           </div>
         </div>
       </section>

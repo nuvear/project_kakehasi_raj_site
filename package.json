@@ -12,6 +12,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
+    "next": "15.5.19",
     "turbo": "^2.0.0",
     "vitest": "^4.1.9"
   }

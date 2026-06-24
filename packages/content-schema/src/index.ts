@@ -1,3 +1,4 @@
-export * from "./entity.js";
-export * from "./media.js";
-export * from "./translation.js";
+export * from "./entity";
+export * from "./media";
+export * from "./translation";
+export * from "./ui-schema";
