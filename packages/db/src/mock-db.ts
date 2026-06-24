@@ -130,6 +130,156 @@ const mockEntities: Record<string, EntityMetadata> = {
     role: "Co-Founder & Director",
     start_date: "2011-09",
     end_date: "2020-02"
+  },
+  "insight.enterprise-ai-reference-guide": {
+    id: "insight.enterprise-ai-reference-guide",
+    type: "insight",
+    canonical_slug: "enterprise-ai-reference-guide",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "Enterprise AI",
+    tags: ["AI Strategy", "Enterprise", "Reference Guide"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "insight.singapore-ai-strategy": {
+    id: "insight.singapore-ai-strategy",
+    type: "insight",
+    canonical_slug: "singapore-ai-strategy",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "AI Strategy",
+    tags: ["Singapore", "AI Strategy", "National Strategy"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "insight.responsible-ai-governance": {
+    id: "insight.responsible-ai-governance",
+    type: "insight",
+    canonical_slug: "responsible-ai-governance",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "AI Governance",
+    tags: ["Governance", "Responsible AI", "Adoption"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "insight.ai-executive-talking-points": {
+    id: "insight.ai-executive-talking-points",
+    type: "insight",
+    canonical_slug: "ai-executive-talking-points",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "AI Leadership",
+    tags: ["Leadership", "Talking Points", "Executive"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "insight.blood-pressure-app-design": {
+    id: "insight.blood-pressure-app-design",
+    type: "insight",
+    canonical_slug: "blood-pressure-app-design",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "HealthTech",
+    tags: ["UX Design", "HealthTech", "Mobile App"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "framework.enterprise-ai-transformation": {
+    id: "framework.enterprise-ai-transformation",
+    type: "framework",
+    canonical_slug: "enterprise-ai-transformation",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    version: "1.2.0",
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "app.ai-transformation-command-center": {
+    id: "app.ai-transformation-command-center",
+    type: "app",
+    canonical_slug: "ai-transformation-command-center",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    app_url: "/apps/ai-transformation-command-center",
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "app.foodie": {
+    id: "app.foodie",
+    type: "app",
+    canonical_slug: "foodie",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    app_url: "/apps/foodie",
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
+  },
+  "guide.crewai": {
+    id: "guide.crewai",
+    type: "guide",
+    canonical_slug: "crewai",
+    visibility: "public",
+    publish_status: "published",
+    sensitivity: "public",
+    agent_use: true,
+    category: "Agentic AI",
+    tags: ["CrewAI", "Agents", "Developer Guide"],
+    claims_policy: {
+      may_summarize: true,
+      may_infer_relationships: true,
+      may_change_credential_wording: false
+    },
+    ui_capabilities: []
   }
 };
 
@@ -382,6 +532,272 @@ AAGNAAを共同設立し、企業クライアント向けのカスタムソフ�
 - インドおよびシンガポール全域でのデジタルプラットフォームの拡大。
 - 初期のモバイルバンキングおよびSaaS統合の開発。
 `
+    }
+  },
+  "insight.enterprise-ai-reference-guide": {
+    en: {
+      entity_id: "insight.enterprise-ai-reference-guide",
+      frontmatter: {
+        locale: "en",
+        title: "Enterprise AI Reference Guide",
+        summary: "A comprehensive reference guide for architecting, deploying, and governing enterprise AI solutions at scale.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-20",
+        seo: {
+          title: "Enterprise AI Reference Guide | Rajkumar Rajagobalan",
+          description: "Architecting, deploying, and governing enterprise AI solutions at scale.",
+          keywords: ["Enterprise AI", "AI Strategy", "AI Governance"]
+        }
+      },
+      content_markdown: "This is the Enterprise AI Reference Guide."
+    },
+    ja: {
+      entity_id: "insight.enterprise-ai-reference-guide",
+      frontmatter: {
+        locale: "ja",
+        title: "エンタープライズAIリファレンスガイド",
+        summary: "エンタープライズAIソリューションを大規模に設計、展開、管理するための包括的なリファレンスガイド。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-20",
+        seo: {
+          title: "エンタープライズAIリファレンスガイド | ラジクマール・ラジャゴバラン",
+          description: "エンタープライズAIソリューションを大規模に設計、展開、管理するためのリファレンスガイド。",
+          keywords: ["エンタープライズAI", "AI戦略", "AIガバナンス"]
+        }
+      },
+      content_markdown: "これはエンタープライズAIリファレンスガイドです。"
+    }
+  },
+  "insight.singapore-ai-strategy": {
+    en: {
+      entity_id: "insight.singapore-ai-strategy",
+      frontmatter: {
+        locale: "en",
+        title: "Singapore's National AI Strategy",
+        summary: "An analytical review of Singapore's strategic goals, implementation status, and ecosystem growth in national artificial intelligence.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-15",
+        seo: {
+          title: "Singapore's National AI Strategy | Rajkumar Rajagobalan",
+          description: "Singapore's strategic goals, implementation status, and ecosystem growth in AI.",
+          keywords: ["Singapore", "AI Strategy", "National AI"]
+        }
+      },
+      content_markdown: "Singapore's National AI Strategy analysis."
+    },
+    ja: {
+      entity_id: "insight.singapore-ai-strategy",
+      frontmatter: {
+        locale: "ja",
+        title: "シンガポールの国家AI戦略と現状",
+        summary: "人工知能国家戦略におけるシンガポールの戦略的目標、実施状況、およびエコシステムの成長に関する分析レビュー。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-15",
+        seo: {
+          title: "シンガポールの国家AI戦略 | ラジクマール・ラジャゴバラン",
+          description: "シンガポールの国家AI戦略と実装状況に関する分析レビュー。",
+          keywords: ["シンガポール", "AI戦略", "国家AI戦略"]
+        }
+      },
+      content_markdown: "シンガポールの国家AI戦略に関する分析。"
+    }
+  },
+  "insight.responsible-ai-governance": {
+    en: {
+      entity_id: "insight.responsible-ai-governance",
+      frontmatter: {
+        locale: "en",
+        title: "Responsible AI Governance & Adoption",
+        summary: "Key frameworks, risk mitigation policies, and adoption principles for deploying trustworthy artificial intelligence.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-10",
+        seo: {
+          title: "Responsible AI Governance & Adoption | Rajkumar Rajagobalan",
+          description: "Frameworks, risk mitigation, and adoption principles for trustworthy AI.",
+          keywords: ["Responsible AI", "AI Governance", "Ethics"]
+        }
+      },
+      content_markdown: "Responsible AI Governance analysis."
+    },
+    ja: {
+      entity_id: "insight.responsible-ai-governance",
+      frontmatter: {
+        locale: "ja",
+        title: "責任あるAIのガバナンスと導入",
+        summary: "信頼できる人工知能を展開するための主要なフレームワーク、リスク軽減ポリシー、および導入原則。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-10",
+        seo: {
+          title: "責任あるAIのガバナンスと導入 | ラジクマール・ラジャゴバラン",
+          description: "信頼できるAI導入のためのガバナンスフレームワークとリスク管理。",
+          keywords: ["責任あるAI", "AIガバナンス", "AI倫理"]
+        }
+      },
+      content_markdown: "責任あるAIガバナンスに関する分析。"
+    }
+  },
+  "insight.ai-executive-talking-points": {
+    en: {
+      entity_id: "insight.ai-executive-talking-points",
+      frontmatter: {
+        locale: "en",
+        title: "AI Strategy Executive Talking Points",
+        summary: "Critical discussion points and framework alignments for board-level and executive presentations on AI capabilities.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-05",
+        seo: {
+          title: "AI Executive Talking Points | Rajkumar Rajagobalan",
+          description: "Critical talking points and framework alignments on AI for executives.",
+          keywords: ["AI Strategy", "Executive Talking Points", "AI Leadership"]
+        }
+      },
+      content_markdown: "Executive Talking Points content."
+    },
+    ja: {
+      entity_id: "insight.ai-executive-talking-points",
+      frontmatter: {
+        locale: "ja",
+        title: "AI戦略エグゼクティブ向けトークポイント",
+        summary: "取締役会および経営陣向けのAI能力に関するプレゼンテーションにおける重要な論点とフレームワークの調整。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-05",
+        seo: {
+          title: "エグゼクティブ向けAIトークポイント | ラジクマール・ラジャゴバラン",
+          description: "取締役会および経営陣向けAI戦略の重要トークポイント。",
+          keywords: ["AI戦略", "経営陣向けトークポイント", "AIリーダーシップ"]
+        }
+      },
+      content_markdown: "エグゼクティブ向けAI戦略トークポイント。"
+    }
+  },
+  "insight.blood-pressure-app-design": {
+    en: {
+      entity_id: "insight.blood-pressure-app-design",
+      frontmatter: {
+        locale: "en",
+        title: "Wearable UX Design: Blood Pressure Analytics",
+        summary: "A user experience study on designing clear, actionable medical and wellness visualizers for consumer wearables.",
+        translation_status: "published",
+        last_editorial_review: "2026-05-25",
+        seo: {
+          title: "Wearable UX Design: Blood Pressure | Rajkumar Rajagobalan",
+          description: "UX design study for consumer wearable blood pressure tracking.",
+          keywords: ["Wearable UX", "Blood Pressure", "HealthTech"]
+        }
+      },
+      content_markdown: "Wearable UX Design: Blood Pressure Analytics."
+    },
+    ja: {
+      entity_id: "insight.blood-pressure-app-design",
+      frontmatter: {
+        locale: "ja",
+        title: "ウェアラブルUXデザイン：血圧分析",
+        summary: "消費者向けウェアラブル向けに、明確で実用的な医療およびウェルネスビジュアライザーを設計することに関するユーザーエクスペリエンス研究。",
+        translation_status: "approved",
+        last_editorial_review: "2026-05-25",
+        seo: {
+          title: "ウェアラブルUXデザイン：血圧分析 | ラジクマール・ラジャゴバラン",
+          description: "消費者向けウェアラブルにおける血圧測定UXデザイン研究。",
+          keywords: ["ウェアラブルUX", "血圧分析", "ヘルステック"]
+        }
+      },
+      content_markdown: "ウェアラブルUXデザイン：血圧分析。"
+    }
+  },
+  "framework.enterprise-ai-transformation": {
+    en: {
+      entity_id: "framework.enterprise-ai-transformation",
+      frontmatter: {
+        locale: "en",
+        title: "Enterprise AI Transformation Framework",
+        summary: "An interactive, multi-dimensional framework to assess, align, and accelerate corporate AI transformation maturity.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-18"
+      },
+      content_markdown: "Enterprise AI Transformation Framework v1.2.0."
+    },
+    ja: {
+      entity_id: "framework.enterprise-ai-transformation",
+      frontmatter: {
+        locale: "ja",
+        title: "エンタープライズAI変革フレームワーク",
+        summary: "企業のAI変革の成熟度を評価、調整、および加速するための、インタラクティブで多次元のフレームワーク。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-18"
+      },
+      content_markdown: "エンタープライズAI変革フレームワーク v1.2.0。"
+    }
+  },
+  "app.ai-transformation-command-center": {
+    en: {
+      entity_id: "app.ai-transformation-command-center",
+      frontmatter: {
+        locale: "en",
+        title: "AI Transformation Command Center",
+        summary: "An interactive operational dashboard to simulate, track, and monitor organization-wide AI initiatives and governance.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-22"
+      },
+      content_markdown: "AI Transformation Command Center dashboard."
+    },
+    ja: {
+      entity_id: "app.ai-transformation-command-center",
+      frontmatter: {
+        locale: "ja",
+        title: "AI変革コマンドセンター",
+        summary: "組織全体のAIイニシアチブとガバナンスをシミュレート、追跡、および監視するためのインタラクティブなオペレーショナルダッシュボード。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-22"
+      },
+      content_markdown: "AI変革コマンドセンター ダッシュボード。"
+    }
+  },
+  "app.foodie": {
+    en: {
+      entity_id: "app.foodie",
+      frontmatter: {
+        locale: "en",
+        title: "Foodie PWA",
+        summary: "A mobile-first recipe generator and nutritional assistant utilizing local-first client database and Gemini API.",
+        translation_status: "published",
+        last_editorial_review: "2026-05-30"
+      },
+      content_markdown: "Foodie recipe assistant."
+    },
+    ja: {
+      entity_id: "app.foodie",
+      frontmatter: {
+        locale: "ja",
+        title: "Foodie PWA",
+        summary: "ローカルファーストのクライアントデータベースとGemini APIを活用した、モバイルファーストのレシピジェネレーターおよび栄養アシスタント。",
+        translation_status: "approved",
+        last_editorial_review: "2026-05-30"
+      },
+      content_markdown: "Foodie レシピ アシスタント。"
+    }
+  },
+  "guide.crewai": {
+    en: {
+      entity_id: "guide.crewai",
+      frontmatter: {
+        locale: "en",
+        title: "CrewAI Developer Guide",
+        summary: "A comprehensive handbook for building multi-agent systems, task hierarchies, and custom tool adapters using CrewAI.",
+        translation_status: "published",
+        last_editorial_review: "2026-06-08"
+      },
+      content_markdown: "CrewAI Developer Guide handbook."
+    },
+    ja: {
+      entity_id: "guide.crewai",
+      frontmatter: {
+        locale: "ja",
+        title: "CrewAI 開発者ガイド",
+        summary: "CrewAIを使用してマルチエージェントシステム、タスク階層、およびカスタムツールアダプターを構築するための包括的なハンドブック。",
+        translation_status: "approved",
+        last_editorial_review: "2026-06-08"
+      },
+      content_markdown: "CrewAI 開発者ガイド ハンドブック。"
     }
   }
 };
