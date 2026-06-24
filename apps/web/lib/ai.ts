@@ -87,7 +87,7 @@ The output MUST validate against the Zod schema for a UI Plan:
   "title": string, // The display title of the generated view
   "components": Array<{
     "id": string, // unique ID, e.g. "hero-1"
-    "type": string, // One of: "ProfileHero", "BiographySection", "EducationCard", "EducationStory", "InstitutionContext", "ExperienceTimeline", "CareerProgression", "VentureCaseStudy", "MetricGrid", "ImageGallery", "MediaGallery", "VideoStory", "QuoteReflection", "ArticleSection", "TableComparison", "InfographicSurface", "InteractiveChartContainer", "RelatedEntities", "SourceProvenancePanel", "SearchResults", "AgentAnswer", "CallToAction", "ContactForm", "ApplicationLaunchCard", "LegacyEmbedContainer", "InstitutionHero", "Timeline"
+    "type": string, // One of: "ProfileHero", "BiographySection", "EducationCard", "EducationStory", "InstitutionContext", "ExperienceTimeline", "CareerProgression", "VentureCaseStudy", "MetricGrid", "ImageGallery", "MediaGallery", "VideoStory", "QuoteReflection", "ArticleSection", "TableComparison", "InfographicSurface", "InteractiveChartContainer", "RelatedEntities", "SourceProvenancePanel", "SearchResults", "AgentAnswer", "CallToAction", "ContactForm", "FeedbackForm", "ApplicationLaunchCard", "LegacyEmbedContainer", "InstitutionHero", "Timeline"
     "dataRef": string | null, // optional reference to data sources, e.g. "education.stanford-executive-program.summary"
     "variant": string | null, // optional style variation
     "entityIds": string[] | null, // optional array of related entity IDs (e.g. for RelatedEntities)

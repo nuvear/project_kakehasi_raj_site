@@ -1,4 +1,13 @@
-import { EntityMetadata, FullTranslation, MediaCatalog, EntityType } from "@kakehashi/content-schema";
+import {
+  EntityMetadata,
+  FullTranslation,
+  MediaCatalog,
+  EntityType,
+  ContactRequest,
+  Feedback,
+  ContentProposal,
+  AuditLog
+} from "@kakehashi/content-schema";
 
 export interface DatabaseProvider {
   getEntity(id: string): Promise<EntityMetadata | null>;
@@ -9,6 +18,19 @@ export interface DatabaseProvider {
     embedding: number[],
     limit?: number
   ): Promise<Array<{ entity_id: string; locale: string; title: string; content: string; score: number }>>;
+
+  // Write operations
+  saveContactRequest(request: ContactRequest, idempotencyKey: string): Promise<boolean>;
+  saveFeedback(feedback: Feedback, idempotencyKey: string): Promise<boolean>;
+  createContentProposal(proposal: ContentProposal, idempotencyKey: string): Promise<string>;
+  approveContentProposal(proposalId: string, actor: string): Promise<boolean>;
+  logAudit(log: AuditLog): Promise<void>;
+  checkRateLimit(
+    ipHash: string,
+    action: string,
+    limit: number,
+    windowSec: number
+  ): Promise<{ allowed: boolean; remaining: number }>;
 }
 
 let dbProvider: DatabaseProvider;

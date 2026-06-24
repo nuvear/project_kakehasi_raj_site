@@ -3,7 +3,11 @@ import {
   EntityMetadata,
   FullTranslation,
   MediaCatalog,
-  EntityType
+  EntityType,
+  ContactRequest,
+  Feedback,
+  ContentProposal,
+  AuditLog
 } from "@kakehashi/content-schema";
 
 // Mock Fixtures for Stanford, MIT, Capgemini, Nuvear, AAGNAA, and Profile About
@@ -267,7 +271,7 @@ Participated in the flagship Stanford Executive Program (SEP) at the Stanford Gr
 スタンフォード大学経営大学院（Stanford GSB）のフラッグシッププログラムであるスタンフォード・エグゼクティブ・プログラム（SEP）に参加しました。このカリキュラムは、高度なグローバル経営、企業戦略、エグゼクティブ・リーダーシップ、組織設計、および不確実性下での財務意思決定をカバーしています。
 
 ### 主な学習成果
-- **グローバル戦略**: 急激なデジタル破壊に対するビジネスモデルの適応。
+- **グローバル戦略**: 急激なデジタル破壊に対するビジネスモデル of 組織の適応。
 - **リーダーシップ**: オーセンティックなリーダーシップ構造と高パフォーマンス組織の管理。
 - **イノベーション・エコシステム**: シリコンバレーのイノベーション・モデルの実践的な探求。
 `
@@ -368,7 +372,7 @@ Served as Vice President and Head of Digital Engineering for Capgemini Japan, sc
 
 Founded Nuvear to develop HealthKitSync, a next-generation decentralized health intelligence platform that correlates wearable data (Apple Health, Garmin, Fitbit) into actionable personalized health indicators.
 
-### Key Milestones
+### Key Highlights
 - Established clean API adapters for syncing iOS HealthKit data safely.
 - Built a private dashboard highlighting biometric metrics.
 `
@@ -537,6 +541,13 @@ const mockMedia: Record<string, MediaCatalog> = {
   }
 };
 
+// Memory stores for Phase 8 mock writes
+const mockContactRequests: Array<ContactRequest & { idempotencyKey: string }> = [];
+const mockFeedbacks: Array<Feedback & { idempotencyKey: string }> = [];
+const mockContentProposals: Array<ContentProposal & { id: string; status: "pending" | "approved"; idempotencyKey: string }> = [];
+const mockAuditLogs: AuditLog[] = [];
+const mockRateLimits: Record<string, number[]> = {};
+
 export class MockDatabaseProvider implements DatabaseProvider {
   async getEntity(id: string): Promise<EntityMetadata | null> {
     return mockEntities[id] || null;
@@ -578,5 +589,73 @@ export class MockDatabaseProvider implements DatabaseProvider {
         score: 0.82
       }
     ].slice(0, limit);
+  }
+
+  async saveContactRequest(request: ContactRequest, idempotencyKey: string): Promise<boolean> {
+    const exists = mockContactRequests.some((r) => r.idempotencyKey === idempotencyKey);
+    if (exists) return true;
+    mockContactRequests.push({ ...request, idempotencyKey });
+    return true;
+  }
+
+  async saveFeedback(feedback: Feedback, idempotencyKey: string): Promise<boolean> {
+    const exists = mockFeedbacks.some((f) => f.idempotencyKey === idempotencyKey);
+    if (exists) return true;
+    mockFeedbacks.push({ ...feedback, idempotencyKey });
+    return true;
+  }
+
+  async createContentProposal(proposal: ContentProposal, idempotencyKey: string): Promise<string> {
+    const existing = mockContentProposals.find((p) => p.idempotencyKey === idempotencyKey);
+    if (existing) return existing.id;
+    const id = `proposal_${Math.random().toString(36).substring(2, 11)}`;
+    mockContentProposals.push({ ...proposal, id, status: "pending", idempotencyKey });
+    return id;
+  }
+
+  async approveContentProposal(proposalId: string, actor: string): Promise<boolean> {
+    const proposal = mockContentProposals.find((p) => p.id === proposalId);
+    if (!proposal) return false;
+    proposal.status = "approved";
+    
+    // Dynamically apply field updates to simulated mock db state
+    if (mockEntities[proposal.entityId]) {
+      mockEntities[proposal.entityId] = {
+        ...mockEntities[proposal.entityId],
+        ...proposal.fields
+      };
+    }
+    return true;
+  }
+
+  async logAudit(log: AuditLog): Promise<void> {
+    mockAuditLogs.push(log);
+  }
+
+  async checkRateLimit(
+    ipHash: string,
+    action: string,
+    limit: number,
+    windowSec: number
+  ): Promise<{ allowed: boolean; remaining: number }> {
+    const key = `${ipHash}:${action}`;
+    const now = Date.now();
+    const windowMs = windowSec * 1000;
+
+    if (!mockRateLimits[key]) {
+      mockRateLimits[key] = [];
+    }
+
+    mockRateLimits[key] = mockRateLimits[key].filter((ts) => now - ts < windowMs);
+
+    if (mockRateLimits[key].length >= limit) {
+      return { allowed: false, remaining: 0 };
+    }
+
+    mockRateLimits[key].push(now);
+    return {
+      allowed: true,
+      remaining: limit - mockRateLimits[key].length
+    };
   }
 }

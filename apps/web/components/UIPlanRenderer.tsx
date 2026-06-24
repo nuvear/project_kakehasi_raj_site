@@ -7,6 +7,8 @@ import Timeline from "./components-library/Timeline";
 import VenturesGrid from "./components-library/VenturesGrid";
 import MarkdownContent from "./components-library/MarkdownContent";
 import SourcePanel from "./components-library/SourcePanel";
+import ContactForm from "./components-library/ContactForm";
+import FeedbackForm from "./components-library/FeedbackForm";
 
 interface UIPlanRendererProps {
   uiPlan: unknown;
@@ -114,6 +116,30 @@ export default function UIPlanRenderer({ uiPlan, locale }: UIPlanRendererProps) 
               dataRef={comp.dataRef}
               content={comp.content}
               title={comp.title}
+              locale={locale}
+              props={comp.props}
+            />
+          );
+        }
+
+        if (typeLower === "contactform") {
+          return (
+            <ContactForm
+              key={comp.id}
+              id={comp.id}
+              type={comp.type}
+              locale={locale}
+              props={comp.props}
+            />
+          );
+        }
+
+        if (typeLower === "feedbackform") {
+          return (
+            <FeedbackForm
+              key={comp.id}
+              id={comp.id}
+              type={comp.type}
               locale={locale}
               props={comp.props}
             />

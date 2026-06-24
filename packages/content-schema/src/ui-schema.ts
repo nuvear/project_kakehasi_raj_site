@@ -24,6 +24,7 @@ export const UIComponentTypeEnum = z.enum([
   "AgentAnswer",
   "CallToAction",
   "ContactForm",
+  "FeedbackForm",
   "ApplicationLaunchCard",
   "LegacyEmbedContainer",
   "InstitutionHero",
