@@ -34,7 +34,8 @@ export const BaseEntitySchema = z.object({
     may_infer_relationships: true,
     may_change_credential_wording: false
   }),
-  ui_capabilities: z.array(z.string()).default([])
+  ui_capabilities: z.array(z.string()).default([]),
+  start_date: z.string().optional()
 });
 
 // Specific Metadata Schemas
