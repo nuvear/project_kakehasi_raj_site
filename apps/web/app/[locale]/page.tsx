@@ -3,6 +3,122 @@ import { getDatabase } from "@kakehashi/db";
 import type { Metadata } from "next";
 import AgentSandbox from "@/components/AgentSandbox";
 
+function renderMarkdown(text: string) {
+  if (!text) return null;
+
+  const lines = text.split("\n");
+  const elements: React.ReactNode[] = [];
+  let listItems: string[] = [];
+
+  const flushList = (key: number) => {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul 
+          key={`list-${key}`} 
+          style={{ 
+            paddingLeft: "1.5rem", 
+            margin: "0.75rem 0 1rem 0", 
+            display: "flex", 
+            flexDirection: "column", 
+            gap: "0.5rem",
+            listStyleType: "disc" 
+          }}
+        >
+          {listItems.map((item, idx) => (
+            <li 
+              key={`li-${idx}`}
+              style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--color-on-surface-variant)" }}
+              dangerouslySetInnerHTML={{ __html: formatInline(item) }}
+            />
+          ))}
+        </ul>
+      );
+      listItems = [];
+    }
+  };
+
+  const formatInline = (str: string): string => {
+    let formatted = str.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    formatted = formatted.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline;">$1</a>');
+    return formatted;
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+
+    if (trimmed.startsWith("### ")) {
+      flushList(idx);
+      elements.push(
+        <h4 
+          key={idx} 
+          style={{ 
+            fontFamily: "var(--font-sans)", 
+            fontSize: "1.15rem", 
+            fontWeight: 700, 
+            color: "var(--color-secondary)", 
+            margin: "1.25rem 0 0.5rem 0" 
+          }}
+        >
+          {trimmed.substring(4)}
+        </h4>
+      );
+    } else if (trimmed.startsWith("## ")) {
+      flushList(idx);
+      elements.push(
+        <h3 
+          key={idx} 
+          style={{ 
+            fontFamily: "var(--font-serif)", 
+            fontSize: "1.4rem", 
+            fontWeight: 700, 
+            color: "var(--color-primary)", 
+            margin: "1.5rem 0 0.5rem 0" 
+          }}
+        >
+          {trimmed.substring(3)}
+        </h3>
+      );
+    } else if (trimmed.startsWith("# ")) {
+      flushList(idx);
+      elements.push(
+        <h2 
+          key={idx} 
+          style={{ 
+            fontFamily: "var(--font-serif)", 
+            fontSize: "1.8rem", 
+            fontWeight: 700, 
+            color: "var(--color-primary)", 
+            margin: "1.75rem 0 0.75rem 0" 
+          }}
+        >
+          {trimmed.substring(2)}
+        </h2>
+      );
+    } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      listItems.push(trimmed.substring(2));
+    } else if (trimmed === "") {
+      flushList(idx);
+    } else {
+      flushList(idx);
+      elements.push(
+        <p 
+          key={idx} 
+          style={{ 
+            fontSize: "1rem", 
+            lineHeight: 1.6, 
+            color: "var(--color-on-surface)", 
+            marginBottom: "0.75rem" 
+          }}
+          dangerouslySetInnerHTML={{ __html: formatInline(trimmed) }}
+        />
+      );
+    }
+  });
+
+  flushList(lines.length);
+  return elements;
+}
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -30,6 +146,10 @@ export default async function HomePage({ params }: PageProps) {
 
   // Load dynamic content from database layer
   const aboutTranslation = await db.getTranslation("profile.about", locale);
+
+  const rawMarkdown = aboutTranslation?.content_markdown || "";
+  const parts = rawMarkdown.split("---");
+  const bodyContent = parts.length > 2 ? parts.slice(2).join("---").trim() : rawMarkdown.trim();
 
   const educationEntities = await db.listEntities("education");
   const experienceEntities = await db.listEntities("experience");
@@ -87,6 +207,7 @@ export default async function HomePage({ params }: PageProps) {
       navExperience: "Experience",
       navEducation: "Education",
       navVentures: "Ventures",
+      navInsights: "Insights",
       switchLang: "日本語",
       switchPath: "/ja",
       to: "to",
@@ -106,6 +227,7 @@ export default async function HomePage({ params }: PageProps) {
       navExperience: "職歴",
       navEducation: "学歴",
       navVentures: "ベンチャー",
+      navInsights: "インサイト",
       switchLang: "English",
       switchPath: "/en",
       to: "〜",
@@ -145,6 +267,7 @@ export default async function HomePage({ params }: PageProps) {
           <a href="#experience" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navExperience}</a>
           <a href="#education" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navEducation}</a>
           <a href="#ventures" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navVentures}</a>
+          <Link href={`/${locale}/insights`} style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navInsights}</Link>
           <Link 
             href={i18n.switchPath} 
             aria-label={locale === "ja" ? "Switch language to English" : "日本語に切り替える"}
@@ -194,10 +317,9 @@ export default async function HomePage({ params }: PageProps) {
           </p>
           <div style={{
             lineHeight: 1.7,
-            fontSize: "1rem",
-            whiteSpace: "pre-line"
+            fontSize: "1rem"
           }}>
-            {aboutTranslation?.content_markdown.split("---").pop()?.trim()}
+            {renderMarkdown(bodyContent)}
           </div>
         </div>
       </section>
