@@ -191,7 +191,7 @@ export default async function InsightDetailPage({ params }: PageProps) {
         )}
 
         {/* App link for type "app" */}
-        {entity.type === "app" && (entity as AppMetadata).app_url && (
+        {entity.type === "app" && (entity as AppMetadata).app_url?.startsWith("http") && (
           <div style={{ marginBottom: "2rem" }}>
             <a
               href={(entity as AppMetadata).app_url}

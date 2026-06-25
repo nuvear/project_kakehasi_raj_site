@@ -127,17 +127,8 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
   };
 
   const getRedirectLink = (item: CatalogueItem) => {
-    const { type, canonical_slug, app_url } = item.entity;
-    if (type === "app" && app_url) {
-      return `/${locale}${app_url}`;
-    }
-    
-    let pathSegment = "insights";
-    if (type === "guide") pathSegment = "guides";
-    if (type === "framework") pathSegment = "frameworks";
-    if (type === "app") pathSegment = "apps";
-    
-    return `/${locale}/${pathSegment}/${canonical_slug}`;
+    const { canonical_slug } = item.entity;
+    return `/${locale}/insights/${canonical_slug}`;
   };
 
   const getTypeBadge = (type: string) => {
