@@ -8,6 +8,7 @@ import {
 } from "@kakehashi/content-schema";
 import Link from "next/link";
 import type { Metadata } from "next";
+import CommandCenterDashboard from "@/components/CommandCenterDashboard";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -215,10 +216,15 @@ export default async function InsightDetailPage({ params }: PageProps) {
         <div style={{
           lineHeight: 1.7,
           fontSize: "1.05rem",
-          whiteSpace: "pre-line"
+          whiteSpace: "pre-line",
+          marginBottom: "2rem"
         }}>
           {translation.content_markdown.split("---").pop()?.trim()}
         </div>
+
+        {slug === "ai-transformation-command-center" && (
+          <CommandCenterDashboard locale={locale} />
+        )}
       </div>
     </div>
   );
