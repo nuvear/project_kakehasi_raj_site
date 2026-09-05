@@ -108,7 +108,9 @@ export default function UIPlanRenderer({ uiPlan, locale }: UIPlanRendererProps) 
           typeLower === "biographysection" ||
           typeLower === "educationstory" ||
           typeLower === "venturecasestudy" ||
-          typeLower === "articlesection"
+          typeLower === "articlesection" ||
+          typeLower === "agentanswer" ||
+          typeLower === "calltoaction"
         ) {
           return (
             <MarkdownContent

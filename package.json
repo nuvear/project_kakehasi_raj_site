@@ -10,9 +10,11 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "start": "node apps/web/.next/standalone/apps/web/server.js",
-    "test": "turbo run test"
+    "test": "vitest run && pnpm --filter diary test"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "js-yaml": "^5.1.0",
     "next": "15.5.19",
     "turbo": "^2.0.0",
     "vitest": "^4.1.9"

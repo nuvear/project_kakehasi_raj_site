@@ -7,16 +7,73 @@
     {
       "target": "main",
       "public": "apps/web/public",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "redirects": [
+        {
+          "source": "/framework.html",
+          "destination": "/en/frameworks/enterprise-ai-transformation",
+          "type": 302
+        },
+        {
+          "source": "/enterprise-ai-reference-guide.html",
+          "destination": "/en/insights/enterprise-ai-reference-guide",
+          "type": 302
+        },
+        {
+          "source": "/ai-transformation-command-center.html",
+          "destination": "/en/apps/ai-transformation-command-center",
+          "type": 302
+        },
+        {
+          "source": "/deployment-guide.html",
+          "destination": "/en/apps/ai-transformation-command-center/docs/deployment",
+          "type": 302
+        },
         {
           "source": "**",
           "destination": "https://www.rajagobalan.com/:path*",
           "type": 301,
-          "has": [{ "type": "host", "value": "rajagobalan.com" }]
+          "has": [
+            {
+              "type": "host",
+              "value": "rajagobalan.com"
+            }
+          ]
         }
       ],
       "rewrites": [
+        {
+          "source": "/apps/ai-transformation-command-center",
+          "run": {
+            "serviceId": "command-center-web",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/apps/ai-transformation-command-center/**",
+          "run": {
+            "serviceId": "command-center-web",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/diary",
+          "run": {
+            "serviceId": "ai-leadership-diary",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/diary/**",
+          "run": {
+            "serviceId": "ai-leadership-diary",
+            "region": "us-central1"
+          }
+        },
         {
           "source": "**",
           "run": {
@@ -29,7 +86,10 @@
         {
           "source": "**/*.html",
           "headers": [
-            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            }
           ]
         }
       ]
@@ -37,15 +97,25 @@
     {
       "target": "healthkitsync",
       "public": "healthkitsync",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
-        { "source": "**", "destination": "/index.html" }
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
       ],
       "headers": [
         {
           "source": "**/*.html",
           "headers": [
-            { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            }
           ]
         }
       ]

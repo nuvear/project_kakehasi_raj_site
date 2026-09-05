@@ -35,6 +35,10 @@ def seed_data():
             country='United States' 
         )
         db.add(company)
+        db.commit()
+        db = SessionLocal()
+        check_co = db.query(Company).filter(Company.id == company_id).first()
+        print(f"Company in DB: {check_co.name if check_co else 'NOT FOUND'}")
         
         # 2. Create AI Projects
         projects_data = [

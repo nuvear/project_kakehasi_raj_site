@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import SiteHeader from "./SiteHeader";
 
 interface CatalogueItem {
   entity: {
@@ -60,7 +61,10 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
       badgeInsight: "Insight",
       badgeApp: "App",
       badgeGuide: "Guide",
-      badgeFramework: "Framework"
+      badgeFramework: "Framework",
+      itemsLabel: "items",
+      showingLabel: "Showing",
+      versionLabel: "Version"
     },
     ja: {
       siteTitle: "ラジクマール・ラジャゴバラン",
@@ -87,7 +91,10 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
       badgeInsight: "インサイト",
       badgeApp: "アプリ",
       badgeGuide: "ガイド",
-      badgeFramework: "フレームワーク"
+      badgeFramework: "フレームワーク",
+      itemsLabel: "件",
+      showingLabel: "表示中",
+      versionLabel: "バージョン"
     }
   };
 
@@ -127,7 +134,13 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
   };
 
   const getRedirectLink = (item: CatalogueItem) => {
-    const { canonical_slug } = item.entity;
+    const { canonical_slug, type } = item.entity;
+    if (type === "framework") {
+      return `/${locale}/frameworks/${canonical_slug}`;
+    }
+    if (type === "app") {
+      return `/${locale}/apps/${canonical_slug}`;
+    }
     return `/${locale}/insights/${canonical_slug}`;
   };
 
@@ -138,41 +151,6 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
       case "guide": return i18n.badgeGuide;
       case "framework": return i18n.badgeFramework;
       default: return type;
-    }
-  };
-
-  const getTypeStyles = (type: string) => {
-    switch (type) {
-      case "insight":
-        return {
-          bg: "var(--color-primary-container)",
-          color: "var(--color-on-primary-container)",
-          border: "1px solid rgba(2, 132, 199, 0.2)"
-        };
-      case "app":
-        return {
-          bg: "var(--color-secondary-container)",
-          color: "var(--color-on-secondary-container)",
-          border: "1px solid rgba(13, 148, 136, 0.2)"
-        };
-      case "guide":
-        return {
-          bg: "var(--color-tertiary-container)",
-          color: "var(--color-on-tertiary-container)",
-          border: "1px solid rgba(99, 102, 241, 0.2)"
-        };
-      case "framework":
-        return {
-          bg: "rgba(147, 51, 234, 0.15)", // Purple container style
-          color: "rgb(147, 51, 234)",
-          border: "1px solid rgba(147, 51, 234, 0.2)"
-        };
-      default:
-        return {
-          bg: "var(--color-surface-variant)",
-          color: "var(--color-on-surface-variant)",
-          border: "1px solid var(--color-outline-variant)"
-        };
     }
   };
 
@@ -199,244 +177,67 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
     }
     return true;
   });
+  const categoriesWithCounts = categories.map((category) => ({
+    ...category,
+    count: category.key === "All"
+      ? items.length
+      : items.filter((item) => item.entity.type === category.key).length
+  }));
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--color-background)" }}>
-      <style>{`
-        .nav-link {
-          font-weight: 500;
-          font-size: 0.95rem;
-          color: var(--color-on-background);
-          text-decoration: none;
-          padding: 0.25rem 0.5rem;
-          border-radius: var(--radius-sm);
-          transition: color 0.2s ease, background-color 0.2s ease;
-        }
-        .nav-link:hover {
-          color: var(--color-primary);
-          background-color: var(--color-surface-variant);
-        }
-        .nav-link.active {
-          color: var(--color-primary);
-          font-weight: 700;
-        }
-        .filter-chip {
-          padding: 0.5rem 1.25rem;
-          border-radius: var(--radius-full);
-          border: 1px solid var(--color-outline-variant);
-          background: var(--glass-bg);
-          color: var(--color-on-background);
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-          outline: none;
-        }
-        .filter-chip:hover {
-          border-color: var(--color-primary);
-          transform: translateY(-1px);
-        }
-        .filter-chip:focus-visible {
-          box-shadow: 0 0 0 2px var(--color-primary);
-        }
-        .filter-chip.active {
-          background: var(--color-primary);
-          color: var(--color-on-primary);
-          border-color: var(--color-primary);
-          box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
-        }
-        .search-input {
-          width: 100%;
-          max-width: 480px;
-          padding: 0.75rem 1.25rem;
-          border-radius: var(--radius-lg);
-          border: 1px solid var(--color-outline-variant);
-          background: var(--glass-bg);
-          color: var(--color-on-background);
-          font-size: 1rem;
-          transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-          outline: none;
-        }
-        .search-input:focus {
-          border-color: var(--color-primary);
-          box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-          background: var(--color-surface);
-        }
-        .item-card {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          height: 100%;
-          opacity: 0;
-          transform: translateY(20px);
-          animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
-        }
-        @keyframes fadeInUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .tag-pill {
-          font-size: 0.75rem;
-          font-weight: 500;
-          padding: 0.25rem 0.6rem;
-          border-radius: var(--radius-sm);
-          background-color: var(--color-surface-variant);
-          color: var(--color-on-surface-variant);
-        }
-        .read-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.25rem;
-          color: var(--color-primary);
-          text-decoration: none;
-          font-weight: 700;
-          font-size: 0.95rem;
-          transition: gap 0.2s ease;
-        }
-        .glass-card:hover .read-link {
-          gap: 0.5rem;
-        }
-        @media (max-width: 768px) {
-          .header-nav {
-            display: none !important;
-          }
-        }
-      `}</style>
+    <div className="catalogue-page">
+      <SiteHeader locale={locale} active="insights" />
 
-      {/* Navigation Bar */}
-      <header className="glass-panel" style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        padding: "1rem 2rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <div style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--color-primary)" }}>
-          <Link href={`/${locale}`} style={{ textDecoration: "none", color: "var(--color-primary)" }}>
-            {i18n.siteTitle}
-          </Link>
-        </div>
-        <nav className="header-nav" style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-          <Link href={`/${locale}`} className="nav-link">{i18n.navHome}</Link>
-          <Link href={`/${locale}#experience`} className="nav-link">{i18n.navExperience}</Link>
-          <Link href={`/${locale}#education`} className="nav-link">{i18n.navEducation}</Link>
-          <Link href={`/${locale}#ventures`} className="nav-link">{i18n.navVentures}</Link>
-          <Link href={`/${locale}/insights`} className="nav-link active">{i18n.navInsights}</Link>
-        </nav>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <Link 
-            href={i18n.switchPath} 
-            aria-label={locale === "ja" ? "Switch language to English" : "日本語に切り替える"}
-            style={{
-              padding: "0.4rem 0.8rem",
-              borderRadius: "9999px",
-              border: "1px solid var(--color-outline)",
-              fontSize: "0.85rem",
-              fontWeight: 600,
-              color: "var(--color-primary)",
-              textDecoration: "none",
-              background: "var(--glass-bg)"
-            }}
-          >
-            {i18n.switchLang}
-          </Link>
-        </div>
-      </header>
+      <main className="catalogue-shell">
+        <section className="catalogue-hero" aria-labelledby="catalogue-title">
+          <div className="eyebrow">
+            <span className="status-dot" aria-hidden="true" />
+            {i18n.showingLabel} {filteredItems.length} {i18n.itemsLabel}
+          </div>
+          <h1 className="catalogue-title" id="catalogue-title">
+            {i18n.title}
+          </h1>
+          <p className="catalogue-subtitle">{i18n.subtitle}</p>
 
-      {/* Hero Section */}
-      <section style={{
-        padding: "4rem 2rem 2rem 2rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        textAlign: "center"
-      }}>
-        <h1 style={{
-          fontFamily: "var(--font-serif)",
-          fontSize: "3rem",
-          color: "var(--color-primary)",
-          marginBottom: "1rem",
-          letterSpacing: "-0.02em"
-        }}>
-          {i18n.title}
-        </h1>
-        <p style={{
-          fontSize: "1.2rem",
-          color: "var(--color-on-surface-variant)",
-          maxWidth: "700px",
-          margin: "0 auto 2.5rem auto",
-          lineHeight: 1.6
-        }}>
-          {i18n.subtitle}
-        </p>
-
-        {/* Search Controls */}
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "2rem"
-        }}>
-          <input
-            type="text"
-            className="search-input"
-            placeholder={i18n.searchPlaceholder}
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-            }}
-            aria-label={i18n.searchPlaceholder}
-          />
-        </div>
-
-        {/* Filter Chips */}
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "0.75rem",
-          marginBottom: "3rem"
-        }} role="group" aria-label="Filter catalogue by type">
-          {categories.map((category) => (
-            <button
-              key={category.key}
-              className={`filter-chip ${selectedCategory === category.key ? "active" : ""}`}
-              onClick={() => {
-                setSelectedCategory(category.key);
+          <div className="catalogue-controls">
+            <input
+              type="search"
+              className="search-input"
+              placeholder={i18n.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
               }}
-              aria-pressed={selectedCategory === category.key}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-      </section>
+              aria-label={i18n.searchPlaceholder}
+            />
 
-      {/* Grid List */}
-      <section style={{
-        padding: "0 2rem 6rem 2rem",
-        maxWidth: "1200px",
-        margin: "0 auto"
-      }}>
+            <div className="catalogue-filter-group" role="group" aria-label="Filter catalogue by type">
+              {categoriesWithCounts.map((category) => (
+                <button
+                  key={category.key}
+                  type="button"
+                  className={`filter-chip ${selectedCategory === category.key ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedCategory(category.key);
+                  }}
+                  aria-pressed={selectedCategory === category.key}
+                >
+                  <span>{category.label}</span>
+                  <span className="filter-count">{category.count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="catalogue-results" aria-live="polite">
         {filteredItems.length === 0 ? (
-          <div style={{
-            textAlign: "center",
-            padding: "4rem 2rem",
-            color: "var(--color-on-surface-variant)",
-            fontSize: "1.1rem"
-          }}>
+          <div className="catalogue-empty">
             {i18n.noItems}
           </div>
         ) : (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: "2rem"
-          }}>
+          <div className="catalogue-grid">
             {filteredItems.map((item, index) => {
-              const badgeStyle = getTypeStyles(item.entity.type);
               const isAppOrFramework = item.entity.type === "app" || item.entity.type === "framework";
               const formattedDate = formatDate(item.translation.frontmatter.last_editorial_review);
 
@@ -446,88 +247,38 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
                   className="item-card" 
                   style={{ animationDelay: `${index * 60}ms` }}
                 >
-                  <div className="glass-card" style={{
-                    padding: "2rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    height: "100%",
-                    border: "1px solid var(--glass-border)"
-                  }}>
+                  <article className="catalogue-card glass-card" data-type={item.entity.type}>
                     <div>
-                      {/* Badge and Meta */}
-                      <div style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: "1rem"
-                      }}>
-                        <span style={{
-                          display: "inline-block",
-                          padding: "0.25rem 0.75rem",
-                          borderRadius: "var(--radius-full)",
-                          fontSize: "0.75rem",
-                          fontWeight: 700,
-                          backgroundColor: badgeStyle.bg,
-                          color: badgeStyle.color,
-                          border: badgeStyle.border
-                        }}>
+                      <div className="catalogue-card-meta">
+                        <span className="catalogue-badge" data-type={item.entity.type}>
                           {getTypeBadge(item.entity.type)}
                         </span>
                         
                         {formattedDate && (
-                          <span style={{
-                            fontSize: "0.8rem",
-                            color: "var(--color-on-surface-variant)"
-                          }}>
+                          <span className="catalogue-date">
                             {formattedDate}
                           </span>
                         )}
                       </div>
 
-                      {/* Title */}
-                      <h3 style={{
-                        fontSize: "1.3rem",
-                        fontWeight: 700,
-                        color: "var(--color-primary)",
-                        marginBottom: "0.75rem",
-                        lineHeight: 1.3
-                      }}>
+                      <h3 className="catalogue-card-title">
                         {item.translation.frontmatter.title}
                       </h3>
 
-                      {/* Version / Category / Subtitle information */}
                       {item.entity.type === "framework" && item.entity.version && (
-                        <div style={{
-                          fontSize: "0.8rem",
-                          fontWeight: 600,
-                          color: "var(--color-on-surface-variant)",
-                          marginBottom: "0.75rem"
-                        }}>
-                          Version: {item.entity.version}
+                        <div className="catalogue-version">
+                          {i18n.versionLabel}: {item.entity.version}
                         </div>
                       )}
 
-                      {/* Summary */}
-                      <p style={{
-                        fontSize: "0.95rem",
-                        color: "var(--color-on-surface-variant)",
-                        lineHeight: 1.5,
-                        marginBottom: "1.5rem"
-                      }}>
+                      <p className="catalogue-summary">
                         {item.translation.frontmatter.summary}
                       </p>
                     </div>
 
                     <div>
-                      {/* Tag pills */}
                       {(item.entity.tags || []).length > 0 && (
-                        <div style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "0.4rem",
-                          marginBottom: "1.5rem"
-                        }}>
+                        <div className="catalogue-tags">
                           {(item.entity.tags || []).map((tag) => (
                             <span key={tag} className="tag-pill">
                               #{tag}
@@ -536,29 +287,23 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
                         </div>
                       )}
 
-                      {/* Link redirect */}
-                      <div style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center"
-                      }}>
-                        <Link 
-                          href={getRedirectLink(item)} 
-                          className="read-link"
-                          aria-label={`${isAppOrFramework ? i18n.openTool : i18n.readAnalysis}: ${item.translation.frontmatter.title}`}
-                        >
-                          <span>{isAppOrFramework ? i18n.openTool : i18n.readAnalysis}</span>
-                          <span aria-hidden="true" style={{ transition: "transform 0.2s ease" }}>→</span>
-                        </Link>
-                      </div>
+                      <Link
+                        href={getRedirectLink(item)}
+                        className="read-link"
+                        aria-label={`${isAppOrFramework ? i18n.openTool : i18n.readAnalysis}: ${item.translation.frontmatter.title}`}
+                      >
+                        <span>{isAppOrFramework ? i18n.openTool : i18n.readAnalysis}</span>
+                        <span aria-hidden="true">&rarr;</span>
+                      </Link>
                     </div>
-                  </div>
+                  </article>
                 </div>
               );
             })}
           </div>
         )}
       </section>
+      </main>
     </div>
   );
 }

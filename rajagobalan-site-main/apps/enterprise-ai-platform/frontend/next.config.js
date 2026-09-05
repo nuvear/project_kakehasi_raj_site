@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  basePath: '/apps/ai-transformation-command-center',
   async rewrites() {
     return [
       {
