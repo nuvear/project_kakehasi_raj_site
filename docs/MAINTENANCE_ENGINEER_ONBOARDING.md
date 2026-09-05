@@ -120,4 +120,6 @@ In an incident handover, record the affected URL, UTC/Japan time, symptom, last 
 
 ## 9. Design extension scope authorized on 2026-09-06
 
+The implemented extension is documented in [Campus & Coast brand guide](CAMPUS_COAST_BRAND.md) and [the website release record](CAMPUS_COAST_RELEASE.md). New maintenance work should start from the `codex/campus-coast-site` branch (PR #1) until it is merged; the original local checkout has separate earlier work.
+
 The owner approved applying the diary's Campus & Coast identity to the entire main website and its first-party linked webpages. The main identity remains cardinal/sandstone/ivory with serif headings. Adjacent coastal or terracotta accents may distinguish analytical tools, ventures and education while retaining common navigation and typography. Preserve editorial content, English/Japanese parity and working tools. External sites reached by links remain external; they are not owned application surfaces.

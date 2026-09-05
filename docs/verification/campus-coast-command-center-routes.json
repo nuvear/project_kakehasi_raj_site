@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/dashboard",
+    "status": 200
+  },
+  {
+    "path": "/discovery",
+    "status": 200
+  },
+  {
+    "path": "/portfolio",
+    "status": 200
+  },
+  {
+    "path": "/maturity",
+    "status": 200
+  },
+  {
+    "path": "/roi",
+    "status": 200
+  },
+  {
+    "path": "/architecture",
+    "status": 200
+  },
+  {
+    "path": "/wardley",
+    "status": 200
+  },
+  {
+    "path": "/roadmap",
+    "status": 200
+  },
+  {
+    "path": "/slides",
+    "status": 200
+  }
+]

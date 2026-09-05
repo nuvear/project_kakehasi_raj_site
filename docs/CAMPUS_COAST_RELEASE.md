@@ -24,9 +24,26 @@ Build inputs are staged with `scripts/stage-site-release.py`, excluding diary co
 
 ## Deployment and rollback
 
-Record final revisions and live smoke checks below after publishing. Update only the service image, preserving environment variables, secrets, service account and routing.
+The services were updated by image only, preserving environment variables, secrets, service accounts and routing.
 
 Previous main revision: `kakehashi-app-00021-clj`.
 Previous Command Center revision: `command-center-web-00003-8lm`.
 
 If live checks fail, route traffic back to the previous revision for that service; do not change unrelated services or Firebase Hosting.
+
+## Published release
+
+Source implementation commit: `16eb700` on `codex/campus-coast-site` (PR #1).
+
+| Service | Ready revision | Image tag | Cloud Build |
+| --- | --- | --- | --- |
+| Main website | `kakehashi-app-00022-5r2` | `kakehashi-app:campus-coast-20260906-1` | `22241b91-171d-41d1-a8d3-9a14bb6ddf7a` |
+| Command Center | `command-center-web-00004-5df` | `command-center-web:campus-coast-20260906-1` | `a3502217-176f-48b3-948f-3e9ac90a0803` |
+
+Both images are in `us-central1-docker.pkg.dev/rajagobalan-site/cloud-run-source-deploy`. Both revisions serve 100% of their respective service traffic. Previous revisions above remain the rollback targets.
+
+Live main-site checks: all 40 reachable English/Japanese routes returned HTTP 200. Both homepages contain the new Campus & Coast markup. The bridge asset, monogram and optimized image endpoint returned 200. `/diary` returned 200, and the apex GET retained its 301 redirect. The 42-route local preview includes the additional unpublished to-do app, explaining the count difference.
+
+Primary text/background contrast checks ranged from 6.08:1 to 14.12:1 across body, muted copy, buttons, cardinal/slate accents, dark mode and footer. These are token-pair calculations, not a substitute for browser accessibility testing.
+
+Live Command Center checks: all 10 pages returned HTTP 200 and the new workspace markup, the application icon returned 200, and the existing API health endpoint returned 200 with the expected www CORS origin. Route evidence is saved in `docs/verification/campus-coast-public-routes.json` and `docs/verification/campus-coast-command-center-routes.json`.
