@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
 interface CatalogueItem {
@@ -188,7 +189,7 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
     <div className="catalogue-page">
       <SiteHeader locale={locale} active="insights" />
 
-      <main className="catalogue-shell">
+      <main id="main-content" className="catalogue-shell">
         <section className="catalogue-hero" aria-labelledby="catalogue-title">
           <div className="eyebrow">
             <span className="status-dot" aria-hidden="true" />
@@ -304,6 +305,7 @@ export default function InsightsCatalogueClient({ locale, items }: Props) {
         )}
       </section>
       </main>
+      <SiteFooter locale={locale} />
     </div>
   );
 }

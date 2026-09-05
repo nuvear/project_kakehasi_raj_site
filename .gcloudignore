@@ -19,3 +19,7 @@ coverage/
 /infra/
 /tests/
 /docs/
+
+**/.next/
+**/.next-dev/
+**/*.tsbuildinfo

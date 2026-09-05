@@ -146,13 +146,13 @@ export default function MaturityAssessment() {
           results.people_score,
           results.governance_score
         ],
-        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(77, 100, 113, 0.2)',
+        borderColor: '#4d6471',
         borderWidth: 2,
-        pointBackgroundColor: '#3b82f6',
+        pointBackgroundColor: '#4d6471',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: '#3b82f6',
+        pointHoverBorderColor: '#4d6471',
       },
     ],
   } : null;

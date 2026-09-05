@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { DM_Sans, Libre_Caslon_Display } from "next/font/google";
 import ThemeDock from "@/components/ThemeDock";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { themeBootScript } from "@/lib/theme-script";
 import "../globals.css";
+import "../campus.css";
 
-const inter = Inter({
+const inter = DM_Sans({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
+const playfair = Libre_Caslon_Display({
+  weight: "400",
   variable: "--font-playfair",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Rajkumar Rajagobalan — Building AI-Native Enterprises",
-  description: "Enterprise AI Transformation Leader, HealthTech Founder (Innuir), Stanford SEP Alumni, MIT Alumni.",
+  description:
+    "Enterprise AI Transformation Leader, HealthTech Founder (Innuir), Stanford SEP Alumni, MIT Alumni.",
 };
 
 export default async function LocaleLayout({

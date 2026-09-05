@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
@@ -9,12 +10,19 @@ interface SiteHeaderProps {
   locale: string;
 }
 
-export default function SiteHeader({ active = "home", languageHref, locale }: SiteHeaderProps) {
+export default function SiteHeader({
+  active = "home",
+  languageHref,
+  locale,
+}: SiteHeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const isJa = locale === "ja";
   const isHome = active === "home";
   const isInsights = active === "insights";
   const oppositeLocale = isJa ? "en" : "ja";
-  const defaultSwitchPath = isInsights ? `/${oppositeLocale}/insights` : `/${oppositeLocale}`;
+  const defaultSwitchPath = isInsights
+    ? `/${oppositeLocale}/insights`
+    : `/${oppositeLocale}`;
 
   const copy = isJa
     ? {
@@ -48,11 +56,22 @@ export default function SiteHeader({ active = "home", languageHref, locale }: Si
 
   return (
     <header className="site-header glass-panel">
+      <a className="campus-skip" href="#main-content">
+        {isJa ? "本文へ" : "Skip to content"}
+      </a>
       <Link className="site-brand" href={sectionPrefix}>
+        <span className="campus-monogram" aria-hidden="true">
+          R.
+        </span>
         <span>{copy.siteTitle}</span>
       </Link>
 
-      <nav className="site-nav" aria-label={isJa ? "主要ナビゲーション" : "Main navigation"}>
+      <nav
+        id="site-navigation"
+        onClick={() => setMenuOpen(false)}
+        className={`site-nav ${menuOpen ? "is-open" : ""}`}
+        aria-label={isJa ? "主要ナビゲーション" : "Main navigation"}
+      >
         {!isHome && (
           <Link className="site-nav-link" href={sectionPrefix}>
             {copy.home}
@@ -75,14 +94,30 @@ export default function SiteHeader({ active = "home", languageHref, locale }: Si
         <a className="site-nav-link" href={`${sectionPrefix}#ventures`}>
           {copy.ventures}
         </a>
-        <Link className={`site-nav-link ${isInsights ? "is-active" : ""}`} href={`${sectionPrefix}/insights`}>
+        <Link
+          className={`site-nav-link ${isInsights ? "is-active" : ""}`}
+          href={`${sectionPrefix}/insights`}
+        >
           {copy.insights}
         </Link>
       </nav>
 
+      <button
+        type="button"
+        className="campus-menu-toggle"
+        aria-expanded={menuOpen}
+        aria-controls="site-navigation"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? (isJa ? "閉じる" : "Close") : isJa ? "メニュー" : "Menu"}
+      </button>
       <div className="site-actions">
         <ThemeToggle locale={locale} />
-        <Link className="language-link" href={copy.switchPath} aria-label={copy.languageLabel}>
+        <Link
+          className="language-link"
+          href={copy.switchPath}
+          aria-label={copy.languageLabel}
+        >
           {copy.switchLang}
         </Link>
       </div>

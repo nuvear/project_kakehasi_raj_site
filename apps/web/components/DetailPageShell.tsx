@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
 export interface DetailMetaItem {
@@ -39,16 +40,12 @@ export default function DetailPageShell({
   wide = false,
 }: DetailPageShellProps) {
   const visibleMeta = meta.filter((item) => item.value);
-  const footerCopy = locale === "ja"
-    ? "シンガポール | 日本 | AI変革"
-    : "Singapore | Japan | AI Transformation";
-  const contactEmail = "raj@innuir.com";
 
   return (
     <div className={`detail-page ${wide ? "is-wide" : ""}`}>
       <SiteHeader locale={locale} active={active} languageHref={languageHref} />
 
-      <main className="detail-shell">
+      <main id="main-content" className="detail-shell">
         <article className="detail-card glass-panel">
           <Link className="detail-back" href={backHref}>
             <span aria-hidden="true">&larr;</span>
@@ -65,7 +62,10 @@ export default function DetailPageShell({
               {visibleMeta.length > 0 && (
                 <dl className="detail-meta">
                   {visibleMeta.map((item) => (
-                    <div className="detail-meta-chip" key={`${item.label || "meta"}-${item.value}`}>
+                    <div
+                      className="detail-meta-chip"
+                      key={`${item.label || "meta"}-${item.value}`}
+                    >
                       {item.label && <dt>{item.label}</dt>}
                       <dd>{item.value}</dd>
                     </div>
@@ -81,10 +81,7 @@ export default function DetailPageShell({
         </article>
       </main>
 
-      <footer className="profile-slim-footer">
-        <span>{footerCopy}</span>
-        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-      </footer>
+      <SiteFooter locale={locale} />
     </div>
   );
 }

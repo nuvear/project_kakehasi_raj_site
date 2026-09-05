@@ -53,7 +53,7 @@ export default async function AppDetailPage({ params }: PageProps) {
 
   const isJa = locale === "ja";
   const oppositeLocale = isJa ? "en" : "ja";
-  const launchUrl = app.app_url || `/apps/${slug}`;
+  const launchUrl = slug === "to-do-list" ? "#workspace-tool" : app.app_url || `/apps/${slug}`;
   const isCommandCenter = slug === "ai-transformation-command-center";
   const isTodoList = slug === "to-do-list";
 
@@ -109,7 +109,7 @@ export default async function AppDetailPage({ params }: PageProps) {
         )}
 
         {isTodoList && (
-          <TodoListDashboard locale={locale} />
+          <section id="workspace-tool"><TodoListDashboard locale={locale} /></section>
         )}
       </DetailPageShell>
     </>

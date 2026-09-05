@@ -86,7 +86,7 @@ export default function ROI() {
           results.base_case.total_benefit,
           results.base_case.npv
         ],
-        backgroundColor: '#3b82f6',
+        backgroundColor: '#4d6471',
       },
       {
         label: 'Optimistic',
