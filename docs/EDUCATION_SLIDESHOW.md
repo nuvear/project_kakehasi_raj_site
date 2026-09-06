@@ -44,3 +44,5 @@ HTTP/build validation does not represent browser interaction QA. Firebase Hostin
 ## Owner-selected photo replacement — 2026-09-06
 
 Replaced the American College and Shizuoka photographs with the exact attachment and URL supplied by the owner. Captions and credits in both languages now describe these photographs. New asset paths prevent cached versions of the previous photos from appearing. Source bytes are unchanged; Next Image handles responsive delivery. The originals remain in Git history.
+
+Released as `kakehashi-app-00024-rnl` (100% traffic), image tag `education-photos-20260906-2`, Cloud Build `07376ff8-bd7c-4ab5-a961-b6bef580b212` (SUCCESS). Rollback revision: `kakehashi-app-00023-j8d`. Production build passed. Live checks confirmed both original image files match the selected source bytes, both optimized images return HTTP 200, and both locale pages contain the slideshow. Evidence: `docs/verification/selected-photos-live-20260906.json`.
