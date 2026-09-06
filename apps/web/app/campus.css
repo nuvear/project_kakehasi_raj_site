@@ -1409,3 +1409,32 @@ html:lang(ja) .campus-footer h2 {
     font-size: 9px;
   }
 }
+
+/* Responsive review: shrink grid children and wrap long bilingual headings. */
+.detail-hero-copy, .detail-aside, .detail-content, .campus-perspective > *, .campus-hero > * { min-width: 0; }
+.detail-title, .detail-subtitle, .detail-meta dd, .campus-perspective h2 { overflow-wrap: anywhere; }
+.education-photo-story div > p:not(.campus-eyebrow) { font-size: 16px; }
+.education-photo-label, .education-timing, .education-photo-credit, .education-photo-selectors button > span { font-size: 12px; }
+.education-photo-selectors button, .education-photo-controls .education-play, .campus-menu-toggle, .language-link { font-size: 14px; }
+.site-actions .theme-toggle-button { min-width: 44px; width: 44px; min-height: 44px; }
+.language-link, .campus-menu-toggle { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+@media (min-width: 901px) { .campus-menu-toggle { display: none; } }
+@media (max-width: 900px) {
+  .campus-tool-grid { grid-template-columns: 1fr; }
+  .campus-tool { padding: 26px; }
+}
+@media (max-width: 700px) {
+  .site-header { grid-template-columns: minmax(0, 1fr) auto; }
+  .site-brand { max-width: 100%; min-width: 0; }
+  .site-actions { grid-column: 1 / -1; justify-content: flex-end; position: static; }
+  html { scroll-padding-top: 155px; }
+  .education-photo-stage { min-height: 0; aspect-ratio: 3 / 2; }
+}
+@media (max-width: 400px) {
+  .education-photo-story { padding: 20px; }
+  .education-photo-story h3 { font-size: 28px; }
+  .education-photo-selectors button { padding: 14px 10px; }
+  .campus-hero h1 { font-size: clamp(44px, 12vw, 52px); }
+}
+.campus-career > *, .campus-section-heading > * { min-width: 0; }
+.campus-career h3 { overflow-wrap: anywhere; }

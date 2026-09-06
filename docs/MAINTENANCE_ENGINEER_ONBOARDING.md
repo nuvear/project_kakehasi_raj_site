@@ -125,3 +125,5 @@ The implemented extension is documented in [Campus & Coast brand guide](CAMPUS_C
 The owner approved applying the diary's Campus & Coast identity to the entire main website and its first-party linked webpages. The main identity remains cardinal/sandstone/ivory with serif headings. Adjacent coastal or terracotta accents may distinguish analytical tools, ventures and education while retaining common navigation and typography. Preserve editorial content, English/Japanese parity and working tools. External sites reached by links remain external; they are not owned application surfaces.
 
 The profile’s seven-institution photo carousel is documented in [Education slideshow maintenance and photo provenance](EDUCATION_SLIDESHOW.md), including source credits, timing, accessibility behavior, and release scope.
+
+Desktop, tablet and mobile maintenance checks are documented in [Responsive review](RESPONSIVE_REVIEW.md), with the repeatable browser audit and its sign-in coverage limits.

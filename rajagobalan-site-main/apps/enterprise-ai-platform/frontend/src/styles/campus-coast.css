@@ -421,3 +421,36 @@ select:focus-visible {
     transition: none !important;
   }
 }
+
+/* Adapt the workspace to its usable width, including portrait tablets. */
+.coast-workspace { min-width: 0; }
+.coast-workspace h1, .coast-workspace h2, .coast-workspace h3 { overflow-wrap: anywhere; }
+.coast-maturity-summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 32px; }
+.coast-maturity-summary > * { min-width: 0; }
+.coast-maturity-level { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.2; overflow-wrap: anywhere; }
+.coast-score-row { display: flex; align-items: center; gap: 16px; }
+.coast-header button, .coast-sidebar nav a { min-height: 44px; }
+@media (max-width: 1100px) {
+  .coast-maturity-summary { grid-template-columns: minmax(0, 1fr); text-align: center; }
+  .coast-maturity-summary > * { width: 100%; margin-inline: auto; text-align: center; }
+}
+@media (max-width: 1000px) {
+  .coast-header { flex-wrap: wrap; padding: 14px 20px; gap: 16px; }
+  .coast-header button { display: block; margin-left: auto; padding: 9px 14px; border: 1px solid #d7cdbc; font-size: 14px; }
+  .coast-diary-link { display: none; }
+  .coast-layout { display: block; }
+  .coast-sidebar { display: none; min-height: 0; padding: 20px; }
+  .coast-sidebar.is-open { display: block; }
+  .coast-sidebar nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .coast-sidebar-note { display: none; }
+}
+@media (max-width: 600px) {
+  .coast-workspace > .flex.justify-between, .coast-workspace > div > .flex.justify-between { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .coast-workspace > .flex.justify-between > button, .coast-workspace > div > .flex.justify-between > button { flex-shrink: 0; }
+  .coast-workspace .p-8 { padding: 20px; }
+  .coast-score-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .coast-score-row > div { grid-column: 1 / -1; grid-row: 2; }
+  .coast-score-row > span:last-child { grid-column: 2; grid-row: 1; justify-self: end; }
+  .coast-score-row button { min-height: 44px; }
+  .coast-workspace input:not([type="checkbox"]):not([type="radio"]), .coast-workspace select { min-height: 44px; font-size: 16px; max-width: 100%; }
+}

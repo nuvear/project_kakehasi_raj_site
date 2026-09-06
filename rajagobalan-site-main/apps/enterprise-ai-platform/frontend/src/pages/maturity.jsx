@@ -221,7 +221,7 @@ export default function MaturityAssessment() {
                 {questions.map((q) => (
                   <div key={q.id}>
                     <p className="text-gray-800 font-medium mb-3">{q.text}</p>
-                    <div className="flex items-center gap-4">
+                    <div className="coast-score-row">
                       <span className="text-sm text-gray-500 w-12">Low</span>
                       <div className="flex-1 flex justify-between gap-2">
                         {[1, 2, 3, 4, 5].map((val) => (
@@ -268,10 +268,10 @@ export default function MaturityAssessment() {
         <div className="space-y-8 animate-fade-in">
           {/* Top Summary */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="coast-maturity-summary">
               <div className="text-center md:text-left">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Maturity Level</h2>
-                <div className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
+                <div className="coast-maturity-level font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
                   {results.maturity_level.replace('_', ' ').toUpperCase()}
                 </div>
                 <p className="text-gray-600 mt-2 text-lg">Overall Score: <span className="font-bold text-gray-900">{results.overall_score.toFixed(1)}/5.0</span></p>

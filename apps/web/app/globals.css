@@ -2822,7 +2822,8 @@ body:lang(ja) {
   --font-serif: var(--font-playfair), "BIZ UDMincho", "Hiragino Mincho ProN", serif;
   --line-height-body: 1.75;      /* Increased line-height prevents Japanese characters from feeling crowded */
   --letter-spacing-body: 0;
-  word-break: keep-all;          /* Prevents awkward mid-word breaks in Japanese characters */
+  word-break: normal;            /* Use natural Japanese line breaks on narrow screens. */
+  line-break: strict;
   overflow-wrap: break-word;
 }
 
