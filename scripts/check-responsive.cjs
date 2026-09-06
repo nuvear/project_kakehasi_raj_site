@@ -44,4 +44,5 @@ const targets = [...mainRoutes.map(path => ({base:main,path})), ...ccRoutes.map(
  }
  await browser.close();
  console.log('Checked',results.length,'page/viewport combinations');
+ process.exitCode = results.some(r => r.error || r.status !== 200 || r.scrollWidth > r.width + 2 || r.clipped.length) ? 1 : 0;
 })();

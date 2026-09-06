@@ -32,3 +32,11 @@ Evidence: `docs/verification/responsive-local-20260906.json`, `responsive-intera
 `scripts/check-responsive.cjs` requires Playwright and installed Chrome. Use `PLAYWRIGHT_MODULE` to point to an existing Playwright installation without changing production dependencies. `SITE_BASE`, `CC_BASE`, `WIDTHS`, `PATH_FILTER`, and `RESPONSIVE_OUTPUT` configure targets/output. Default local ports are 3013 and 3014. Local Command Center reads may be forwarded to the existing public API; writes are blocked by the check. For production checks set both bases to `https://www.rajagobalan.com`.
 
 Only the main website and Command Center frontend need releasing. Preserve Hosting rewrites, APIs, content records and Diary authentication. Previous rollback revisions are `kakehashi-app-00026-p6p` and `command-center-web-00004-5df`.
+
+## Published release
+
+Main revision: `kakehashi-app-00027-v6t`; Command Center revision: `command-center-web-00005-xkj`. Both serve 100% traffic. Cloud Builds `9b519318-3bee-4722-8298-a4c68da3da98` and `0364a835-7407-4807-8cff-c1fd5f00d8fb` succeeded with tag `responsive-20260906-1`. Header controls also fit at ten widths (320, 390, 430, 600, 700, 768, 900, 901, 1024, 1440) in both languages.
+
+Published-site interaction checks passed for the menu, theme, seven photo selections, tablet Command Center navigation, phone project dialog, and assessment controls/results. Representative live screenshots are retained in `docs/verification/responsive-screenshots/`.
+
+Final live browser audit: all 255 combinations (51 public pages × 5 widths) passed with HTTP 200, no document overflow and no detected uncontained content clipping. Evidence: `docs/verification/responsive-live-20260906.json`. The audit exits nonzero on future detected failures.
