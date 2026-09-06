@@ -50,3 +50,5 @@ Released as `kakehashi-app-00024-rnl` (100% traffic), image tag `education-photo
 ## Owner-selected Madras Institute of Technology photo — 2026-09-06
 
 Replaced the administrative-block photograph with the exact `mit-front.jpg` attachment. Both language captions now identify the entrance gate. Updated source credit and a new asset URL prevent stale attribution and cached-image reuse. The previous image remains in Git history.
+
+Released as `kakehashi-app-00025-5qr` (100% traffic), image tag `madras-photo-20260906-1`, Cloud Build `6884f281-28d4-490a-bdc1-a838278b8ac5` (SUCCESS). Rollback revision: `kakehashi-app-00024-rnl`. Production build passed. Live original image matches the attachment byte for byte; its optimized image and both locale pages return HTTP 200. Evidence: `docs/verification/madras-photo-live-20260906.json`.
