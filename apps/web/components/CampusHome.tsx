@@ -1,3 +1,4 @@
+import EducationSlideshow from "./EducationSlideshow";
 import Link from "next/link";
 import Image from "next/image";
 import type { CopilotDeckSlide } from "./CopilotDeck";
@@ -315,6 +316,7 @@ export default function CampusHome({
             </div>
             <p>{education.summary}</p>
           </div>
+          <EducationSlideshow locale={locale} />
           <div className="campus-education">
             {education.items.map((item, i) => (
               <Link
