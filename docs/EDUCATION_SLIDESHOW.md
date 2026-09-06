@@ -14,11 +14,11 @@ Photographs are self-hosted and served through Next Image. The current and next 
 | `american-campus.jpg` | Red-brick campus architecture; image supplied by the profile owner | User attachment `The American College.jpg`, selected 2026-09-06. Photographer and reuse license were not supplied; no Commons attribution or open license is asserted. |
 | `madras-entrance.jpg` | Entrance gate, Madras Institute of Technology; supplied by the profile owner | User attachment `mit-front.jpg`, selected 2026-09-06. Photographer and reuse license were not supplied; no Commons attribution or open license is asserted. |
 | `shizuoka-campus.jpg` | Hamamatsu Campus building and courtyard; Shizuoka University ABP | [Official image selected by the owner](https://www.abp.icsu.shizuoka.ac.jp/images/schoollife/campus/img_ph02.jpg), retrieved 2026-09-06. No open license asserted. |
-| `anaheim.jpg` | MBA students at the former Akio Morita Learning Center, Tokyo; Anaheim University archive | [Original photograph](https://anaheim.edu/wp-content/uploads/2025/01/DSC_1194-1-scaled.jpeg). The university's public media metadata explicitly identifies the former Tokyo learning center. No open license was stated; institutional copyright retained. |
+| `anaheim-building.webp` | Anaheim University building; supplied by the profile owner | User attachment `Anaheim-University-USA.webp`, selected 2026-09-06. Photographer and reuse license were not supplied; no open license is asserted. |
 | `mit.jpg` | Great Dome; Calvinkrishy | [Commons source](https://commons.wikimedia.org/wiki/File:MIT_Main_Apr09.JPG), used under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). |
 | `stanford.jpg` | Knight Management Center; Steve Castillo | [Commons source](https://commons.wikimedia.org/wiki/File:Knight_Management_Center.jpg), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). |
 
-These are sourced photographs, not generated substitutes. The Anaheim image is an archival student gathering at its former Tokyo learning center; the slide does not imply it is a current Tokyo campus. Avoid replacing it with Anaheim's California building or with the newer generated images present in its media library. Photo credits and license links appear with each slide. CC BY-SA photographs and any responsive presentation adaptations remain under their stated licenses; the website code has separate terms. Institutional image attribution is not a representation of an open reuse license or a permission grant.
+These are sourced photographs, not generated substitutes. The owner subsequently selected a university building photograph for Anaheim. The current slide does not identify this building as the Tokyo learning center; the original archival photograph remains in Git history. Photo credits and license links appear with each slide. CC BY-SA photographs and any responsive presentation adaptations remain under their stated licenses; the website code has separate terms. Institutional image attribution is not a representation of an open reuse license or a permission grant.
 
 ## Maintenance
 
@@ -52,3 +52,7 @@ Released as `kakehashi-app-00024-rnl` (100% traffic), image tag `education-photo
 Replaced the administrative-block photograph with the exact `mit-front.jpg` attachment. Both language captions now identify the entrance gate. Updated source credit and a new asset URL prevent stale attribution and cached-image reuse. The previous image remains in Git history.
 
 Released as `kakehashi-app-00025-5qr` (100% traffic), image tag `madras-photo-20260906-1`, Cloud Build `6884f281-28d4-490a-bdc1-a838278b8ac5` (SUCCESS). Rollback revision: `kakehashi-app-00024-rnl`. Production build passed. Live original image matches the attachment byte for byte; its optimized image and both locale pages return HTTP 200. Evidence: `docs/verification/madras-photo-live-20260906.json`.
+
+## Owner-selected Anaheim University building photo — 2026-09-06
+
+Replaced the archival Tokyo gathering photograph with the exact `Anaheim-University-USA.webp` attachment. Captions now describe the visible university building, and the eyebrow identifies the Akio Morita School of Business without labeling this building as Tokyo. Existing education records are unchanged. A new WebP asset URL avoids cached copies of the old photo.
