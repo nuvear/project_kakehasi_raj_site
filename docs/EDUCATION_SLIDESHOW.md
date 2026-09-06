@@ -56,3 +56,5 @@ Released as `kakehashi-app-00025-5qr` (100% traffic), image tag `madras-photo-20
 ## Owner-selected Anaheim University building photo — 2026-09-06
 
 Replaced the archival Tokyo gathering photograph with the exact `Anaheim-University-USA.webp` attachment. Captions now describe the visible university building, and the eyebrow identifies the Akio Morita School of Business without labeling this building as Tokyo. Existing education records are unchanged. A new WebP asset URL avoids cached copies of the old photo.
+
+Released as `kakehashi-app-00026-p6p` (100% traffic), image tag `anaheim-photo-20260906-1`, Cloud Build `b860816e-6b9f-4fe5-adfe-d7a078b01231` (SUCCESS). Rollback revision: `kakehashi-app-00025-5qr`. Production build passed. Live original WebP matches the attachment byte for byte; the optimized image and both locale pages return HTTP 200. Evidence: `docs/verification/anaheim-photo-live-20260906.json`.

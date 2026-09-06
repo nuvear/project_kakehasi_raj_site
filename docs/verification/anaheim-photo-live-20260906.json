@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/images/education/anaheim-building.webp",
+    "status": 200,
+    "exact_source_match": true
+  },
+  {
+    "image": "anaheim-building",
+    "optimized_status": 200,
+    "optimized_bytes": 42016
+  },
+  {
+    "locale": "en",
+    "status": 200,
+    "slideshow_present": true
+  },
+  {
+    "locale": "ja",
+    "status": 200,
+    "slideshow_present": true
+  }
+]
