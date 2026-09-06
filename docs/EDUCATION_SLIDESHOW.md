@@ -11,9 +11,9 @@ Photographs are self-hosted and served through Next Image. The current and next 
 | File | Subject and credit | Source and reuse terms |
 | --- | --- | --- |
 | `sainik.jpg` | Cadets on parade on campus; Sainik School Amaravathinagar | [Official school website](https://www.sainikschoolamaravathinagar.edu.in/), `assets/images/banner/img_02.jpg`. Institutional photograph; no open license was stated. Copyright remains with its owner. |
-| `american.jpg` | Daniel Poor Memorial Library; N. Vivekananthamoorthy | [Commons source](https://commons.wikimedia.org/wiki/File:The_American_College,_Madurai,Tamil_Nadu,_India.jpg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). |
+| `american-campus.jpg` | Red-brick campus architecture; image supplied by the profile owner | User attachment `The American College.jpg`, selected 2026-09-06. Photographer and reuse license were not supplied; no Commons attribution or open license is asserted. |
 | `madras.jpg` | Administrative block, Madras Institute of Technology; Anna University | [Commons source](https://commons.wikimedia.org/wiki/File:Administrative_block,_Madras_institute_of_technology.jpg), [CC0](https://creativecommons.org/publicdomain/zero/1.0/), as declared on the file page. |
-| `shizuoka.jpg` | Hamamatsu Campus panorama; Jfr0595 | [Commons source](https://commons.wikimedia.org/wiki/File:Hamamatsucampus.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). |
+| `shizuoka-campus.jpg` | Hamamatsu Campus building and courtyard; Shizuoka University ABP | [Official image selected by the owner](https://www.abp.icsu.shizuoka.ac.jp/images/schoollife/campus/img_ph02.jpg), retrieved 2026-09-06. No open license asserted. |
 | `anaheim.jpg` | MBA students at the former Akio Morita Learning Center, Tokyo; Anaheim University archive | [Original photograph](https://anaheim.edu/wp-content/uploads/2025/01/DSC_1194-1-scaled.jpeg). The university's public media metadata explicitly identifies the former Tokyo learning center. No open license was stated; institutional copyright retained. |
 | `mit.jpg` | Great Dome; Calvinkrishy | [Commons source](https://commons.wikimedia.org/wiki/File:MIT_Main_Apr09.JPG), used under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). |
 | `stanford.jpg` | Knight Management Center; Steve Castillo | [Commons source](https://commons.wikimedia.org/wiki/File:Knight_Management_Center.jpg), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). |
@@ -40,3 +40,7 @@ These are sourced photographs, not generated substitutes. The Anaheim image is a
 - Evidence: `docs/verification/education-live-checks-20260906.json` and `docs/verification/education-live-routes-20260906.json`.
 
 HTTP/build validation does not represent browser interaction QA. Firebase Hosting configuration, content records and independent services were not changed by this release.
+
+## Owner-selected photo replacement — 2026-09-06
+
+Replaced the American College and Shizuoka photographs with the exact attachment and URL supplied by the owner. Captions and credits in both languages now describe these photographs. New asset paths prevent cached versions of the previous photos from appearing. Source bytes are unchanged; Next Image handles responsive delivery. The originals remain in Git history.
