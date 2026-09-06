@@ -29,4 +29,14 @@ These are sourced photographs, not generated substitutes. The Anaheim image is a
 - Assets: `apps/web/public/images/education/`.
 - Release only `kakehashi-app`; no Hosting, API, diary or database change is needed.
 
-Validation and final revision are recorded after the production release. HTTP/build validation does not represent browser interaction QA.
+## Production release — 2026-09-06
+
+- Live: https://www.rajagobalan.com/en#education and https://www.rajagobalan.com/ja#education.
+- Cloud Build: `c64fd054-c58d-4c41-b508-11c295d0147e` — SUCCESS.
+- Main service: `kakehashi-app-00023-j8d`, serving 100% of traffic.
+- Image: `us-central1-docker.pkg.dev/rajagobalan-site/cloud-run-source-deploy/kakehashi-app:education-20260906-1`.
+- Previous revision for rollback: `kakehashi-app-00022-5r2`.
+- Validation: production build, 36 site/content tests and 17 diary tests passed. Both live locale homepages include all seven selectors. All seven optimized photo URLs returned HTTP 200 with image content types (49–136 KB at width 1080). All 40 crawled locale routes returned successfully.
+- Evidence: `docs/verification/education-live-checks-20260906.json` and `docs/verification/education-live-routes-20260906.json`.
+
+HTTP/build validation does not represent browser interaction QA. Firebase Hosting configuration, content records and independent services were not changed by this release.
