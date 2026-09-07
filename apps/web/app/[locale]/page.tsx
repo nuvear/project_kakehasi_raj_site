@@ -281,7 +281,7 @@ export async function generateMetadata({
   const description =
     locale === "ja"
       ? "エンタープライズAI変革のリーダー、ヘルステック創業者、Stanford GSBおよびMITアルムナイ。"
-      : "A personal introduction to Rajkumar Rajagobalan: engineering, enterprise AI, healthcare, and the work and learning that connect them.";
+      : "A personal introduction to Rajkumar Rajagobalan: leading teams, engineering, enterprise AI, healthcare, and the learning that connects them.";
 
   return {
     title,
@@ -583,7 +583,7 @@ export default async function HomePage({ params }: PageProps) {
       <CampusHome
         locale={locale}
         slides={slides}
-        summary={isJa ? copy.profileSummary : "I work across engineering, AI, and healthcare. Based in Singapore, with many years of work in Japan, I’m currently building Innuir and exploring how technology can make care more connected."}
+        summary={isJa ? copy.profileSummary : "I’m an engineer, leader, and founder, with experience guiding teams across engineering, enterprise delivery, and new ventures. Based in Singapore, with many years of work in Japan, I’m currently building Innuir to help make healthcare more connected."}
       />
     </div>
   );

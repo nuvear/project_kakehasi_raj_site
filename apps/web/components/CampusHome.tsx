@@ -31,7 +31,7 @@ export default function CampusHome({
   if (!ja) {
     experience.items = experience.items.map((item) => {
       if (item.href.includes("capgemini")) return { ...item,
-        summary: "At Capgemini Engineering, I was responsible for a €160M delivery portfolio across APAC and Japan. I worked with teams on more than 320 projects, including the integration of Altran Engineering and the use of AI in predictive maintenance." };
+        summary: "At Capgemini Engineering, I led a €160M delivery portfolio across APAC and Japan, with responsibility for teams delivering more than 320 projects. Alongside colleagues, I helped lead the integration of Altran Engineering and the introduction of AI in predictive maintenance." };
       if (item.href.includes("eli-lilly")) return { ...item,
         summary: "I led the HCL and Eli Lilly Co-Innovation Lab, where our teams explored 42 initiatives and brought nine into production within 18 months." };
       if (item.href.includes("mahindra-satyam")) return { ...item,
@@ -63,7 +63,7 @@ export default function CampusHome({
             <p className="campus-eyebrow">
               {ja
                 ? "リーダーシップ・テクノロジー・変革"
-                : "Engineer · Founder · Learner"}
+                : "Engineer · Leader · Founder"}
             </p>
             <h1 id="hero-title">
               {ja ? (
@@ -74,9 +74,9 @@ export default function CampusHome({
                 </>
               ) : (
                 <>
-                  Learning, building,
+                  Learning, leading,
                   <br />
-                  and <em>working together.</em>
+                  and <em>building together.</em>
                 </>
               )}
             </h1>
@@ -157,17 +157,17 @@ export default function CampusHome({
             <h2 id="perspective-title">
               {ja
                 ? "戦略を描き、人と事業を動かす。"
-                : "What has shaped my work."}
+                : "How I approach leadership."}
             </h2>
             <p className="campus-lead">
               {ja
                 ? "企業の変革には、技術だけでなく、人、意思決定、そして実行の仕組みが必要です。"
-                : "My work has taken me from factory automation and digital manufacturing to enterprise AI and healthcare."}
+                : "Leadership, for me, means connecting a clear direction with the everyday work of a team—and taking responsibility for the decisions and outcomes along the way."}
             </p>
             <p>
               {ja
                 ? "APACのエンタープライズデリバリーからヘルステックの創業まで。StanfordとMITでの学びを、事業の現場での実践につなげています。"
-                : "Over 27 years, I’ve worked with colleagues and clients across Japan and APAC, led delivery teams, and started businesses. These experiences continue to inform how I think about technology and the people who use it. My studies at Stanford and MIT added perspectives that I’m still putting into practice."}
+                : "Over 27 years, I’ve led teams in different capacities across engineering, client delivery, regional portfolios, and venture building. That work has involved bringing people from different disciplines and cultures together, navigating change, and turning plans into shared progress. The contribution of colleagues and clients across Japan and APAC, alongside my studies at Stanford and MIT, continues to shape how I lead."}
             </p>
             <a className="campus-text-link" href="#experience">
               {ja ? "これまでの歩み" : "Read about my work"}
@@ -272,7 +272,7 @@ export default function CampusHome({
                 03 / {ja ? "実行実績" : "Along the way"}
               </p>
               <h2 id="experience-title">
-                {ja ? "実践が築いた視点。" : "People, places, and work."}
+                {ja ? "実践が築いた視点。" : "Leading teams, learning together."}
               </h2>
             </div>
             <p>{experience.summary}</p>

@@ -11,3 +11,7 @@ Validation: production build passed, and the revised English homepage fits 1440,
 Rollback before release: `kakehashi-app-00031-nv2`.
 
 Published as `kakehashi-app-00032-46l` (100% traffic), image tag `personal-profile-20260907-1`, Cloud Build `46aa76b0-cf1a-4dc7-9ebe-4fd4072444d0` (SUCCESS). Live checks confirm the revised English introduction and footer, the removal of the margin statistic from the homepage, and the unchanged shared footer wording on Insights. All three checked routes returned HTTP 200.
+
+## Leadership emphasis restored
+
+At the owner’s request, the English profile now explicitly includes leading teams. The headline is “Learning, leading, and building together.” The introduction and approach section describe leadership across engineering, client delivery, regional portfolios, and venture building, emphasizing direction, accountability, cross-cultural collaboration and shared progress. The Capgemini summary states portfolio leadership directly. The tone remains personal and credits colleagues. No styling or other-page copy changed. The production build and five-width browser checks passed before release. Rollback: `kakehashi-app-00032-46l`.
