@@ -28,6 +28,23 @@ export default function CampusHome({
     ventures = section("ventures"),
     credentials = section("credentials"),
     insights = section("insights");
+  if (!ja) {
+    experience.items = experience.items.map((item) => {
+      if (item.href.includes("capgemini")) return { ...item,
+        summary: "Led a €160M delivery portfolio across APAC and Japan: 320+ projects, 35.4% profit margins, and client satisfaction of 4.5/5. Drove Altran Engineering’s post-acquisition integration, predictive-maintenance AI, and expansion into aerospace, healthcare, and heavy industries." };
+      if (item.href.includes("eli-lilly")) return { ...item,
+        summary: "Led the Eli Lilly Co-Innovation Lab, delivering 42 innovation initiatives and transitioning nine into production within 18 months." };
+      return item;
+    });
+    ventures.items = ventures.items.map((item) => {
+      if (item.href.includes("nuvear") || item.href.includes("innuir")) return { ...item,
+        title: "Innuir", visualLabel: "Founder CEO · October 2025–present · Singapore",
+        summary: "Building a longitudinal patient identity platform for continuity across healthcare providers. Leading strategy, product roadmap, and go-to-market, with privacy-first consent, auditable data sharing, and AI-enabled connected care." };
+      if (item.href.includes("aagnaa")) return { ...item,
+        summary: "Founded an IoT and AR/VR retail venture, raised $700K, secured patents, and pioneered real-time personalization." };
+      return item;
+    });
+  }
   return (
     <>
       <main id="main-content" className="campus-home">
@@ -139,12 +156,12 @@ export default function CampusHome({
             <p className="campus-lead">
               {ja
                 ? "企業の変革には、技術だけでなく、人、意思決定、そして実行の仕組みが必要です。"
-                : "Meaningful transformation connects technology with people, decisions, and the discipline to deliver."}
+                : "Enterprise AI transformation changes how organizations make decisions, operate, and compete."}
             </p>
             <p>
               {ja
                 ? "APACのエンタープライズデリバリーからヘルステックの創業まで。StanfordとMITでの学びを、事業の現場での実践につなげています。"
-                : "From enterprise delivery across APAC to building HealthTech ventures, my work connects operating leadership with a founder’s perspective—and learning at Stanford and MIT with practice in the field."}
+                : "I’ve spent 27+ years at the intersection of engineering, AI, and enterprise transformation. My perspective combines building ventures from zero with leading global delivery programs, sharpened through the Stanford Executive Program and MIT’s COO Program."}
             </p>
             <a className="campus-text-link" href="#experience">
               {ja ? "これまでの歩み" : "Discover my journey"}

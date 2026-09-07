@@ -574,13 +574,13 @@ export default async function HomePage({ params }: PageProps) {
   ];
 
   return (
-    <>
+    <div className={isJa ? undefined : "profile-typography"}>
       <SiteHeader locale={locale} active="home" />
       <CampusHome
         locale={locale}
         slides={slides}
-        summary={copy.profileSummary}
+        summary={isJa ? copy.profileSummary : "Founder CEO at Innuir. Enterprise AI transformation leader with 27+ years across engineering, venture building, and global delivery. Stanford Executive Program and MIT COO Program."}
       />
-    </>
+    </div>
   );
 }
