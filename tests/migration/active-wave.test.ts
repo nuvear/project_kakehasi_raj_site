@@ -112,14 +112,17 @@ describe("Project Kakehashi active migration wave", () => {
     expect(fs.existsSync(path.join(root, "apps/web/components/EnterpriseAIFrameworkInteractive.tsx"))).toBe(true);
   });
 
-  test("keeps Command Center as a localized entry page for the Cloud Run runtime", () => {
+  test("positions GATE as the localized command center while preserving the legacy runtime docs", () => {
     const appContent = read("content/apps/ai-transformation-command-center/en.md");
     const appRoute = "apps/web/app/[locale]/apps/[slug]/page.tsx";
     const docsRoute = "apps/web/app/[locale]/apps/[slug]/docs/deployment/page.tsx";
     const deploymentRoute = read(docsRoute);
 
-    expect(appContent).toContain("## Runtime Boundary");
-    expect(appContent).toContain("/apps/ai-transformation-command-center");
+    expect(appContent).toContain("GATE — Governed AI Transformation for Enterprises™");
+    expect(appContent).toContain("https://gate-enterprise.praba.chatgpt.site");
+    expect(appContent).toContain("private owner preview");
+    expect(appContent).not.toContain("Real-time visibility");
+    expect(fs.existsSync(path.join(root, "apps/web/app/[locale]/apps/ai-transformation-command-center/page.tsx"))).toBe(true);
     expect(deploymentRoute).toContain("## API Boundary");
     expect(deploymentRoute).toContain("access-control-allow-origin");
     expect(fs.existsSync(path.join(root, appRoute))).toBe(true);
@@ -246,7 +249,7 @@ describe("Project Kakehashi active migration wave", () => {
     expect(gcloudIgnore).not.toContain("\ndocs/");
     expect(guide?.content_markdown).toContain("Part XXI: Senior Partner's Cheat Sheet");
     expect(framework).toEqual(expect.objectContaining({ version: "8.0" }));
-    expect(commandCenter?.content_markdown).toContain("Runtime Boundary");
+    expect(commandCenter?.content_markdown).toContain("Lead your AI portfolio with evidence.");
   });
 
   test("ingestion can locate bundled content in the standalone runtime image", () => {
