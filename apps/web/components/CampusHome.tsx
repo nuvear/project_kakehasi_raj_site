@@ -65,6 +65,9 @@ export default function CampusHome({
                 ? "リーダーシップ・テクノロジー・変革"
                 : (
                   <Link className="profile-stanford" href="/en/education/stanford-executive-program">
+                    <span className="profile-stanford-logo">
+                      <Image src="/images/stanford-gsb-logo.svg" alt="Stanford Graduate School of Business" width={324} height={89} unoptimized />
+                    </span>
                     <strong>Stanford GSB Alumni <span aria-hidden="true">↗</span></strong>
                     <span>Stanford Executive Program · 2025–2026</span>
                   </Link>

@@ -21,3 +21,5 @@ Leadership update published as `kakehashi-app-00033-x59` (100% traffic), tag `le
 ## Stanford affiliation at first glance
 
 The owner requested prominent Stanford alumni recognition. The English hero now begins with a cardinal-red “Stanford GSB Alumni” label and “Stanford Executive Program · 2025–2026” context, linking to the existing program page. The leadership headline remains intact. This is text in the site’s own identity, not an institutional seal or endorsement mark. The build and five-width browser checks passed; the affiliation is visible above the headline in the mobile screenshot. Rollback: `kakehashi-app-00033-x59`.
+
+The owner supplied the official Stanford GSB logo URL, `https://www.gsb.stanford.edu/themes/custom/gsb/logo.svg`. The source SVG is self-hosted without changes, displayed with its original colours and proportions on a white surface for dark-mode legibility. It appears inside the alumni/program callout, linking to the existing education detail page. The asset contains only SVG/path elements.

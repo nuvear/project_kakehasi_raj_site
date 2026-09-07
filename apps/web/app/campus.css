@@ -1502,3 +1502,20 @@ html:lang(ja) .campus-footer h2 {
   color: var(--color-on-surface-variant);
 }
 .profile-typography .profile-stanford:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+
+.profile-typography .profile-stanford-logo {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 10px;
+  background: #fff;
+  max-width: 100%;
+}
+.profile-typography .profile-stanford-logo img {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 400px) {
+  .profile-typography .profile-stanford-logo img { width: 210px; }
+}
