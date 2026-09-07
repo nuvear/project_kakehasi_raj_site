@@ -1477,3 +1477,28 @@ html:lang(ja) .campus-footer h2 {
 .profile-typography .campus-hero h1 { font-weight: 600; }
 .profile-typography .campus-hero h1 em { font-style: normal; }
 .profile-typography .campus-index, .profile-typography .education-photo-selectors button > span { font-family: var(--font-profile-mono), monospace; }
+
+/* English profile: Stanford affiliation visible before the opening headline. */
+.profile-typography .profile-stanford {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 3px solid var(--color-primary);
+  padding: 6px 0 6px 16px;
+  color: var(--color-primary);
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.profile-typography .profile-stanford strong {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+.profile-typography .profile-stanford > span {
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-on-surface-variant);
+}
+.profile-typography .profile-stanford:hover strong { text-decoration: underline; text-underline-offset: 4px; }

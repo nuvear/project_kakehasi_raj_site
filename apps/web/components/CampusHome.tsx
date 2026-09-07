@@ -63,7 +63,12 @@ export default function CampusHome({
             <p className="campus-eyebrow">
               {ja
                 ? "リーダーシップ・テクノロジー・変革"
-                : "Engineer · Leader · Founder"}
+                : (
+                  <Link className="profile-stanford" href="/en/education/stanford-executive-program">
+                    <strong>Stanford GSB Alumni <span aria-hidden="true">↗</span></strong>
+                    <span>Stanford Executive Program · 2025–2026</span>
+                  </Link>
+                )}
             </p>
             <h1 id="hero-title">
               {ja ? (
