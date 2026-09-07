@@ -1,6 +1,6 @@
 # GATE command-center promotional draft
 
-Prepared 7 September 2026 in `codex/gate-command-center-pitch`, an isolated worktree based on `f123be6`. This is a reviewable draft, not a public website deployment. The main website checkout contains substantial unrelated working changes; none were incorporated, overwritten or published by this draft.
+Prepared 7 September 2026 in `codex/gate-command-center-pitch`. The original draft was based on `f123be6`; after reading the user-referenced task **Clarify Sites requirements**, it was rebased onto the actual published Campus & Coast source `9a25c872b3d3b99a65f529556b5e0de29213d160`. The original draft is preserved on `codex/gate-pitch-original-draft`. This remains a reviewable draft, not a public website deployment. The original main checkout and released Campus & Coast checkout are unchanged.
 
 ## Review of the current public page
 
@@ -29,7 +29,7 @@ Implementation claims were checked against the GATE repository's current impleme
 
 ## Implementation boundary
 
-A dedicated locale route replaces the generic app rendering only for `ai-transformation-command-center`. It uses scoped CSS and no bespoke client JavaScript. The shared app page, legacy demo component, legacy runtime, deployment guide and Firebase rewrites remain unchanged. The existing URL and locale switch are retained. Catalogue Markdown, summaries and the app URL now describe GATE. The Japanese copy is retained as `review_required` for editorial acceptance.
+A dedicated locale route replaces the generic app rendering only for `ai-transformation-command-center`. It uses scoped CSS, the released shared SiteHeader/SiteFooter, and the existing theme/mobile navigation. There is no bespoke client state in the marketing content. The shared app page, legacy demo component, legacy runtime, deployment guide and Firebase rewrites remain unchanged. The existing URL and locale switch are retained. Catalogue Markdown, summaries and the app URL now describe GATE. The Japanese copy is retained as `review_required` for editorial acceptance.
 
 Visible pitch copy is in `apps/web/lib/gate-pitch.ts`; synchronized Markdown under `content/apps/ai-transformation-command-center/` supports catalogue and retrieval content. Keep those forms aligned when editing. The changed migration checks now assert GATE positioning while retaining the legacy routing/deployment tests.
 
@@ -42,8 +42,20 @@ Visible pitch copy is in `apps/web/lib/gate-pitch.ts`; synchronized Markdown und
 - Language switching worked. The application link opened the actual GATE workspace using the existing authorized owner session. Simulation/manual link destinations were inspected. No email was sent and no GATE record was changed.
 - Browser error log inspection returned no application errors during draft review. The final preview uses the production standalone build on loopback port 3105.
 
+After rebasing onto the published Campus & Coast source, validation was repeated with its existing frozen lockfile and Next.js 15.5.25. The production build, lint/typecheck, 36 website tests and 17 Diary tests passed (53 tests total). The Diary tests required restoring the existing ignored local `apps/diary/content/diary.json` from the released worktree; that manuscript remains excluded from Git and the main-site release staging.
+
+The shared header, footer, mobile menu and light/dark theme controls were checked in the browser. Both localized routes had no horizontal page overflow at 320, 390 and 1024 pixels; desktop rendering was also reviewed at 1440 pixels. English and Japanese phone screenshots and the Japanese tablet rendering were inspected. Language navigation and all three GATE destinations were checked, and the browser error log was empty. These are local draft checks, not a new public deployment verification.
+
 ## Handoff and publication
 
 The draft is committed locally. It has not been pushed to the public GitHub repository or deployed. A local preview is available at `http://127.0.0.1:3105/en/apps/ai-transformation-command-center`; Japanese uses `/ja/`.
 
-For publication, apply only this draft's owned paths to the verified current website release baseline, incorporating the existing website work through its own review. Rebuild and verify the two marketing routes, catalogue metadata and unchanged legacy/docs routes before deploying the Kakehashi service. Do not deploy the whole older worktree baseline, change Firebase routing, expose the private GATE Site, or migrate the legacy application's data as a side effect of publishing this promotional page.
+The draft now includes the verified current website baseline. Publish the staged main-site image through the existing Kakehashi release process after the draft is accepted. Recheck the current deployed revision before changing traffic, and verify the marketing routes, catalogue metadata and unchanged legacy/docs routes. No Firebase rewrite, DNS change, GATE Site access change, legacy-data migration or Diary deployment is needed for this promotional page.
+
+## Hosting handoff from Clarify Sites requirements
+
+The referenced task is `01a071af-ca59-7213-a728-46046d282f68`. Its original user instructions specify GoDaddy DNS, Firebase Hosting in project `rajagobalan-site`, and Next.js on Cloud Run. Later turns establish `raj-site-campus-coast` / `codex/campus-coast-site` as the published source, preserving the original dirty checkout. PR #1 is still open and points to `9a25c872b3d3b99a65f529556b5e0de29213d160`.
+
+A live read-only Cloud Run inspection on 7 September confirms `kakehashi-app-00027-v6t` serves 100% of the main-site traffic using `kakehashi-app:responsive-20260906-1`. This agrees with `docs/RESPONSIVE_REVIEW.md`; the older runbook's June revision is historical. Use `scripts/stage-site-release.py` to stage the main website, preserving runtime settings, Firebase rewrites and unrelated services. The localized `/en/apps/...` and `/ja/apps/...` pages belong to `kakehashi-app`; `/apps/ai-transformation-command-center` remains the separate legacy runtime.
+
+The established main-site region is `us-central1`. That is a verified existing deployment choice, not an approval of US residency for future GATE customer evidence. Hosting GATE itself at `/gate` still requires its enterprise identity, PostgreSQL/storage and operational setup; it is separate from publishing this marketing page.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import { GATE_URL, PILOT_CONTACT, gatePitch } from "@/lib/gate-pitch";
 import styles from "./page.module.css";
 
@@ -31,16 +32,10 @@ export default async function GateCommandCenterPage({ params }: Props) {
   const c = copyFor(locale);
   const isJa = locale === "ja";
   return (
-    <div className={styles.page}>
-      <a className={styles.skip} href="#gate-main">{isJa ? "本文へ" : "Skip to content"}</a>
-      <header className={styles.header}>
-        <Link href={`/${locale}`} className={styles.author}>Rajkumar Rajagobalan</Link>
-        <nav aria-label={isJa ? "ページナビゲーション" : "Page navigation"}>
-          <Link href={`/${locale}/insights`}>{c.back}</Link>
-          <Link href={`/${isJa ? "en" : "ja"}/apps/${slug}`} aria-label={c.switchLabel}>{c.language}</Link>
-        </nav>
-      </header>
-      <main id="gate-main">
+    <>
+      <SiteHeader locale={locale} active="insights" languageHref={`/${isJa ? "en" : "ja"}/apps/${slug}`} />
+      <div className={styles.page}>
+      <main id="main-content">
         <section className={styles.hero} aria-labelledby="gate-title">
           <div>
             <p className={styles.eyebrow}>{c.eyebrow}</p>
@@ -101,7 +96,9 @@ export default async function GateCommandCenterPage({ params }: Props) {
           <a className={styles.primary} href={PILOT_CONTACT}>{c.contact} <span aria-hidden="true">↗</span></a>
         </section>
       </main>
-      <footer className={styles.footer}><p>{c.attribution}</p><p>{c.edition}</p></footer>
-    </div>
+      <div className={styles.footer}><p>{c.attribution}</p><p>{c.edition}</p></div>
+      </div>
+      <SiteFooter locale={locale} />
+    </>
   );
 }
