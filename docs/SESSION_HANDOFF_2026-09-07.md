@@ -61,3 +61,7 @@ Read the repository's applicable instructions and current release documentation 
 Use `python3 scripts/stage-site-release.py` to generate a fresh main-site staging directory. Do not reuse old `/tmp` files or stale stage directories. Build the staged source with the existing Docker/Cloud Build workflow, then deploy the resulting image to `kakehashi-app` preserving service settings. Record build/image/revision and rollback in the relevant documentation, push the branch, and verify the actual public page on desktop/tablet/phone. Consult existing release documentation for commands and prerequisites; temporary session scripts are not durable dependencies.
 
 The user has authorized website implementation, publishing and GitHub updates throughout this task. Continue routine reversible work without repeated permission questions. Ask only when required information or a materially new scope decision is missing. No automated follow-up is required.
+
+## Brand guideline library
+
+The owner subsequently requested saving activity-specific brand guidelines. Start at [brand index](branding/README.md): public website defaults, English profile exception, Diary and Command Center. These documents describe adopted design separately from functional and deployment requirements.
