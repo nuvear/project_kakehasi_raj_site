@@ -1,0 +1,505 @@
+{
+  "base": "https://www.rajagobalan.com",
+  "checks": [
+    {
+      "check": "xml sitemap",
+      "passed": true,
+      "count": 38
+    },
+    {
+      "check": "only canonical published routes",
+      "passed": true
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/apps/ai-transformation-command-center",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/apps/ai-transformation-command-center",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/credentials",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/credentials",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/american-college-physics",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/american-college-physics",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/anaheim-university-mba",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/anaheim-university-mba",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/madras-institute-technology-electronics",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/madras-institute-technology-electronics",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/mit-coo-program",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/mit-coo-program",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/shizuoka-university-systems-engineering",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/shizuoka-university-systems-engineering",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/education/stanford-executive-program",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/education/stanford-executive-program",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/capgemini-apac-delivery-gpo",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/capgemini-apac-delivery-gpo",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/capgemini-japan",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/capgemini-japan",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/dassault-systemes-delmia",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/dassault-systemes-delmia",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/hcl-eli-lilly-co-innovation-lab",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/mahindra-satyam-pfizer-japan",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/mahindra-satyam-pfizer-japan",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/experience/ys-inc-factory-automation",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/experience/ys-inc-factory-automation",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/insights",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/insights",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/insights/enterprise-ai-reference-guide",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/insights/enterprise-ai-reference-guide",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/ventures/aagnaa",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/ventures/aagnaa",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/en/ventures/nuvear",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/en/ventures/nuvear",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/apps/ai-transformation-command-center",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/apps/ai-transformation-command-center",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/credentials",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/credentials",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/american-college-physics",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/american-college-physics",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/anaheim-university-mba",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/anaheim-university-mba",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/madras-institute-technology-electronics",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/madras-institute-technology-electronics",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/mit-coo-program",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/mit-coo-program",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/shizuoka-university-systems-engineering",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/shizuoka-university-systems-engineering",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/education/stanford-executive-program",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/education/stanford-executive-program",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/capgemini-apac-delivery-gpo",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/capgemini-apac-delivery-gpo",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/capgemini-japan",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/capgemini-japan",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/dassault-systemes-delmia",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/dassault-systemes-delmia",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/hcl-eli-lilly-co-innovation-lab",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/mahindra-satyam-pfizer-japan",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/experience/ys-inc-factory-automation",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/experience/ys-inc-factory-automation",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/insights",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/insights",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/insights/enterprise-ai-reference-guide",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/insights/enterprise-ai-reference-guide",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/ventures/aagnaa",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/ventures/aagnaa",
+      "missingAnchors": []
+    },
+    {
+      "check": "published page",
+      "passed": true,
+      "path": "/ja/ventures/nuvear",
+      "status": 200,
+      "h1": 1,
+      "canonical": "https://www.rajagobalan.com/ja/ventures/nuvear",
+      "missingAnchors": []
+    },
+    {
+      "check": "robots text",
+      "passed": true
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/framework.html",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/ai-transformation-command-center.html",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/deployment-guide.html",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/apps/ai-transformation-command-center",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/apps/ai-transformation-command-center/dashboard",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/apps/ai-transformation-command-center/roi",
+      "status": 301,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/en/frameworks/enterprise-ai-transformation",
+      "status": 308,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+      "status": 308,
+      "location": "/en/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/ja/frameworks/enterprise-ai-transformation",
+      "status": 308,
+      "location": "/ja/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+      "status": 308,
+      "location": "/ja/apps/ai-transformation-command-center"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/en/apps/to-do-list",
+      "status": 308,
+      "location": "/en/insights"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/ja/apps/to-do-list",
+      "status": 308,
+      "location": "/ja/insights"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/blogs.html",
+      "status": 308,
+      "location": "/en/insights"
+    },
+    {
+      "check": "retired route redirect",
+      "passed": true,
+      "path": "/blogs",
+      "status": 308,
+      "location": "/en/insights"
+    },
+    {
+      "check": "unknown path is not a duplicate homepage",
+      "passed": true,
+      "path": "/en/does-not-exist",
+      "status": 404
+    },
+    {
+      "check": "unknown path is not a duplicate homepage",
+      "passed": true,
+      "path": "/unknown.html",
+      "status": 404
+    },
+    {
+      "check": "unknown path is not a duplicate homepage",
+      "passed": true,
+      "path": "/sitemap.xml/insights",
+      "status": 404
+    },
+    {
+      "check": "public content writer retired",
+      "passed": true,
+      "status": 410
+    },
+    {
+      "check": "public API uses current publication",
+      "passed": true,
+      "entity_id": "app.ai-transformation-command-center",
+      "status": 200
+    },
+    {
+      "check": "public API uses current publication",
+      "passed": true,
+      "entity_id": "insight.enterprise-ai-reference-guide",
+      "status": 200
+    },
+    {
+      "check": "public API uses current publication",
+      "passed": true,
+      "entity_id": "framework.enterprise-ai-transformation",
+      "status": 404
+    },
+    {
+      "check": "public API uses current publication",
+      "passed": true,
+      "entity_id": "app.to-do-list",
+      "status": 404
+    }
+  ]
+}

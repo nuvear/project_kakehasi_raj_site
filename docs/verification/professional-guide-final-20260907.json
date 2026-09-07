@@ -1,0 +1,35 @@
+{
+  "base": "https://www.rajagobalan.com",
+  "revision": "kakehashi-app-00029-8x9",
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "locales": [
+    "en",
+    "ja"
+  ],
+  "checks": 10,
+  "failures": [],
+  "assertions": [
+    "one h1",
+    "no horizontal page overflow",
+    "chapter links use block targets"
+  ],
+  "chapterCounts": {
+    "en": 21,
+    "ja": 5
+  },
+  "mobileWrappedLink": {
+    "width": 390,
+    "height": 844,
+    "hash": "#part-xxi-the-portfolio-review-checklist",
+    "chapterTop": 283.2109375,
+    "passed": true
+  },
+  "cloudBuildId": "787eac27-13d6-4bcc-b824-fbc62e866b7d",
+  "imageDigest": "sha256:f061489f348e8b2a76987fcdccd5cf80c2888c6b003e2297eabf8d147dc237fe"
+}

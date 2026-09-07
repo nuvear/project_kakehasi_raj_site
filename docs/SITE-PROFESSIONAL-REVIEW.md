@@ -44,12 +44,32 @@ Existing biography, career, venture and education data remain in Firestore. No c
 - Complete Next.js production build, lint and type checking pass.
 - Release HTTP checks cover canonical pages, headings, guide anchors, sitemap/robots, legacy redirects, unknown-path 404s and read-only public API behavior.
 - Browser layout review covers all 38 canonical EN/JA routes at widths 320, 390, 768, 1024 and 1440 (190 combinations), checking one main heading and no horizontal page overflow.
+- Live interaction review found that wrapped chapter labels had unreliable click targets in the in-app browser. Chapter links now use full-width blocks with 44px minimum targets and explicit guide-path navigation; the final chapter jump was rechecked.
 - Representative screenshots and mobile navigation, language switching, theme switching, guide chapter links and cross-application Diary navigation are inspected separately.
 
 These are bounded checks, not a WCAG certification or authenticated end-to-end test of the independent GATE/Diary applications. No form is submitted, email sent or customer data changed.
 
 ## Release record
 
-Publication is pending. Pre-release production: `kakehashi-app-00027-v6t`, 100% traffic, image tag `responsive-20260906-1`.
+Published on 7 September 2026 through the existing GoDaddy / Firebase / Cloud Run stack. No DNS change, Firestore ingestion, GATE Site publication or Diary deployment was performed.
 
-See [the current hosting runbook](RELEASE_ENGINEER_HOSTING.md) for staging, deployment and rollback. Release identifiers and live verification evidence will be recorded after publication.
+| Release item | Verified value |
+|---|---|
+| Source | `e9618a6` plus chapter-navigation follow-up `bc67a15` |
+| Review PR | [PR #2](https://github.com/nuvear/project_kakehasi_raj_site/pull/2), against the actual published baseline |
+| Initial Cloud Build | `95760edf-8713-4455-8981-74e5b97b7421` — success |
+| Initial Cloud Run revision | `kakehashi-app-00028-rpx` |
+| Main Hosting version | `bf9932393de56009` |
+| Main Hosting release | `1788747273537000` at `2026-09-07T02:14:33.537Z` |
+| HealthKitSync Hosting version | `7a1f7fd9b9bc7dcc` |
+| HealthKitSync Hosting release | `1788747270266000` at `2026-09-07T02:14:30.266Z` |
+| Runtime configuration | Environment, secrets references, service account, resources, ports, concurrency, startup probe, timeout and scaling settings match the pre-release configuration |
+| HTTP/API verification | 63 checks pass on both direct Cloud Run and the public www domain |
+| Browser verification | 38 canonical EN/JA pages at five widths: 190 checks pass; two initial reads were repeated after the streamed page loaded |
+| Independent entry points | All ten old demo paths redirect to GATE; HealthKitSync redirects to Nuvear; apex still redirects to www; Diary opens its independent sign-in; new portrait asset returns 200 |
+
+The chapter-navigation follow-up is published: Cloud Build `787eac27-13d6-4bcc-b824-fbc62e866b7d` succeeded; image `professional-20260907-2` has digest `sha256:f061489f348e8b2a76987fcdccd5cf80c2888c6b003e2297eabf8d147dc237fe`; revision **`kakehashi-app-00029-8x9` serves 100% of traffic**. Firebase routing/assets are unchanged by this follow-up. All 63 public HTTP/API checks pass again. Both guide locales pass at all five widths (10 targeted checks), and the wrapped final-chapter link moves to its heading in the live mobile browser.
+
+Evidence is retained in `docs/verification/professional-*-20260907.json`. No new browser errors were observed during the release check window; earlier local prefetch errors are outside that window. The existing blog subdomain serves the same main site, whose canonical URLs identify www.
+
+See [the hosting runbook](RELEASE_ENGINEER_HOSTING.md) for staging and rollback. Pre-release runtime `kakehashi-app-00027-v6t` and Hosting version IDs are retained in `professional-hosting-before-20260907.json`.

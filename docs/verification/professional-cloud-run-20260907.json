@@ -1,0 +1,13 @@
+{
+  "cloudRunRevision": "kakehashi-app-00029-8x9",
+  "traffic": [
+    {
+      "latestRevision": true,
+      "percent": 100,
+      "revisionName": "kakehashi-app-00029-8x9"
+    }
+  ],
+  "settingsPreserved": true,
+  "settingsHash": "1c70ad63cd8baf613740805e15ba490c1771c78f15d9cc4ccdbb35e5f960be56",
+  "image": "us-central1-docker.pkg.dev/rajagobalan-site/cloud-run-source-deploy/kakehashi-app@sha256:f061489f348e8b2a76987fcdccd5cf80c2888c6b003e2297eabf8d147dc237fe"
+}
