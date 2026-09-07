@@ -277,11 +277,11 @@ export async function generateMetadata({
   const title =
     locale === "ja"
       ? "ラジクマール・ラジャゴバラン - エグゼクティブプロフィール"
-      : "Rajkumar Rajagobalan - Executive Profile";
+      : "Rajkumar Rajagobalan | About me";
   const description =
     locale === "ja"
       ? "エンタープライズAI変革のリーダー、ヘルステック創業者、Stanford GSBおよびMITアルムナイ。"
-      : "Enterprise AI Transformation Leader, HealthTech Founder, Stanford GSB Alumni, and MIT Alumni.";
+      : "A personal introduction to Rajkumar Rajagobalan: engineering, enterprise AI, healthcare, and the work and learning that connect them.";
 
   return {
     title,
@@ -365,16 +365,16 @@ export default async function HomePage({ params }: PageProps) {
           "A CxO-facing profile for Singapore and Japan: AI transformation, HealthTech founding, and operating leadership.",
         experienceTitle: "Executive Delivery Record",
         experienceSummary:
-          "P&L, program governance, and engineering delivery across APAC.",
+          "Some of the teams and organizations I’ve worked with across Japan and APAC.",
         educationTitle: "Strategic Education",
         educationSummary:
-          "Stanford, MIT, Shizuoka, and management foundations connecting strategy, operations, and engineering.",
+          "From physics and engineering to management and leadership, these studies have given me different ways to look at problems.",
         credentialsTitle: "Credential Stack",
         credentialsSummary:
           "Leadership, operations, applied AI, IoT, blockchain, and data science credentials.",
         venturesTitle: "Founder Work",
         venturesSummary:
-          "Health intelligence, IoT, AR/VR, and digital engineering ventures.",
+          "Different ventures, connected by an interest in how technology can be useful in everyday life.",
         insightsTitle: "AI Transformation System",
         insightsSummary:
           "A framework, guide, and command center for board-to-delivery execution.",
@@ -583,7 +583,7 @@ export default async function HomePage({ params }: PageProps) {
       <CampusHome
         locale={locale}
         slides={slides}
-        summary={isJa ? copy.profileSummary : "Founder CEO at Innuir. Enterprise AI transformation leader with 27+ years across engineering, venture building, and global delivery. Stanford Executive Program and MIT COO Program."}
+        summary={isJa ? copy.profileSummary : "I work across engineering, AI, and healthcare. Based in Singapore, with many years of work in Japan, I’m currently building Innuir and exploring how technology can make care more connected."}
       />
     </div>
   );

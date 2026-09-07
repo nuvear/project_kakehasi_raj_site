@@ -31,17 +31,23 @@ export default function CampusHome({
   if (!ja) {
     experience.items = experience.items.map((item) => {
       if (item.href.includes("capgemini")) return { ...item,
-        summary: "Led a €160M delivery portfolio across APAC and Japan: 320+ projects, 35.4% profit margins, and client satisfaction of 4.5/5. Drove Altran Engineering’s post-acquisition integration, predictive-maintenance AI, and expansion into aerospace, healthcare, and heavy industries." };
+        summary: "At Capgemini Engineering, I was responsible for a €160M delivery portfolio across APAC and Japan. I worked with teams on more than 320 projects, including the integration of Altran Engineering and the use of AI in predictive maintenance." };
       if (item.href.includes("eli-lilly")) return { ...item,
-        summary: "Led the Eli Lilly Co-Innovation Lab, delivering 42 innovation initiatives and transitioning nine into production within 18 months." };
+        summary: "I led the HCL and Eli Lilly Co-Innovation Lab, where our teams explored 42 initiatives and brought nine into production within 18 months." };
+      if (item.href.includes("mahindra-satyam")) return { ...item,
+        summary: "I worked with Pfizer Japan and Mahindra Satyam to build and grow the team supporting Pfizer’s business applications." };
+      if (item.href.includes("dassault")) return { ...item,
+        summary: "At Dassault Systèmes DELMIA, I worked on digital manufacturing projects with Toyota and other industrial clients in Japan." };
+      if (item.href.includes("ys-inc")) return { ...item,
+        summary: "My work at Y.S Inc involved designing and programming factory automation systems for electro-ceramics manufacturing in Japan." };
       return item;
     });
     ventures.items = ventures.items.map((item) => {
       if (item.href.includes("nuvear") || item.href.includes("innuir")) return { ...item,
         title: "Innuir", visualLabel: "Founder CEO · October 2025–present · Singapore",
-        summary: "Building a longitudinal patient identity platform for continuity across healthcare providers. Leading strategy, product roadmap, and go-to-market, with privacy-first consent, auditable data sharing, and AI-enabled connected care." };
+        summary: "I’m building Innuir to help people maintain a connected health history as they move between care providers. The work brings together patient identity, consent, and AI, with privacy and responsible data sharing built into the approach." };
       if (item.href.includes("aagnaa")) return { ...item,
-        summary: "Founded an IoT and AR/VR retail venture, raised $700K, secured patents, and pioneered real-time personalization." };
+        summary: "I founded AAGNAA to explore how IoT and AR/VR could make retail experiences more personal. The venture raised $700K and secured patents for its work." };
       return item;
     });
   }
@@ -57,7 +63,7 @@ export default function CampusHome({
             <p className="campus-eyebrow">
               {ja
                 ? "リーダーシップ・テクノロジー・変革"
-                : "Leadership · Technology · Transformation"}
+                : "Engineer · Founder · Learner"}
             </p>
             <h1 id="hero-title">
               {ja ? (
@@ -68,9 +74,9 @@ export default function CampusHome({
                 </>
               ) : (
                 <>
-                  Bridging vision
+                  Learning, building,
                   <br />
-                  and <em>execution.</em>
+                  and <em>working together.</em>
                 </>
               )}
             </h1>
@@ -80,7 +86,7 @@ export default function CampusHome({
             <p className="campus-hero-summary">{summary}</p>
             <div className="campus-actions">
               <a className="campus-button" href="#insights">
-                {ja ? "AI変革を探る" : "Explore the work"}
+                {ja ? "AI変革を探る" : "Explore this page"}
                 <span aria-hidden="true">↗</span>
               </a>
               <a className="campus-text-link" href="mailto:raj@innuir.com">
@@ -111,19 +117,19 @@ export default function CampusHome({
               <span>
                 {ja
                   ? "視点をつなぐ。可能性を広げる。"
-                  : "Connecting perspectives. Creating possibility."}
+                  : "Singapore and Japan have shaped much of my working life."}
               </span>
             </figcaption>
           </figure>
         </section>
         <div className="campus-context">
-          <span>{ja ? "戦略と実践の接点" : "At the intersection of"}</span>
+          <span>{ja ? "戦略と実践の接点" : "Areas I work in"}</span>
           <strong>{ja ? "エンタープライズAI" : "Enterprise AI"}</strong>
           <i />
-          <strong>{ja ? "APACリーダーシップ" : "APAC Leadership"}</strong>
+          <strong>{ja ? "APACリーダーシップ" : "Working across cultures"}</strong>
           <i />
           <strong>
-            {ja ? "ヘルスインテリジェンス" : "Health Intelligence"}
+            {ja ? "ヘルスインテリジェンス" : "Connected healthcare"}
           </strong>
         </div>
         <section
@@ -141,30 +147,30 @@ export default function CampusHome({
             <span>
               {ja
                 ? "リーダー・創業者・学び続ける人"
-                : "Leader. Founder. Lifelong learner."}
+                : "Engineering, enterprise, and a continuing education."}
             </span>
           </div>
           <div>
             <p className="campus-eyebrow">
-              {ja ? "私の視点" : "A practical perspective"}
+              {ja ? "私の視点" : "A little about me"}
             </p>
             <h2 id="perspective-title">
               {ja
                 ? "戦略を描き、人と事業を動かす。"
-                : "Strategy is only the beginning."}
+                : "What has shaped my work."}
             </h2>
             <p className="campus-lead">
               {ja
                 ? "企業の変革には、技術だけでなく、人、意思決定、そして実行の仕組みが必要です。"
-                : "Enterprise AI transformation changes how organizations make decisions, operate, and compete."}
+                : "My work has taken me from factory automation and digital manufacturing to enterprise AI and healthcare."}
             </p>
             <p>
               {ja
                 ? "APACのエンタープライズデリバリーからヘルステックの創業まで。StanfordとMITでの学びを、事業の現場での実践につなげています。"
-                : "I’ve spent 27+ years at the intersection of engineering, AI, and enterprise transformation. My perspective combines building ventures from zero with leading global delivery programs, sharpened through the Stanford Executive Program and MIT’s COO Program."}
+                : "Over 27 years, I’ve worked with colleagues and clients across Japan and APAC, led delivery teams, and started businesses. These experiences continue to inform how I think about technology and the people who use it. My studies at Stanford and MIT added perspectives that I’m still putting into practice."}
             </p>
             <a className="campus-text-link" href="#experience">
-              {ja ? "これまでの歩み" : "Discover my journey"}
+              {ja ? "これまでの歩み" : "Read about my work"}
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -177,10 +183,10 @@ export default function CampusHome({
           <div className="campus-section-heading">
             <div>
               <p className="campus-eyebrow">
-                02 / {ja ? "アイデアから実行へ" : "Ideas into practice"}
+                02 / {ja ? "アイデアから実行へ" : "Notes and resources"}
               </p>
               <h2 id="work-title">
-                {ja ? "AI変革のための道具。" : "A toolkit for transformation."}
+                {ja ? "AI変革のための道具。" : "Ideas and tools to share."}
               </h2>
             </div>
             <Link className="campus-text-link" href={`/${locale}/insights`}>
@@ -240,13 +246,13 @@ export default function CampusHome({
               <p className="campus-eyebrow">
                 {ja
                   ? "リーダーシップを、日々の習慣に"
-                  : "Make leadership a daily practice"}
+                  : "Time to reflect"}
               </p>
               <h3>AI Leadership Diary</h3>
               <p>
                 {ja
                   ? "12週間の振り返りで、AI変革への視点を深める。"
-                  : "A personal space to reflect, build perspective, and shape your next 12 weeks."}
+                  : "A twelve-week space for reflection on AI, decisions, and leadership."}
               </p>
             </div>
             <span className="campus-button">
@@ -263,10 +269,10 @@ export default function CampusHome({
           <div className="campus-section-heading">
             <div>
               <p className="campus-eyebrow">
-                03 / {ja ? "実行実績" : "Experience & impact"}
+                03 / {ja ? "実行実績" : "Along the way"}
               </p>
               <h2 id="experience-title">
-                {ja ? "実践が築いた視点。" : "Leadership, in practice."}
+                {ja ? "実践が築いた視点。" : "People, places, and work."}
               </h2>
             </div>
             <p>{experience.summary}</p>
@@ -294,10 +300,10 @@ export default function CampusHome({
             <div className="campus-section-heading">
               <div>
                 <p className="campus-eyebrow">
-                  04 / {ja ? "創業活動" : "The founder’s perspective"}
+                  04 / {ja ? "創業活動" : "Building ventures"}
                 </p>
                 <h2>
-                  {ja ? "可能性を、事業に。" : "Building what comes next."}
+                  {ja ? "可能性を、事業に。" : "What I’m building—and have built."}
                 </h2>
               </div>
               <p>{ventures.summary}</p>
@@ -309,7 +315,7 @@ export default function CampusHome({
                   <h3>{item.title}</h3>
                   <p>{item.summary}</p>
                   <span className="campus-text-link">
-                    {ja ? "ベンチャーを見る" : "Discover the venture"}
+                    {ja ? "ベンチャーを見る" : "Read about the venture"}
                     <span aria-hidden="true">↗</span>
                   </span>
                 </Link>
@@ -325,10 +331,10 @@ export default function CampusHome({
           <div className="campus-section-heading">
             <div>
               <p className="campus-eyebrow">
-                05 / {ja ? "学びの基盤" : "Foundations & perspective"}
+                05 / {ja ? "学びの基盤" : "Education"}
               </p>
               <h2 id="education-title">
-                {ja ? "学び続ける、という原動力。" : "Always a student."}
+                {ja ? "学び続ける、という原動力。" : "Places I’ve learned."}
               </h2>
             </div>
             <p>{education.summary}</p>
@@ -359,7 +365,7 @@ export default function CampusHome({
                 06 / {ja ? "専門性" : "Continuing development"}
               </p>
               <h2>
-                {ja ? "知識を、実践につなぐ。" : "Knowledge with purpose."}
+                {ja ? "知識を、実践につなぐ。" : "Continuing to learn."}
               </h2>
             </div>
             <Link href={`/${locale}/credentials`} className="campus-text-link">
@@ -378,7 +384,7 @@ export default function CampusHome({
           </div>
         </section>
       </main>
-      <SiteFooter locale={locale} />
+      <SiteFooter locale={locale} heading={ja ? undefined : "Always glad to connect."} />
     </>
   );
 }
