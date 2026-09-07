@@ -1,3 +1,4 @@
+import { Geist, Geist_Mono } from "next/font/google";
 import CampusHome from "@/components/CampusHome";
 import { getDatabase } from "@kakehashi/db";
 import type {
@@ -13,6 +14,9 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import { formatDateRange } from "@/lib/date-format";
 import { getProfileCredentials } from "@/lib/profile-credentials";
+
+const profileSans = Geist({ variable: "--font-profile-sans", subsets: ["latin"] });
+const profileMono = Geist_Mono({ variable: "--font-profile-mono", subsets: ["latin"] });
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -574,7 +578,7 @@ export default async function HomePage({ params }: PageProps) {
   ];
 
   return (
-    <div className={isJa ? undefined : "profile-typography"}>
+    <div className={isJa ? undefined : `profile-typography ${profileSans.variable} ${profileMono.variable}`}>
       <SiteHeader locale={locale} active="home" />
       <CampusHome
         locale={locale}
