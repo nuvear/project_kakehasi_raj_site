@@ -15,3 +15,5 @@ Published as `kakehashi-app-00032-46l` (100% traffic), image tag `personal-profi
 ## Leadership emphasis restored
 
 At the owner’s request, the English profile now explicitly includes leading teams. The headline is “Learning, leading, and building together.” The introduction and approach section describe leadership across engineering, client delivery, regional portfolios, and venture building, emphasizing direction, accountability, cross-cultural collaboration and shared progress. The Capgemini summary states portfolio leadership directly. The tone remains personal and credits colleagues. No styling or other-page copy changed. The production build and five-width browser checks passed before release. Rollback: `kakehashi-app-00032-46l`.
+
+Leadership update published as `kakehashi-app-00033-x59` (100% traffic), tag `leadership-profile-20260907-1`, Cloud Build `61c0dbdd-970d-4abf-a5a8-3f99f134961b` (SUCCESS). Live HTTP verification confirmed the headline, approach-to-leadership section, team leadership narrative and Capgemini portfolio leadership wording.
