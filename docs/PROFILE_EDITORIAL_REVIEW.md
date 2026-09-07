@@ -9,3 +9,5 @@ Facts remain grounded in the owner's supplied LinkedIn About/experience text and
 Validation: production build passed, and the revised English homepage fits 1440, 1024, 768, 390 and 320px without detected horizontal clipping. Japanese homepage and English Insights page retain their existing scope. Source diff contains no stylesheet changes.
 
 Rollback before release: `kakehashi-app-00031-nv2`.
+
+Published as `kakehashi-app-00032-46l` (100% traffic), image tag `personal-profile-20260907-1`, Cloud Build `46aa76b0-cf1a-4dc7-9ebe-4fd4072444d0` (SUCCESS). Live checks confirm the revised English introduction and footer, the removal of the margin statistic from the homepage, and the unchanged shared footer wording on Insights. All three checked routes returned HTTP 200.
