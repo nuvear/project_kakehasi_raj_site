@@ -11,3 +11,5 @@ English-only presentation overrides sit in `CampusHome.tsx`, preserving existing
 Validation: production build passed. Browser checks at 1440, 1024, 768, 390 and 320px found no content outside the viewport. Japanese homepage and English Insights page have no typography scope marker. Existing desktop and phone screenshots were reviewed. No other services need release.
 
 Rollback revision observed before this release: `kakehashi-app-00029-8x9`.
+
+Published final Geist release: `kakehashi-app-00031-nv2`, 100% traffic, image `profile-geist-20260907-1`, Cloud Build `5a395d02-06d9-4507-9d88-00a050c6f5f2` (SUCCESS). Previous revision `kakehashi-app-00030-xbs` carried the initial type pairing and supplied content. Live browser checks confirm Geist at all five widths with no detected overflow, and no profile typography marker on `/ja` or `/en/insights`. Live HTML confirms the supplied role and delivery/venture metrics.
