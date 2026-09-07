@@ -1455,6 +1455,7 @@ html:lang(ja) .campus-footer h2 {
 .reading-notice, .reading-toc { padding: 1.5rem; margin: 1.5rem 0 2rem; background: var(--campus-paper); border: 1px solid var(--color-outline-variant); font-size: 1rem; line-height: 1.75; }
 .reading-toc summary { cursor: pointer; min-height: 44px; font-weight: 600; }
 .reading-toc ol { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem 2rem; padding-left: 1.5rem; }
+.reading-toc a { display: block; min-height: 44px; padding: .35rem 0; }
 .reading-toc a, .reading-notice a { color: var(--color-primary); text-underline-offset: .2em; }
 .markdown-article [id] { scroll-margin-top: 8rem; }
 .reading-next { border-top: 1px solid var(--color-outline-variant); padding-top: 1.5rem; margin-top: 3rem; }

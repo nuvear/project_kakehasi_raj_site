@@ -13,7 +13,7 @@ class Page(HTMLParser):
         if tag=='h1': self.headings+=1
         if 'id' in a: self.ids.add(a['id'])
         if tag=='link' and a.get('rel')=='canonical': self.canonical=a.get('href')
-        if tag=='a' and a.get('href','').startswith('#part-'): self.toc.append(a['href'][1:])
+        if tag=='a' and urlsplit(a.get('href','')).fragment.startswith('part-'): self.toc.append(urlsplit(a['href']).fragment)
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs): return None
 parser=argparse.ArgumentParser(); parser.add_argument('base'); parser.add_argument('--output',required=True); args=parser.parse_args()
