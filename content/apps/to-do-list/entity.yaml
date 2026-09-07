@@ -2,7 +2,7 @@ id: app.to-do-list
 type: app
 canonical_slug: to-do-list
 visibility: public
-publish_status: published
+publish_status: archived
 sensitivity: public
 agent_use: true
 app_url: /apps/to-do-list

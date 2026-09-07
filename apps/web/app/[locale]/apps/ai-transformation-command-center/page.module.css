@@ -1,0 +1,84 @@
+.page { --ink: var(--color-on-background, #172d39); --muted: var(--color-on-surface-variant, #4e6470); --line: var(--color-outline-variant, #d7e1e5); background: var(--color-background, #f7f9fa); color: var(--ink); font-family: var(--font-inter), Arial, sans-serif; line-height: 1.65; min-height: 100vh; overflow-wrap: anywhere; }
+.page *, .page *::before, .page *::after { box-sizing: border-box; }
+.page h1, .page h2, .page h3, .page p { margin: 0; }
+.page a { text-decoration: none; }
+.page a:focus-visible, .page summary:focus-visible { outline: 3px solid #458c90; outline-offset: 5px; }
+.hero { padding: 72px max(5%, calc((100% - 1280px) / 2)) 64px; background: #172d39; color: #fff; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr); gap: 70px; align-items: center; }
+.eyebrow { font-size: 11px; letter-spacing: .15em; font-weight: 720; line-height: 1.5; color: var(--color-primary, #397079); }
+.hero .eyebrow { color: #c9daa6; }
+.wordmark { font-size: 78px; font-weight: 790; letter-spacing: -.06em; line-height: 1; margin: 27px 0 13px; }
+.wordmark span { font-size: 20px; vertical-align: top; letter-spacing: 0; margin-left: 6px; }
+.expansion { font-size: 13px; color: #c9d6de; }
+.hero h1 { font-size: clamp(32px, 3.2vw, 47px); line-height: 1.12; letter-spacing: -.04em; margin: 33px 0 22px; font-weight: 660; max-width: 660px; }
+.lead { color: #d0dce2; font-size: 17px; max-width: 640px; }
+.actions { display: flex; gap: 12px 18px; flex-wrap: wrap; align-items: center; margin-top: 29px; }
+.primary, .secondary, .lightButton { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 48px; border-radius: 6px; padding: 11px 19px; font-size: 14px; font-weight: 670; }
+.primary { background: #d7e7ae; color: #18343d; border: 1px solid #d7e7ae; }
+.primary:hover { background: #e5f1ca; }
+.secondary { border: 1px solid #68818e; color: white; }
+.secondary:hover { background: #294856; }
+.hero .access { font-size: 12px; color: #d7e7ae; margin-top: 20px; }
+.access span { font-size: 8px; margin-right: 5px; }
+.hero .accessNote { margin-top: 8px; font-size: 12px; color: #b9cbd5; max-width: 590px; line-height: 1.7; }
+.cycle { padding: 35px 30px; border: 1px solid #48616e; border-radius: 14px; background: #203b49; box-shadow: 0 20px 60px #0d1e2930; }
+.page .cycle h2 { font-size: 23px; line-height: 1.25; font-weight: 530; margin-top: 12px; }
+.cycle ol { padding: 0; margin: 30px 0; list-style: none; }
+.cycle li { display: flex; align-items: center; gap: 15px; padding: 17px 0; border-bottom: 1px solid #4b6471; font-size: 14px; }
+.cycle li span { font-size: 12px; color: #d7e7ae; }
+.cycle .cycleNote { font-size: 11px; line-height: 1.7; color: #bacdd7; }
+.intro, .section, .close, .footer { padding: 64px max(5%, calc((100% - 1280px) / 2)); }
+.intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: #edf2e7; color: #172d39; align-items: center; }
+.page h2 { font-size: clamp(25px, 2.5vw, 35px); font-weight: 590; letter-spacing: -.03em; line-height: 1.22; }
+.intro .eyebrow { color: #397079; }
+.intro h2, .section > h2, .training h2 { margin-top: 15px; max-width: 800px; }
+.intro > p { font-size: 17px; color: #405b58; }
+.capabilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 36px; margin-top: 38px; }
+.capabilities article { border-top: 1px solid #beced5; padding-top: 24px; }
+.number { display: block; font-size: 12px; color: var(--color-primary, #4b7680); margin-bottom: 16px; }
+.page h3 { font-size: 18px; line-height: 1.4; font-weight: 650; }
+.capabilities p, .personas p, .readiness p { margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.perspectives { background: var(--campus-paper, #fff); border-block: 1px solid var(--line); }
+.personas { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 25px; margin-top: 37px; }
+.role { display: block; font-size: 13px; font-weight: 750; color: var(--color-primary, #397079); border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 18px; }
+.personas h3 { font-size: 18px; }
+.note { margin-top: 24px !important; font-size: 12px !important; color: var(--muted); }
+.training { background: #294b56; color: white; display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; }
+.training .eyebrow { color: #d7e7ae; }
+.training p { color: #dce5e8; }
+.training .note { color: #c5d5dc; }
+.lightButton { border: 1px solid #73919d; color: #fff; }
+.lightLink { color: white; text-decoration: underline !important; text-underline-offset: 5px; font-size: 14px; padding: 10px 0; }
+.readiness { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin: 36px 0; }
+.readiness article { padding: 25px; background: var(--campus-paper, #fff); border: 1px solid var(--line); border-radius: 8px; }
+.boundaries { padding: 25px; background: #f4f0e7; color: #172d39; border-left: 3px solid #ad8b53; }
+.boundaries summary { cursor: pointer; font-weight: 650; font-size: 16px; }
+.boundaries p { margin-top: 16px; font-size: 14px; color: #58594f; line-height: 1.8; }
+.close { background: #172d39; color: white; text-align: center; }
+.close p { max-width: 660px; color: #c5d5dd; margin: 20px auto 28px; }
+.footer { padding-top: 25px; padding-bottom: 25px; font-size: 11px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; background: var(--campus-paper, #fff); }
+@media (max-width: 1100px) {
+  .hero { gap: 35px; grid-template-columns: minmax(0, 1.3fr) minmax(270px, .85fr); }
+  .personas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .intro, .training { gap: 32px; }
+}
+@media (max-width: 760px) {
+  .hero { display: block; padding: 42px 22px; }
+  .wordmark { font-size: 66px; }
+  .hero h1 { font-size: 36px; }
+  .cycle { margin-top: 36px; padding: 25px; }
+  .intro, .section, .close { display: block; padding: 40px 22px; }
+  .intro > p, .training > div + div { margin-top: 24px; }
+  .capabilities, .personas, .readiness { grid-template-columns: 1fr 1fr; gap: 25px; }
+  .footer { padding: 24px 22px; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 32px; }
+  .lead, .intro > p { font-size: 16px; }
+  .capabilities, .personas, .readiness { grid-template-columns: 1fr; }
+  .personas { gap: 28px; }
+  .role { padding-bottom: 10px; margin-bottom: 12px; }
+  .primary, .secondary { width: 100%; }
+  .boundaries, .readiness article { padding: 21px; }
+}
+
+.page h1:lang(ja) { text-wrap: balance; line-break: strict; overflow-wrap: normal; }

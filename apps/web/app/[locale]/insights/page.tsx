@@ -1,135 +1,36 @@
-import { getDatabase } from "@kakehashi/db";
 import type { Metadata } from "next";
-import InsightsCatalogueClient from "@/components/InsightsCatalogueClient";
-import type { InsightMetadata, AppMetadata, GuideMetadata, FrameworkMetadata } from "@kakehashi/content-schema";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import { publicResources } from "@/lib/resources";
 
-interface PageProps {
-  params: Promise<{ locale: string }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+interface Props { params: Promise<{ locale: string }> }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const title = locale === "ja" 
-    ? "知見・ツール カタログ — ラジクマール・ラジャゴバラン" 
-    : "Insights & Tools Catalogue — Rajkumar Rajagobalan";
-  const description = locale === "ja" 
-    ? "ラジクマール・ラジャゴバランが構築したエンタープライズAI戦略、ガバナンス、開発者ガイド、ウェアラブル健康アプリケーションの知見カタログ。" 
-    : "Catalogue of enterprise AI strategy, governance, developer guides, and wearable health analytics built by Rajkumar Rajagobalan.";
-  
   return {
-    title,
-    description,
-    alternates: {
-      canonical: `https://www.rajagobalan.com/${locale}/insights`,
-      languages: {
-        en: "https://www.rajagobalan.com/en/insights",
-        ja: "https://www.rajagobalan.com/ja/insights",
-      },
-    },
+    title: `${locale === "ja" ? "GATE・AI学習リソース" : "GATE & AI Learning Resources"} | Rajkumar Rajagobalan`,
+    description: locale === "ja" ? "GATE、企業AIリファレンスガイド、エグゼクティブ・シミュレーション、AI Leadership Diary。" : "Explore GATE, the Enterprise AI Reference Guide, executive simulation and AI Leadership Diary.",
+    alternates: { canonical: `https://www.rajagobalan.com/${locale}/insights`, languages: {en: "https://www.rajagobalan.com/en/insights", ja: "https://www.rajagobalan.com/ja/insights"} },
   };
 }
-
-export default async function InsightsPage({ params }: PageProps) {
+export default async function ResourcesPage({ params }: Props) {
   const { locale } = await params;
-  const db = await getDatabase();
-
-  // Load all catalogue entities from the database layer
-  const insightEntities = await db.listEntities("insight");
-  const appEntities = await db.listEntities("app");
-  const guideEntities = await db.listEntities("guide");
-  const frameworkEntities = await db.listEntities("framework");
-
-  // Fetch translations for all types
-  const allList = await Promise.all([
-    ...insightEntities.map(async (e) => {
-      const metadata = e as InsightMetadata;
-      return {
-        entity: {
-          id: metadata.id,
-          type: metadata.type,
-          canonical_slug: metadata.canonical_slug,
-          category: metadata.category,
-          tags: metadata.tags,
-          ui_capabilities: metadata.ui_capabilities
-        },
-        translation: await db.getTranslation(metadata.id, locale)
-      };
-    }),
-    ...appEntities.map(async (e) => {
-      const metadata = e as AppMetadata;
-      return {
-        entity: {
-          id: metadata.id,
-          type: metadata.type,
-          canonical_slug: metadata.canonical_slug,
-          app_url: metadata.app_url,
-          ui_capabilities: metadata.ui_capabilities
-        },
-        translation: await db.getTranslation(metadata.id, locale)
-      };
-    }),
-    ...guideEntities.map(async (e) => {
-      const metadata = e as GuideMetadata;
-      return {
-        entity: {
-          id: metadata.id,
-          type: metadata.type,
-          canonical_slug: metadata.canonical_slug,
-          category: metadata.category,
-          tags: metadata.tags,
-          ui_capabilities: metadata.ui_capabilities
-        },
-        translation: await db.getTranslation(metadata.id, locale)
-      };
-    }),
-    ...frameworkEntities.map(async (e) => {
-      const metadata = e as FrameworkMetadata;
-      return {
-        entity: {
-          id: metadata.id,
-          type: metadata.type,
-          canonical_slug: metadata.canonical_slug,
-          version: metadata.version,
-          ui_capabilities: metadata.ui_capabilities
-        },
-        translation: await db.getTranslation(metadata.id, locale)
-      };
-    })
-  ]);
-
-  // Filter items where translation exists
-  const validItems = allList.filter(item => item.translation !== null) as Array<{
-    entity: {
-      id: string;
-      type: string;
-      canonical_slug: string;
-      category?: string;
-      tags?: string[];
-      version?: string;
-      app_url?: string;
-    };
-    translation: {
-      frontmatter: {
-        locale: string;
-        title: string;
-        summary: string;
-        translation_status: string;
-        last_editorial_review?: string;
-      };
-      content_markdown: string;
-    };
-  }>;
-
-  // Sort items: newest review date first
-  const sortByReviewDate = (a: typeof validItems[0], b: typeof validItems[0]) => {
-    const dateA = a.translation.frontmatter.last_editorial_review || "";
-    const dateB = b.translation.frontmatter.last_editorial_review || "";
-    return dateB.localeCompare(dateA);
-  };
-
-  const sortedItems = validItems.sort(sortByReviewDate);
-
-  return (
-    <InsightsCatalogueClient locale={locale} items={sortedItems} />
-  );
+  const ja = locale === "ja";
+  return <>
+    <SiteHeader locale={locale} active="insights" />
+    <main id="main-content" className="resources-shell">
+      <div className="resources-intro">
+        <p className="campus-eyebrow">{ja ? "企業AI · 戦略から実践へ" : "Enterprise AI · From strategy to practice"}</p>
+        <h1>{ja ? "理解を深め、判断につなげる。" : "Learn the principles. Put them to work."}</h1>
+        <p>{ja ? "GATEでプロジェクトを検討し、ガイドで理解を深め、シミュレーションで判断を練習する。ダイアリーでは個人の学びを振り返ります。" : "Review projects in GATE, build understanding with the guide, practise decisions in the simulation and reflect in your Diary."}</p>
+      </div>
+      <div className="resources-list">
+        {publicResources(locale).map((item, i) => <article key={item.id} className={`resource-row ${i === 0 ? "resource-featured" : ""}`}>
+          <div className="resource-number" aria-hidden="true">0{i + 1}</div>
+          <div><p className="campus-eyebrow">{item.label}</p><h2>{item.title}</h2><p>{item.summary}</p><span className="resource-status">{item.status}</span></div>
+          <a className="resource-link" href={item.href}>{item.verb}<span aria-hidden="true">↗</span></a>
+        </article>)}
+      </div>
+    </main>
+    <SiteFooter locale={locale} />
+  </>;
 }

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { DM_Sans, Libre_Caslon_Display } from "next/font/google";
 import ThemeDock from "@/components/ThemeDock";
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  if (locale !== "en" && locale !== "ja") notFound();
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>

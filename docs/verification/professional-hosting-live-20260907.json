@@ -1,0 +1,94 @@
+{
+  "rajagobalan-site": {
+    "release": "projects/rajagobalan-site/sites/rajagobalan-site/channels/live/releases/1788747273537000",
+    "time": "2026-09-07T02:14:33.537Z",
+    "version": "projects/rajagobalan-site/sites/rajagobalan-site/versions/bf9932393de56009",
+    "config": {
+      "headers": [
+        {
+          "headers": {
+            "Cache-Control": "no-cache, no-store, must-revalidate"
+          },
+          "glob": "**/*.html"
+        }
+      ],
+      "redirects": [
+        {
+          "statusCode": 301,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/apps/ai-transformation-command-center"
+        },
+        {
+          "statusCode": 301,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/apps/ai-transformation-command-center/**"
+        },
+        {
+          "statusCode": 301,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/framework.html"
+        },
+        {
+          "statusCode": 301,
+          "location": "/en/insights/enterprise-ai-reference-guide",
+          "glob": "/enterprise-ai-reference-guide.html"
+        },
+        {
+          "statusCode": 301,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/ai-transformation-command-center.html"
+        },
+        {
+          "statusCode": 301,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/deployment-guide.html"
+        }
+      ],
+      "rewrites": [
+        {
+          "glob": "/diary",
+          "run": {
+            "serviceId": "ai-leadership-diary",
+            "region": "us-central1"
+          }
+        },
+        {
+          "glob": "/diary/**",
+          "run": {
+            "serviceId": "ai-leadership-diary",
+            "region": "us-central1"
+          }
+        },
+        {
+          "glob": "**",
+          "run": {
+            "serviceId": "kakehashi-app",
+            "region": "us-central1"
+          }
+        }
+      ]
+    }
+  },
+  "rajagobalan-site-healthkitsync": {
+    "release": "projects/rajagobalan-site/sites/rajagobalan-site-healthkitsync/channels/live/releases/1788747270266000",
+    "time": "2026-09-07T02:14:30.266Z",
+    "version": "projects/rajagobalan-site/sites/rajagobalan-site-healthkitsync/versions/7a1f7fd9b9bc7dcc",
+    "config": {
+      "headers": [
+        {
+          "headers": {
+            "Cache-Control": "no-cache, no-store, must-revalidate"
+          },
+          "glob": "**/*.html"
+        }
+      ],
+      "redirects": [
+        {
+          "statusCode": 301,
+          "location": "https://www.rajagobalan.com/en/ventures/nuvear",
+          "glob": "**"
+        }
+      ]
+    }
+  }
+}

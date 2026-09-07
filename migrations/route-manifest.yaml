@@ -1,3 +1,5 @@
+# September 2026: owner requested whole-site cleanup and replacement of Framework v8 with GATE.
+# The original June scope below is historical. See docs/SITE-PROFESSIONAL-REVIEW.md.
 # Project Kakehashi — Route Migration Manifest
 # Maps legacy www.rajagobalan.com routes to the new bilingual /en/ and /ja/ paths.
 #
@@ -10,7 +12,7 @@
 # Other discovered legacy blog/app routes remain inventory records, but they are
 # deferred for this wave unless the owner explicitly re-adds them.
 
-version: 1.0.0
+version: 2.0.0
 routes:
   - source: "/"
     target_en: "/en"
@@ -32,20 +34,20 @@ routes:
     status: "active"
 
   - source: "/framework.html"
-    target_en: "/en/frameworks/enterprise-ai-transformation"
-    target_ja: "/ja/frameworks/enterprise-ai-transformation"
-    type: "redirect_302"
+    target_en: "/en/apps/ai-transformation-command-center"
+    target_ja: "/ja/apps/ai-transformation-command-center"
+    type: "redirect_301"
     status: "active"
     migration_wave: "6.1"
-    notes: "Active recovery item. Use temporary redirect until final acceptance, then promote to permanent redirect."
+    notes: "Replaced by GATE in the September 2026 professional site review."
 
   - source: "/enterprise-ai-reference-guide.html"
     target_en: "/en/insights/enterprise-ai-reference-guide"
     target_ja: "/ja/insights/enterprise-ai-reference-guide"
-    type: "redirect_302"
+    type: "redirect_301"
     status: "active"
     migration_wave: "5.5"
-    notes: "Active recovery item. Long-form source content must come from rajagobalan-site-main/enterprise-ai-reference-guide.md. Use temporary redirect until final acceptance."
+    notes: "Active recovery item. Long-form source content must come from rajagobalan-site-main/enterprise-ai-reference-guide.md. Current public learning companion to GATE."
 
   - source: "/singapore-ai-strategy-status.html"
     target_en: "/en/insights/singapore-ai-strategy"
@@ -122,18 +124,18 @@ routes:
   - source: "/ai-transformation-command-center.html"
     target_en: "/en/apps/ai-transformation-command-center"
     target_ja: "/ja/apps/ai-transformation-command-center"
-    type: "redirect_302"
+    type: "redirect_301"
     status: "active"
     migration_wave: "7.1"
-    notes: "Active recovery item. Localized entry pages launch the Cloud Run runtime at /apps/ai-transformation-command-center."
+    notes: "GATE is the command center. The former demo path redirects to the GATE page."
 
   - source: "/deployment-guide.html"
-    target_en: "/en/apps/ai-transformation-command-center/docs/deployment"
-    target_ja: "/ja/apps/ai-transformation-command-center/docs/deployment"
-    type: "redirect_302"
+    target_en: "/en/apps/ai-transformation-command-center"
+    target_ja: "/ja/apps/ai-transformation-command-center"
+    type: "redirect_301"
     status: "active"
     migration_wave: "7.1"
-    notes: "Active recovery item paired with the Command Center app. Confirm public visibility before promoting to permanent redirect."
+    notes: "Retired deployment notes redirect to GATE; operational documentation stays in the repository."
 
   - source: "/foodie/"
     target_en: "/en/apps/foodie"

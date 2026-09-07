@@ -1,0 +1,22 @@
+{
+  "main": {
+    "cloudRunRevision": "kakehashi-app-00027-v6t",
+    "trafficPercent": 100,
+    "hostingVersion": "ed029481fb3255f5",
+    "hostingRelease": "1788617725080000"
+  },
+  "healthkitsync": {
+    "hostingVersion": "a78699a60d4766a2",
+    "hostingRelease": "1782299136333000"
+  },
+  "blogAlias": {
+    "url": "https://blogs.rajagobalan.com",
+    "status": 200,
+    "finalUrl": "https://blogs.rajagobalan.com/en",
+    "relationship": "same Firebase main site; canonical pages identify www"
+  },
+  "sourceCommit": "e9618a6",
+  "cloudBuildId": "95760edf-8713-4455-8981-74e5b97b7421",
+  "sourceFiles": 166,
+  "privateInputsExcluded": true
+}

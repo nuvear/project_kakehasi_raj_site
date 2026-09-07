@@ -2,7 +2,7 @@ id: framework.enterprise-ai-transformation
 type: framework
 canonical_slug: enterprise-ai-transformation
 visibility: public
-publish_status: published
+publish_status: archived
 sensitivity: public
 agent_use: true
 version: "8.0"

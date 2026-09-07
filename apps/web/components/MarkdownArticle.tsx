@@ -1,4 +1,5 @@
 import React from "react";
+import { headingId } from "@/lib/markdown-headings";
 
 interface MarkdownArticleProps {
   content: string;
@@ -12,14 +13,6 @@ function stripFrontmatter(content: string) {
   }
   const parts = content.split("---");
   return parts.length > 2 ? parts.slice(2).join("---").trim() : content.trim();
-}
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
 }
 
 function renderInline(text: string): React.ReactNode[] {
@@ -99,6 +92,8 @@ export default function MarkdownArticle({ content }: MarkdownArticleProps) {
     listMode = null;
   };
 
+  const hasTopHeading = lines.some((line) => /^# /.test(line));
+
   lines.forEach((line, index) => {
     const trimmed = line.trim();
     const numberedMatch = trimmed.match(/^\d+\.\s+(.*)$/);
@@ -118,7 +113,7 @@ export default function MarkdownArticle({ content }: MarkdownArticleProps) {
       flushList(`list-${index}`);
       const text = trimmed.slice(5);
       elements.push(
-        <h4 className="markdown-heading-4" key={index} id={slugify(text)}>
+        <h4 className="markdown-heading-4" key={index} id={headingId(text)}>
           {renderInline(text)}
         </h4>
       );
@@ -128,22 +123,16 @@ export default function MarkdownArticle({ content }: MarkdownArticleProps) {
     if (trimmed.startsWith("### ")) {
       flushList(`list-${index}`);
       const text = trimmed.slice(4);
-      elements.push(
-        <h4 className="markdown-heading-4" key={index} id={slugify(text)}>
-          {renderInline(text)}
-        </h4>
-      );
+      const Heading = hasTopHeading ? "h4" : "h3";
+      elements.push(<Heading className="markdown-heading-3" key={index} id={headingId(text)}>{renderInline(text)}</Heading>);
       return;
     }
 
     if (trimmed.startsWith("## ")) {
       flushList(`list-${index}`);
       const text = trimmed.slice(3);
-      elements.push(
-        <h3 className="markdown-heading-3" key={index} id={slugify(text)}>
-          {renderInline(text)}
-        </h3>
-      );
+      const Heading = hasTopHeading ? "h3" : "h2";
+      elements.push(<Heading className="markdown-heading-2" key={index} id={headingId(text)}>{renderInline(text)}</Heading>);
       return;
     }
 
@@ -151,7 +140,7 @@ export default function MarkdownArticle({ content }: MarkdownArticleProps) {
       flushList(`list-${index}`);
       const text = trimmed.slice(2);
       elements.push(
-        <h2 className="markdown-heading-2" key={index} id={slugify(text)}>
+        <h2 className="markdown-heading-2" key={index} id={headingId(text)}>
           {renderInline(text)}
         </h2>
       );

@@ -1,65 +1,105 @@
 ---
 locale: en
-title: AI Transformation Command Center
-summary: An interactive operational dashboard to simulate, track, and monitor organization-wide AI initiatives and governance.
+title: "GATE — Your AI Transformation Command Center"
+summary: "Bring AI projects, evidence and executive decisions into one governed workspace. Explore GATE, a working pilot for enterprise AI transformation."
 translation_status: published
-last_editorial_review: "2026-06-22"
+last_editorial_review: "2026-09-07"
 ---
 
-# AI Transformation Command Center
+# Lead your AI portfolio with evidence.
 
-The AI Transformation Command Center is the operating system for enterprise AI strategy. It helps leaders move from discovery to deployment by managing an AI transformation portfolio in one unified platform.
+**GATE — Governed AI Transformation for Enterprises™**
 
-## Core Capabilities
+GATE brings AI projects, approved knowledge and accountable decisions into one workspace. Give leadership a clearer view of what to advance, what needs intervention and what should pause.
 
-### Executive Dashboard
+The current web application is a private owner preview. Contact Rajkumar for a walkthrough and to discuss a pilot; this link does not provide public signup or grant access.
 
-Real-time visibility into AI portfolio health, ROI projections, maturity scores, and project status across the enterprise.
+[Open GATE](https://gate-enterprise.praba.chatgpt.site)
 
-### Discovery Engine
+[Discuss an enterprise pilot](mailto:raj@innuir.com?subject=GATE%20enterprise%20pilot)
 
-AI-powered opportunity identification. Leaders can input industry context and business challenges to generate prioritized AI use cases with estimated ROI.
+## Which AI initiatives deserve the next commitment?
 
-### Portfolio Manager
+A list of pilots cannot answer that on its own. Leaders need to see the business case, the evidence, the unresolved risks and the person accountable for the next step. GATE gives that review a shared structure.
 
-Impact-versus-feasibility portfolio views help teams balance risk, investment, and strategic value across AI initiatives.
+## A connected workflow for governed AI decisions.
 
-### Maturity Assessment
+### Portfolio oversight
 
-A structured assessment across strategy, data, technology, people, and governance domains, with benchmarking and readiness scoring.
+Maintain project purpose, ownership, stage and strategic portfolio. Bring project context, risks, benefits and saved decisions into the review.
 
-### ROI Simulator
+### Evidence with accountability
 
-Financial modeling for cost savings, revenue uplift, payback period, and scenario comparison.
+Collect versioned sources, define access and require independent human review. Keep the evidence behind a conclusion traceable as it changes.
 
-### Architecture Generator
+### An evidence adviser
 
-ML and AI architecture blueprints tailored to use cases, deployment style, and enterprise constraints.
+Search approved knowledge and request source-linked advice. Bounded agentic research can investigate follow-up questions and report gaps or conflicting evidence.
 
-### Wardley Mapping
+### Governance gap review
 
-Strategic situational awareness for build-versus-buy decisions based on component maturity and commoditization.
+Screen project evidence against the pilot’s curated ISO/IEC 42001, EU AI Act, privacy and Singapore governance mappings. Surface questions for qualified reviewers.
 
-### Roadmap Generator
+### Recorded decisions
 
-Phased 12-24 month transformation planning with milestones, dependencies, and resource needs.
+Save review outcomes, rationale and accountable actions. Revisit a decision when its project facts, evidence or review context changes.
 
-## Runtime Boundary
+### Integration foundations
 
-The full Command Center remains a dedicated Cloud Run sub-application. This Kakehashi page is the localized app entry and preview surface; the production runtime launches at `/apps/ai-transformation-command-center`.
+API and MCP interfaces support scoped access and governed advisory workflows. Organization-owned OpenAI, Claude and Gemini connections are implemented; deployment and live-provider acceptance remain part of pilot setup.
 
-## Architecture
+## Give every executive a useful question.
 
-The recovery architecture uses:
+### CFO — Is the value demonstrated?
 
-- Next.js frontend for the Command Center web runtime.
-- FastAPI backend for portfolio, discovery, maturity, ROI, architecture, roadmap, and Wardley APIs.
-- Pre-seeded SQLite for the cost-to-zero demo deployment.
-- Cloud Run services with minimum instances set to zero.
-- Firebase Hosting rewrites for the runtime path.
+Challenge the baseline, comparator, total cost and benefit assumptions.
 
-## Related Assets
+### CIO — Can the enterprise operate it?
 
-- Enterprise AI Transformation Framework.
-- Enterprise AI Reference Guide.
-- Review-gated deployment notes.
+Review data ownership, integration, access and service accountability.
+
+### CEO — Is this the right commitment?
+
+Compare strategic value, opportunity cost and the next funding decision.
+
+### CTO — Does the evidence justify scaling?
+
+Examine evaluation quality, technical limits, fallback and safe operation.
+
+### Legal — Which duties and rights apply?
+
+Establish purpose, affected people, data rights and the specialist reviews still needed.
+
+These are review perspectives. Live application permissions are assigned separately.
+
+## Rehearse the portfolio meeting.
+
+The separate simulation offers five fictional projects, five executive perspectives and a 12-week learning path. Record a recommendation, explain the evidence and compare discussion notes. Practice stays in the browser and does not change live project records or call an LLM.
+
+[Explore the simulation](https://gate-enterprise.praba.chatgpt.site/simulation)
+
+[Read the user manual](https://gate-enterprise.praba.chatgpt.site/guide)
+
+Both learning links currently share the application’s restricted access.
+
+## A working pilot. A deliberate path to enterprise deployment.
+
+### Available to demonstrate
+
+Project and portfolio workflows, evidence review, advisory screening, a source-linked knowledge adviser, scoped API/MCP interfaces and a separate executive simulation are implemented. The current private preview is ready for an owner-led walkthrough.
+
+### To validate with each enterprise
+
+Production identity and invitations, hosting region, data residency, customer model connections, integration behavior, retrieval and answer quality, security and recovery require deployment-specific acceptance. An API or MCP interface does not make every enterprise connector ready to use.
+
+### What GATE does not establish
+
+GATE supports governance review; it does not certify ISO compliance, issue a legal opinion or guarantee regulatory coverage or financial returns. Its current mappings need specialist review and appropriate source rights. It reviews the information supplied to it; it does not continuously audit every enterprise system.
+
+Commercial billing and a deployment at www.rajagobalan.com/gate are planned. The application link above is the current private preview. Notion and NotebookLM are optional workflow companions, not prerequisites; turnkey connectors and OpenRAG adoption are not claimed as delivered.
+
+## Start with one portfolio review.
+
+Bring a small set of AI initiatives and the decisions your leadership team needs to make. Discuss a pilot that tests the evidence workflow, integration requirements and success criteria in your context.
+
+Capability statement reviewed 7 September 2026. Pilot status may change.

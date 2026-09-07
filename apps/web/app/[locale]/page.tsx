@@ -1,5 +1,7 @@
+import { publicResources } from "@/lib/resources";
+import { notFound } from "next/navigation";
 import CampusHome from "@/components/CampusHome";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import type {
   EntityMetadata,
   EntityType,
@@ -270,6 +272,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  if (locale !== "en" && locale !== "ja") notFound();
   const title =
     locale === "ja"
       ? "ラジクマール・ラジャゴバラン - エグゼクティブプロフィール"
@@ -294,6 +297,7 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
+  if (locale !== "en" && locale !== "ja") notFound();
   const isJa = locale === "ja";
   const db = await getDatabase();
 
@@ -345,7 +349,7 @@ export default async function HomePage({ params }: PageProps) {
           "ヘルスインテリジェンス、IoT、AR/VR、デジタルエンジニアリングの事業構築。",
         insightsTitle: "AI実行システム",
         insightsSummary:
-          "フレームワーク、ガイド、コマンドセンターで構成するCxO向け実行モデル。",
+          "GATEと実践的な学習リソースで、責任あるAI変革を支援します。",
         facts: [
           { value: "27+", label: "年の変革実績" },
           { value: "APAC", label: "日本・シンガポール" },
@@ -373,7 +377,7 @@ export default async function HomePage({ params }: PageProps) {
           "Health intelligence, IoT, AR/VR, and digital engineering ventures.",
         insightsTitle: "AI Transformation System",
         insightsSummary:
-          "A framework, guide, and command center for board-to-delivery execution.",
+          "GATE and practical learning resources for governed AI transformation.",
         facts: [
           { value: "27+", label: "Years of delivery" },
           { value: "APAC", label: "Japan and Singapore" },
@@ -395,11 +399,11 @@ export default async function HomePage({ params }: PageProps) {
   const profileItems: CopilotDeckItem[] = [
     {
       eyebrow: isJa ? "変革" : "Transformation",
-      href: `/${locale}/frameworks/enterprise-ai-transformation`,
+      href: `/${locale}/apps/ai-transformation-command-center`,
       id: "profile.enterprise-ai",
       proofPoints: isJa
-        ? ["フレームワーク", "リファレンスガイド", "コマンドセンター"]
-        : ["Framework", "Reference guide", "Command center"],
+        ? ["GATE", "実践ガイド", "シミュレーション"]
+        : ["GATE", "Reference guide", "Simulation"],
       summary: isJa
         ? "企業AIを技術導入ではなく、意思決定、ガバナンス、実行モデルを変える事業変革として提示します。"
         : "Positions AI as operating-model change: decision systems, governance, execution rhythm, and measurable value.",
@@ -477,50 +481,10 @@ export default async function HomePage({ params }: PageProps) {
     },
   ];
 
-  const insightItems: CopilotDeckItem[] = [
-    {
-      eyebrow: isJa ? "方法論" : "Framework",
-      href: `/${locale}/frameworks/enterprise-ai-transformation`,
-      id: "insight.framework",
-      proofPoints: isJa
-        ? ["6つの柱", "成熟度", "実行モデル"]
-        : ["Six pillars", "Maturity model", "Execution model"],
-      summary: isJa
-        ? "企業AI変革の成熟度を評価し、優先順位を調整し、実行に移すためのインタラクティブなフレームワーク。"
-        : "Interactive model to assess maturity, align priorities, and move transformation into execution.",
-      title: isJa ? "Transformation Framework" : "Transformation Framework",
-      visualKind: "insight",
-      visualLabel: "6 Pillars",
-    },
-    {
-      eyebrow: isJa ? "ガイド" : "Guide",
-      href: `/${locale}/insights/enterprise-ai-reference-guide`,
-      id: "insight.reference-guide",
-      proofPoints: isJa
-        ? ["アーキテクチャ", "展開", "ガバナンス"]
-        : ["Architecture", "Deployment", "Governance"],
-      summary: isJa
-        ? "大規模な企業AIソリューションを設計、展開、管理するためのリファレンスガイド。"
-        : "Architecture, deployment, and governance guidance for AI solutions at scale.",
-      title: isJa ? "Reference Guide" : "Reference Guide",
-      visualKind: "insight",
-      visualLabel: "Guide",
-    },
-    {
-      eyebrow: isJa ? "ツール" : "Command Center",
-      href: `/${locale}/apps/ai-transformation-command-center`,
-      id: "insight.command-center",
-      proofPoints: isJa
-        ? ["ポートフォリオ", "リスク", "ガバナンス"]
-        : ["Portfolio", "Risk", "Governance"],
-      summary: isJa
-        ? "組織全体のAIイニシアチブ、リスク、ガバナンスを可視化する実行ダッシュボード。"
-        : "Operational dashboard for simulating, tracking, and monitoring initiatives, risk, and governance.",
-      title: isJa ? "Command Center" : "Command Center",
-      visualKind: "app",
-      visualLabel: "Ops",
-    },
-  ];
+  const insightItems: CopilotDeckItem[] = publicResources(locale).slice(0, 3).map((item) => ({
+    id: item.id, href: item.href, eyebrow: item.label, title: item.title,
+    summary: item.summary, proofPoints: [item.status], visualKind: "insight", visualLabel: item.id,
+  }));
 
   const slides: CopilotDeckSlide[] = [
     {

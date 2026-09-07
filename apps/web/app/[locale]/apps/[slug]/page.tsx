@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { AppMetadata } from "@kakehashi/content-schema";
 import Link from "next/link";
 import type { Metadata } from "next";
-import CommandCenterDashboard from "@/components/CommandCenterDashboard";
-import TodoListDashboard from "@/components/TodoListDashboard";
 import DetailPageShell from "@/components/DetailPageShell";
 import MarkdownArticle from "@/components/MarkdownArticle";
 
@@ -16,7 +14,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale, slug } = await params;
   const db = await getDatabase();
   const entities = await db.listEntities("app");
-  const entity = entities.find((e) => e.canonical_slug === slug);
+  const entity = entities.find((e) => e.canonical_slug === slug && e.publish_status === "published" && e.id !== "app.to-do-list");
   if (!entity) return {};
 
   const translation = await db.getTranslation(entity.id, locale);
@@ -39,7 +37,7 @@ export default async function AppDetailPage({ params }: PageProps) {
   const { locale, slug } = await params;
   const db = await getDatabase();
   const entities = await db.listEntities("app");
-  const entity = entities.find((e) => e.canonical_slug === slug);
+  const entity = entities.find((e) => e.canonical_slug === slug && e.publish_status === "published" && e.id !== "app.to-do-list");
 
   if (!entity) {
     notFound();
@@ -55,7 +53,6 @@ export default async function AppDetailPage({ params }: PageProps) {
   const oppositeLocale = isJa ? "en" : "ja";
   const launchUrl = slug === "to-do-list" ? "#workspace-tool" : app.app_url || `/apps/${slug}`;
   const isCommandCenter = slug === "ai-transformation-command-center";
-  const isTodoList = slug === "to-do-list";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -104,13 +101,7 @@ export default async function AppDetailPage({ params }: PageProps) {
 
         <MarkdownArticle content={translation.content_markdown} />
 
-        {isCommandCenter && (
-          <CommandCenterDashboard locale={locale} />
-        )}
 
-        {isTodoList && (
-          <section id="workspace-tool"><TodoListDashboard locale={locale} /></section>
-        )}
       </DetailPageShell>
     </>
   );
