@@ -1,0 +1,21 @@
+id: education.american-college-physics
+type: education
+canonical_slug: american-college-physics
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - institution_hero
+  - timeline
+institution:
+  id: institution.american-college
+  official_name: The American College
+programme:
+  official_name: Bachelor of Science, Physics
+start_date: "1988"
+end_date: "1991"

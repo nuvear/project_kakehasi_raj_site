@@ -1,4 +1,7 @@
 import { DatabaseProvider } from "./index";
+import fs from "fs";
+import path from "path";
+import * as yaml from "js-yaml";
 import {
   EntityMetadata,
   FullTranslation,
@@ -10,7 +13,104 @@ import {
   AuditLog
 } from "@kakehashi/content-schema";
 
-// Mock Fixtures for Stanford, MIT, Capgemini, Nuvear, AAGNAA, and Profile About
+interface FileBackedContent {
+  entities: Record<string, EntityMetadata>;
+  translations: Record<string, Record<string, FullTranslation>>;
+}
+
+let fileBackedContentCache: FileBackedContent | null = null;
+
+function findContentDir(): string | null {
+  const candidates = [
+    process.env.KAKEHASHI_CONTENT_DIR,
+    path.join(process.cwd(), "apps/web/.next/standalone/content"),
+    path.join(process.cwd(), ".next/standalone/content"),
+    path.join(process.cwd(), "content"),
+    path.join(process.cwd(), "../../content"),
+    path.join(process.cwd(), "../content")
+  ].filter(Boolean) as string[];
+
+  return candidates.find((candidate) => fs.existsSync(candidate)) || null;
+}
+
+function getEntityFolders(dir: string): string[] {
+  const folders: string[] = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const entryPath = path.join(dir, entry.name);
+    if (!entry.isDirectory()) continue;
+
+    if (fs.existsSync(path.join(entryPath, "entity.yaml"))) {
+      folders.push(entryPath);
+    } else {
+      folders.push(...getEntityFolders(entryPath));
+    }
+  }
+
+  return folders;
+}
+
+function parseMarkdownFile(content: string) {
+  if (!content.trimStart().startsWith("---")) {
+    return { frontmatter: {}, content_markdown: content.trim() };
+  }
+
+  const parts = content.split("---");
+  if (parts.length < 3) {
+    return { frontmatter: {}, content_markdown: content.trim() };
+  }
+
+  const frontmatter = (yaml.load(parts[1]) || {}) as Record<string, unknown>;
+  const content_markdown = parts.slice(2).join("---").trim();
+  return { frontmatter, content_markdown };
+}
+
+function loadFileBackedContent(): FileBackedContent {
+  if (fileBackedContentCache) return fileBackedContentCache;
+
+  const entities: Record<string, EntityMetadata> = {};
+  const translations: Record<string, Record<string, FullTranslation>> = {};
+  const contentDir = findContentDir();
+
+  if (!contentDir) {
+    fileBackedContentCache = { entities, translations };
+    return fileBackedContentCache;
+  }
+
+  for (const folder of getEntityFolders(contentDir)) {
+    const entityPath = path.join(folder, "entity.yaml");
+    const entity = yaml.load(fs.readFileSync(entityPath, "utf-8")) as EntityMetadata | null;
+
+    if (!entity?.id) continue;
+
+    entities[entity.id] = entity;
+    translations[entity.id] = translations[entity.id] || {};
+
+    for (const file of fs.readdirSync(folder)) {
+      if (!file.endsWith(".md")) continue;
+
+      const locale = path.basename(file, ".md");
+      const { frontmatter, content_markdown } = parseMarkdownFile(
+        fs.readFileSync(path.join(folder, file), "utf-8")
+      );
+
+      translations[entity.id][locale] = {
+        entity_id: entity.id,
+        frontmatter: {
+          locale,
+          ...frontmatter
+        } as FullTranslation["frontmatter"],
+        content_markdown
+      };
+    }
+  }
+
+  fileBackedContentCache = { entities, translations };
+  return fileBackedContentCache;
+}
+
+// Mock Fixtures for Stanford, MIT, Capgemini, Innuir, AAGNAA, and Profile About
 const mockEntities: Record<string, EntityMetadata> = {
   "profile.about": {
     id: "profile.about",
@@ -111,7 +211,7 @@ const mockEntities: Record<string, EntityMetadata> = {
       may_change_credential_wording: false
     },
     ui_capabilities: ["venture_dashboard", "media_gallery", "product_cards"],
-    company_name: "Nuvear Tech Pte Ltd",
+    company_name: "Innuir Pte. Ltd.",
     role: "Founder & CEO",
     start_date: "2024-06",
     end_date: null
@@ -193,7 +293,7 @@ const mockTranslations: Record<string, Record<string, FullTranslation>> = {
       frontmatter: {
         locale: "en",
         title: "About Rajkumar Rajagobalan",
-        summary: "Enterprise AI Transformation Leader, HealthTech Founder (Nuvear), Stanford GSB Alumni, MIT Alumni.",
+        summary: "CxO-facing profile for Singapore and Japan: AI transformation, HealthTech founding, and operating leadership.",
         translation_status: "published",
         last_editorial_review: "2026-06-24"
       },
@@ -201,7 +301,7 @@ const mockTranslations: Record<string, Record<string, FullTranslation>> = {
 ## Executive Profile
 
 Rajkumar is an Enterprise AI Transformation Leader and HealthTech Founder with over 27 years of experience scaling digital engineering, industrial IoT, and enterprise AI transformation initiatives across APAC and Japan.
-- Founder & CEO of **Nuvear**, building **HealthKitSync**.
+- Founder & CEO of **Innuir**, building **HealthKitSync**.
 - Former Senior Director & Head of Digital Engineering at **Capgemini Japan**.
 - Alumnus of **Stanford GSB** (Stanford Executive Program) and **MIT Sloan**.
 `
@@ -211,7 +311,7 @@ Rajkumar is an Enterprise AI Transformation Leader and HealthTech Founder with o
       frontmatter: {
         locale: "ja",
         title: "ラジクマール・ラジャゴバランについて",
-        summary: "エンタープライズAI変革のリーダー、ヘルステック創業者（Nuvear）、スタンフォード大学経営大学院修了生、MIT修了生。",
+        summary: "シンガポールと日本のCxOに向けた、AI変革、ヘルステック創業、事業運営のプロフィール。",
         translation_status: "approved",
         last_editorial_review: "2026-06-24"
       },
@@ -219,7 +319,7 @@ Rajkumar is an Enterprise AI Transformation Leader and HealthTech Founder with o
 ## 略歴
 
 ラジクマール・ラジャゴバランは、エンタープライズAI変革のリーダーであり、ヘルステックの創業者です。APACおよび日本全域において、デジタルエンジニアリング、産業用IoT、エンタープライズAI変革イニシアチブの拡大で27年以上の経験を持っています。
-- **Nuvear**の創業者兼CEOであり、**HealthKitSync**を構築。
+- **Innuir**の創業者兼CEOであり、**HealthKitSync**を構築。
 - 元**キャップジェミニ日本法人**のシニアディレクター兼デジタルエンジニアリング責任者。
 - **スタンフォード大学経営大学院**（エグゼクティブ・プログラム）および**MITスローン**の修了生。
 `
@@ -362,15 +462,15 @@ Served as Senior Director and Head of Digital Engineering for Capgemini Japan, s
       entity_id: "venture.nuvear",
       frontmatter: {
         locale: "en",
-        title: "Nuvear Tech",
+        title: "Innuir",
         summary: "Bilingual health analytics and synchronized wearable intelligence platform.",
         translation_status: "published",
         last_editorial_review: "2026-06-24"
       },
       content_markdown: `
-## HealthKitSync & Nuvear
+## HealthKitSync & Innuir
 
-Founded Nuvear to develop HealthKitSync, a next-generation decentralized health intelligence platform that correlates wearable data (Apple Health, Garmin, Fitbit) into actionable personalized health indicators.
+Founded Innuir, formerly Nuvear, to develop HealthKitSync, a next-generation decentralized health intelligence platform that correlates wearable data (Apple Health, Garmin, Fitbit) into actionable personalized health indicators.
 
 ### Key Highlights
 - Established clean API adapters for syncing iOS HealthKit data safely.
@@ -381,15 +481,15 @@ Founded Nuvear to develop HealthKitSync, a next-generation decentralized health 
       entity_id: "venture.nuvear",
       frontmatter: {
         locale: "ja",
-        title: "ヌヴィア・テック (Nuvear Tech)",
+        title: "Innuir",
         summary: "バイリンガルの健康分析と同期型ウェアラブルインテリジェンス・プラットフォーム。",
         translation_status: "approved",
         last_editorial_review: "2026-06-24"
       },
       content_markdown: `
-## HealthKitSync と ヌヴィア
+## HealthKitSync と Innuir
 
-ウェアラブルデータ（Apple Health、Garmin、Fitbit）を実行可能な実用的パーソナライズ健康指標へと相関させる、次世代の分散型ヘルス・インテリジェンス・プラットフォーム「HealthKitSync」を開発するためにNuvearを設立しました。
+ウェアラブルデータ（Apple Health、Garmin、Fitbit）を実行可能なパーソナライズ健康指標へと相関させる、次世代の分散型ヘルス・インテリジェンス・プラットフォーム「HealthKitSync」を開発するためにInnuir（旧Nuvear）を設立しました。
 
 ### 主なマイルストーン
 - iOS HealthKitデータを安全に同期するためのクリーンなAPIアダプターを確立。
@@ -550,15 +650,21 @@ const mockRateLimits: Record<string, number[]> = {};
 
 export class MockDatabaseProvider implements DatabaseProvider {
   async getEntity(id: string): Promise<EntityMetadata | null> {
-    return mockEntities[id] || null;
+    const fileBacked = loadFileBackedContent();
+    return fileBacked.entities[id] || mockEntities[id] || null;
   }
 
   async getTranslation(entityId: string, locale: string): Promise<FullTranslation | null> {
-    return mockTranslations[entityId]?.[locale] || null;
+    const fileBacked = loadFileBackedContent();
+    return fileBacked.translations[entityId]?.[locale] || mockTranslations[entityId]?.[locale] || null;
   }
 
   async listEntities(type?: EntityType): Promise<EntityMetadata[]> {
-    const list = Object.values(mockEntities);
+    const fileBacked = loadFileBackedContent();
+    const list = Object.values({
+      ...mockEntities,
+      ...fileBacked.entities
+    });
     if (type) {
       return list.filter((e) => e.type === type);
     }
@@ -584,8 +690,8 @@ export class MockDatabaseProvider implements DatabaseProvider {
       {
         entity_id: "venture.nuvear",
         locale: "en",
-        title: "Nuvear Tech",
-        content: "Nuvear Tech Pte Ltd. Wearable health analytics integration using HealthKitSync.",
+        title: "Innuir",
+        content: "Innuir Pte. Ltd. Wearable health analytics integration using HealthKitSync.",
         score: 0.82
       }
     ].slice(0, limit);

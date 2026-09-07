@@ -1,0 +1,60 @@
+[
+  {
+    "path": "/en",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 53749,
+    "carousel_present": true,
+    "all_seven_selectors": true
+  },
+  {
+    "path": "/ja",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 55756,
+    "carousel_present": true,
+    "all_seven_selectors": true
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fsainik.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 135885
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Famerican.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 121692
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fmadras.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 48733
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fshizuoka.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 51434
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fanaheim.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 127817
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fmit.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 103021
+  },
+  {
+    "path": "/_next/image?url=%2Fimages%2Feducation%2Fstanford.jpg&w=1080&q=75",
+    "status": 200,
+    "type": "image/jpeg",
+    "bytes": 105996
+  }
+]

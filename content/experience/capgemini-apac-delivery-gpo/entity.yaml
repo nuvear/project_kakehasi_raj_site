@@ -1,0 +1,21 @@
+id: experience.capgemini-apac-delivery-gpo
+type: experience
+canonical_slug: capgemini-apac-delivery-gpo
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - company_hero
+  - timeline
+  - proof_metrics
+company:
+  id: company.capgemini-engineering
+  official_name: Capgemini Engineering
+role: Senior Director | Head of Delivery & Global Program Office, APAC
+start_date: 2022-02
+end_date: 2025-09

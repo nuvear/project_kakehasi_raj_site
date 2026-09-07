@@ -1,0 +1,40 @@
+[
+  {
+    "width": 1440,
+    "font": "Geist, \"Geist Fallback\", Arial, sans-serif",
+    "scroll": 1440,
+    "bad": []
+  },
+  {
+    "width": 1024,
+    "font": "Geist, \"Geist Fallback\", Arial, sans-serif",
+    "scroll": 1024,
+    "bad": []
+  },
+  {
+    "width": 768,
+    "font": "Geist, \"Geist Fallback\", Arial, sans-serif",
+    "scroll": 768,
+    "bad": []
+  },
+  {
+    "width": 390,
+    "font": "Geist, \"Geist Fallback\", Arial, sans-serif",
+    "scroll": 390,
+    "bad": []
+  },
+  {
+    "width": 320,
+    "font": "Geist, \"Geist Fallback\", Arial, sans-serif",
+    "scroll": 320,
+    "bad": []
+  },
+  {
+    "path": "/ja",
+    "scope": "unchanged"
+  },
+  {
+    "path": "/en/insights",
+    "scope": "unchanged"
+  }
+]

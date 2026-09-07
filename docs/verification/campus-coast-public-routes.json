@@ -1,0 +1,170 @@
+{
+  "base": "https://www.rajagobalan.com",
+  "routes": [
+    {
+      "path": "/en",
+      "status": 200
+    },
+    {
+      "path": "/ja",
+      "status": 200
+    },
+    {
+      "path": "/en/apps/ai-transformation-command-center",
+      "status": 200
+    },
+    {
+      "path": "/en/credentials",
+      "status": 200
+    },
+    {
+      "path": "/en/education/american-college-physics",
+      "status": 200
+    },
+    {
+      "path": "/en/education/anaheim-university-mba",
+      "status": 200
+    },
+    {
+      "path": "/en/education/madras-institute-technology-electronics",
+      "status": 200
+    },
+    {
+      "path": "/en/education/mit-coo-program",
+      "status": 200
+    },
+    {
+      "path": "/en/education/shizuoka-university-systems-engineering",
+      "status": 200
+    },
+    {
+      "path": "/en/education/stanford-executive-program",
+      "status": 200
+    },
+    {
+      "path": "/en/experience/capgemini-apac-delivery-gpo",
+      "status": 200
+    },
+    {
+      "path": "/en/experience/dassault-systemes-delmia",
+      "status": 200
+    },
+    {
+      "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+      "status": 200
+    },
+    {
+      "path": "/en/experience/mahindra-satyam-pfizer-japan",
+      "status": 200
+    },
+    {
+      "path": "/en/experience/ys-inc-factory-automation",
+      "status": 200
+    },
+    {
+      "path": "/en/frameworks/enterprise-ai-transformation",
+      "status": 200
+    },
+    {
+      "path": "/en/insights",
+      "status": 200
+    },
+    {
+      "path": "/en/insights/enterprise-ai-reference-guide",
+      "status": 200
+    },
+    {
+      "path": "/en/ventures/aagnaa",
+      "status": 200
+    },
+    {
+      "path": "/en/ventures/nuvear",
+      "status": 200
+    },
+    {
+      "path": "/ja/apps/ai-transformation-command-center",
+      "status": 200
+    },
+    {
+      "path": "/ja/credentials",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/american-college-physics",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/anaheim-university-mba",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/madras-institute-technology-electronics",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/mit-coo-program",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/shizuoka-university-systems-engineering",
+      "status": 200
+    },
+    {
+      "path": "/ja/education/stanford-executive-program",
+      "status": 200
+    },
+    {
+      "path": "/ja/experience/capgemini-apac-delivery-gpo",
+      "status": 200
+    },
+    {
+      "path": "/ja/experience/dassault-systemes-delmia",
+      "status": 200
+    },
+    {
+      "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+      "status": 200
+    },
+    {
+      "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+      "status": 200
+    },
+    {
+      "path": "/ja/experience/ys-inc-factory-automation",
+      "status": 200
+    },
+    {
+      "path": "/ja/frameworks/enterprise-ai-transformation",
+      "status": 200
+    },
+    {
+      "path": "/ja/insights",
+      "status": 200
+    },
+    {
+      "path": "/ja/insights/enterprise-ai-reference-guide",
+      "status": 200
+    },
+    {
+      "path": "/ja/ventures/aagnaa",
+      "status": 200
+    },
+    {
+      "path": "/ja/ventures/nuvear",
+      "status": 200
+    },
+    {
+      "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+      "status": 200
+    },
+    {
+      "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+      "status": 200
+    }
+  ],
+  "outside_locale_routes": [
+    "https://unsplash.com/photos/golden-gate-bridge-san-francisco-california-SNdAWKVN1q0",
+    "https://www.rajagobalan.com/apps/ai-transformation-command-center",
+    "https://www.rajagobalan.com/diary"
+  ]
+}

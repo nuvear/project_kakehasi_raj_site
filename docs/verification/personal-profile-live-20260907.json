@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/en",
+    "status": 200,
+    "copy_scope_verified": true
+  },
+  {
+    "path": "/ja",
+    "status": 200,
+    "copy_scope_verified": true
+  },
+  {
+    "path": "/en/insights",
+    "status": 200,
+    "copy_scope_verified": true
+  }
+]

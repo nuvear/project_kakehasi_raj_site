@@ -67,3 +67,12 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Build outputs and local-only material
+.DS_Store
+.turbo/
+.next/
+.next-dev/
+*.tsbuildinfo
+.env.*
+!.env.example

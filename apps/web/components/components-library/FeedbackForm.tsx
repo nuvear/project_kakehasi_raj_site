@@ -50,7 +50,7 @@ export default function FeedbackForm({
       validationComment: "Comments must be at least 5 characters.",
       catGeneral: "General Platform",
       catContent: "Content Accuracy",
-      catAgent: "AI Agent 'Rajagobalan'",
+      catAgent: "Profile guide",
       catApp: "Web Applications / Labs"
     },
     ja: {
@@ -66,7 +66,7 @@ export default function FeedbackForm({
       validationComment: "コメントは5文字以上で入力してください。",
       catGeneral: "プラットフォーム全般",
       catContent: "コンテンツの正確性",
-      catAgent: "AIエージェント「Rajagobalan」",
+      catAgent: "プロフィールガイド",
       catApp: "ウェブアプリ / ラボ"
     }
   }[locale];

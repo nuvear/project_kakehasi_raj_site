@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/images/education/american-campus.jpg",
+    "status": 200,
+    "exact_source_match": true
+  },
+  {
+    "image": "american-campus",
+    "optimized_status": 200,
+    "optimized_bytes": 147921
+  },
+  {
+    "path": "/images/education/shizuoka-campus.jpg",
+    "status": 200,
+    "exact_source_match": true
+  },
+  {
+    "image": "shizuoka-campus",
+    "optimized_status": 200,
+    "optimized_bytes": 26303
+  },
+  {
+    "locale": "en",
+    "status": 200,
+    "slideshow_present": true
+  },
+  {
+    "locale": "ja",
+    "status": 200,
+    "slideshow_present": true
+  }
+]

@@ -65,7 +65,7 @@ export default function Dashboard() {
         label: 'Projects',
         data: Object.values(statusCounts),
         backgroundColor: [
-          '#3b82f6', // blue
+          '#4d6471', // blue
           '#10b981', // green
           '#f59e0b', // amber
           '#ef4444', // red

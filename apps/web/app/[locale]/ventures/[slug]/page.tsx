@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import { getDatabase } from "@kakehashi/db";
 import { VentureMetadata } from "@kakehashi/content-schema";
-import Link from "next/link";
 import type { Metadata } from "next";
+import DetailPageShell from "@/components/DetailPageShell";
+import MarkdownArticle from "@/components/MarkdownArticle";
+import { formatDateRange } from "@/lib/date-format";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -60,54 +62,35 @@ export default async function VenturePage({ params }: PageProps) {
       "name": "Rajkumar Rajagobalan"
     }
   };
+  const isJa = locale === "ja";
+  const oppositeLocale = isJa ? "en" : "ja";
+  const dateRange = formatDateRange(ventureEntity.start_date, ventureEntity.end_date, locale);
+  const subtitle = [ventureEntity.company_name, ventureEntity.role].filter(Boolean).join(" - ");
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--color-background)", padding: "4rem 2rem" }}>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="glass-panel" style={{
-        maxWidth: "800px",
-        margin: "0 auto",
-        padding: "3rem",
-        borderRadius: "1.5rem",
-        border: "1px solid var(--color-outline-variant)"
-      }}>
-        <Link href={`/${locale}`} style={{
-          display: "inline-flex",
-          alignItems: "center",
-          marginBottom: "2rem",
-          color: "var(--color-primary)",
-          fontWeight: 600,
-          fontSize: "0.9rem"
-        }}>
-          ← {locale === "ja" ? "ホームへ戻る" : "Back to Home"}
-        </Link>
-        <h1 style={{
-          fontFamily: "var(--font-serif)",
-          fontSize: "2.5rem",
-          color: "var(--color-primary)",
-          marginBottom: "0.5rem"
-        }}>
-          {translation.frontmatter.title}
-        </h1>
-        <div style={{
-          fontSize: "1.1rem",
-          fontWeight: 500,
-          color: "var(--color-secondary)",
-          marginBottom: "1.5rem"
-        }}>
-          {ventureEntity.company_name || ""} — {ventureEntity.role || ""}
-        </div>
-        <div style={{
-          lineHeight: 1.7,
-          fontSize: "1.05rem",
-          whiteSpace: "pre-line"
-        }}>
-          {translation.content_markdown.split("---").pop()?.trim()}
-        </div>
-      </div>
-    </div>
+      <DetailPageShell
+        active="none"
+        backHref={`/${locale}`}
+        backLabel={isJa ? "ホームへ戻る" : "Back to Home"}
+        badge={isJa ? "ベンチャー" : "Venture"}
+        languageHref={`/${oppositeLocale}/ventures/${slug}`}
+        locale={locale}
+        meta={[
+          { label: isJa ? "会社" : "Company", value: ventureEntity.company_name },
+          { label: isJa ? "役割" : "Role", value: ventureEntity.role },
+          { label: isJa ? "期間" : "Period", value: dateRange },
+        ]}
+        subtitle={subtitle}
+        summary={translation.frontmatter.summary}
+        title={translation.frontmatter.title}
+      >
+        <MarkdownArticle content={translation.content_markdown} />
+      </DetailPageShell>
+    </>
   );
 }

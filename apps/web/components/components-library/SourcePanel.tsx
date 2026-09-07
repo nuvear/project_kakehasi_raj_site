@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { parseEntitySource } from "@/lib/entity-routes";
 
 interface SourcePanelProps {
   id: string;
@@ -23,7 +24,7 @@ export default function SourcePanel({
   const i18n = {
     en: {
       title: "Grounded Sources & Verification",
-      description: "The information presented above is deterministically generated and verified from the following database records:",
+      description: "The answer above is grounded in these profile records. Use the links to open the most relevant page.",
       empty: "No sources attached to this generation.",
       verified: "Grounded & Verified",
       revision: "Revision",
@@ -31,7 +32,7 @@ export default function SourcePanel({
     },
     ja: {
       title: "ソース検証とグラウンディング",
-      description: "上記の情報は、データベース内の以下の確定された記録から生成され、検証されています。",
+      description: "上記の回答は、以下のプロフィール記録に基づいています。リンクから関連ページを開けます。",
       empty: "この生成に関連付けられたソースはありません。",
       verified: "グラウンディング検証済み",
       revision: "リビジョン",
@@ -39,30 +40,7 @@ export default function SourcePanel({
     }
   }[locale];
 
-  const parseSource = (src: string) => {
-    // Expected format: entityType.entitySlug@revisionId or simply entityId@revisionId
-    // e.g. "education.stanford-executive-program@rev-12"
-    const [idPart, revPart] = src.split("@");
-    const dotIdx = idPart.indexOf(".");
-    const entityType = dotIdx !== -1 ? idPart.substring(0, dotIdx) : "unknown";
-    const entitySlug = dotIdx !== -1 ? idPart.substring(dotIdx + 1) : idPart;
-    const revision = revPart || "latest";
-
-    // Determine target URL path
-    let pathType = "experience";
-    if (entityType === "education") pathType = "education";
-    else if (entityType === "venture") pathType = "ventures";
-
-    return {
-      original: src,
-      type: entityType,
-      slug: entitySlug,
-      revision,
-      path: `/${locale}/${pathType}/${entitySlug}`
-    };
-  };
-
-  const parsedSources = allSources.map(parseSource);
+  const parsedSources = allSources.map((source) => parseEntitySource(source, locale));
 
   return (
     <div 
@@ -136,9 +114,9 @@ export default function SourcePanel({
                   padding: "0.1rem 0.35rem",
                   borderRadius: "var(--radius-xs)"
                 }}>
-                  {src.type}
+                  {src.typeLabel}
                 </span>
-                {src.type !== "unknown" ? (
+                {src.path ? (
                   <Link 
                     href={src.path}
                     style={{
@@ -149,10 +127,10 @@ export default function SourcePanel({
                     onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
                     onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
                   >
-                    {src.slug}
+                    {src.label}
                   </Link>
                 ) : (
-                  <span style={{ fontWeight: 600 }}>{src.slug}</span>
+                  <span style={{ fontWeight: 600 }}>{src.label}</span>
                 )}
               </div>
               <span style={{ fontSize: "0.75rem", color: "var(--color-on-surface-variant)", fontFamily: "monospace" }}>

@@ -1,0 +1,27 @@
+# Personal profile editorial review — 2026-09-07
+
+The owner asked for an honest, humble introduction intended to help people know him, rather than a job-seeking profile. This update is limited to English homepage copy and its metadata. Geist typography, page structure, photographs, links and other pages remain intact. The homepage footer has an optional heading override; shared footer defaults are preserved.
+
+The copy now introduces engineering, AI and healthcare in first person, gives work and education a narrative context, and describes Innuir as work in progress rather than a finished promise. Experience summaries acknowledge teams. Selected factual scale indicators remain, while the dense profit-margin/client-score list is omitted from this introduction. Shared underlying records and the previous source documentation are not changed. No hobbies, family details, personal history or beliefs were invented.
+
+Facts remain grounded in the owner's supplied LinkedIn About/experience text and existing profile records. The current Innuir name follows the supplied current role entry. The footer invitation is “Always glad to connect.”
+
+Validation: production build passed, and the revised English homepage fits 1440, 1024, 768, 390 and 320px without detected horizontal clipping. Japanese homepage and English Insights page retain their existing scope. Source diff contains no stylesheet changes.
+
+Rollback before release: `kakehashi-app-00031-nv2`.
+
+Published as `kakehashi-app-00032-46l` (100% traffic), image tag `personal-profile-20260907-1`, Cloud Build `46aa76b0-cf1a-4dc7-9ebe-4fd4072444d0` (SUCCESS). Live checks confirm the revised English introduction and footer, the removal of the margin statistic from the homepage, and the unchanged shared footer wording on Insights. All three checked routes returned HTTP 200.
+
+## Leadership emphasis restored
+
+At the owner’s request, the English profile now explicitly includes leading teams. The headline is “Learning, leading, and building together.” The introduction and approach section describe leadership across engineering, client delivery, regional portfolios, and venture building, emphasizing direction, accountability, cross-cultural collaboration and shared progress. The Capgemini summary states portfolio leadership directly. The tone remains personal and credits colleagues. No styling or other-page copy changed. The production build and five-width browser checks passed before release. Rollback: `kakehashi-app-00032-46l`.
+
+Leadership update published as `kakehashi-app-00033-x59` (100% traffic), tag `leadership-profile-20260907-1`, Cloud Build `61c0dbdd-970d-4abf-a5a8-3f99f134961b` (SUCCESS). Live HTTP verification confirmed the headline, approach-to-leadership section, team leadership narrative and Capgemini portfolio leadership wording.
+
+## Stanford affiliation at first glance
+
+The owner requested prominent Stanford alumni recognition. The English hero now begins with a cardinal-red “Stanford GSB Alumni” label and “Stanford Executive Program · 2025–2026” context, linking to the existing program page. The leadership headline remains intact. This is text in the site’s own identity, not an institutional seal or endorsement mark. The build and five-width browser checks passed; the affiliation is visible above the headline in the mobile screenshot. Rollback: `kakehashi-app-00033-x59`.
+
+The owner supplied the official Stanford GSB logo URL, `https://www.gsb.stanford.edu/themes/custom/gsb/logo.svg`. The source SVG is self-hosted without changes, displayed with its original colours and proportions on a white surface for dark-mode legibility. It appears inside the alumni/program callout, linking to the existing education detail page. The asset contains only SVG/path elements.
+
+Logo update published as `kakehashi-app-00034-vgd` (100% traffic), image tag `stanford-logo-20260907-1`, Cloud Build `87544c40-8c85-4a58-bed6-7897a53121a3` (SUCCESS). Live browser checks at 1440, 768, 390 and 320px confirmed that the loaded logo and alumni/program details appear in the first viewport without horizontal overflow. The live SVG returned HTTP 200 and matched the supplied asset byte-for-byte. The earlier text-only build was superseded before deployment. Rollback: `kakehashi-app-00033-x59`.

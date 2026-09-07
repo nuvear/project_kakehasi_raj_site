@@ -1,0 +1,81 @@
+{
+  "previousVersion": "sites/rajagobalan-site/versions/80b00118bd0ff9ef",
+  "previousRelease": "sites/rajagobalan-site/releases/1782358965953000",
+  "config": {
+    "headers": [
+      {
+        "headers": {
+          "Cache-Control": "no-cache, no-store, must-revalidate"
+        },
+        "glob": "**/*.html"
+      }
+    ],
+    "redirects": [
+      {
+        "statusCode": 302,
+        "location": "/en/frameworks/enterprise-ai-transformation",
+        "glob": "/framework.html"
+      },
+      {
+        "statusCode": 302,
+        "location": "/en/insights/enterprise-ai-reference-guide",
+        "glob": "/enterprise-ai-reference-guide.html"
+      },
+      {
+        "statusCode": 302,
+        "location": "/en/apps/ai-transformation-command-center",
+        "glob": "/ai-transformation-command-center.html"
+      },
+      {
+        "statusCode": 302,
+        "location": "/en/apps/ai-transformation-command-center/docs/deployment",
+        "glob": "/deployment-guide.html"
+      },
+      {
+        "statusCode": 301,
+        "location": "https://www.rajagobalan.com/:path*",
+        "glob": "**"
+      }
+    ],
+    "rewrites": [
+      {
+        "glob": "/apps/ai-transformation-command-center",
+        "run": {
+          "serviceId": "command-center-web",
+          "region": "us-central1"
+        }
+      },
+      {
+        "glob": "/apps/ai-transformation-command-center/**",
+        "run": {
+          "serviceId": "command-center-web",
+          "region": "us-central1"
+        }
+      },
+      {
+        "glob": "/diary",
+        "run": {
+          "serviceId": "ai-leadership-diary",
+          "region": "us-central1"
+        }
+      },
+      {
+        "glob": "/diary/**",
+        "run": {
+          "serviceId": "ai-leadership-diary",
+          "region": "us-central1"
+        }
+      },
+      {
+        "glob": "**",
+        "run": {
+          "serviceId": "kakehashi-app",
+          "region": "us-central1"
+        }
+      }
+    ]
+  },
+  "operation": "projects/537634522206/operations/CjBzaXRlcy9yYWphZ29iYWxhbi1zaXRlL3ZlcnNpb25zL2VkMDI5NDgxZmIzMjU1ZjU",
+  "version": "sites/rajagobalan-site/versions/ed029481fb3255f5",
+  "release": "sites/rajagobalan-site/releases/1788617725080000"
+}

@@ -1,0 +1,21 @@
+id: education.madras-institute-technology-electronics
+type: education
+canonical_slug: madras-institute-technology-electronics
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - institution_hero
+  - timeline
+institution:
+  id: institution.madras-institute-technology
+  official_name: Madras Institute of Technology
+programme:
+  official_name: Bachelor of Technology, Electronics
+start_date: "1991"
+end_date: "1994"

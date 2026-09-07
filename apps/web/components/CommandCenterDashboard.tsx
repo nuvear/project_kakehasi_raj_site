@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface CommandCenterDashboardProps {
   locale: string;
@@ -29,10 +29,10 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
 
   const getMaturityLevel = () => {
     const avg = (maturityScores.strategy + maturityScores.data + maturityScores.technology + maturityScores.people + maturityScores.governance) / 5;
-    if (avg < 1.5) return { name: isJa ? "初期段階 (Ad-Hoc)" : "Initial (Ad-Hoc)", color: "#ef4444" };
-    if (avg < 2.5) return { name: isJa ? "個別的 (Opportunistic)" : "Opportunistic", color: "#f97316" };
-    if (avg < 3.5) return { name: isJa ? "体系的 (Systemic)" : "Systemic", color: "#3b82f6" };
-    return { name: isJa ? "AIネイティブ (AI-Native)" : "AI-Native", color: "#10b981" };
+    if (avg < 1.5) return { name: isJa ? "初期段階 (Ad-Hoc)" : "Initial (Ad-Hoc)", color: "var(--color-error)" };
+    if (avg < 2.5) return { name: isJa ? "個別的 (Opportunistic)" : "Opportunistic", color: "var(--color-amber)" };
+    if (avg < 3.5) return { name: isJa ? "体系的 (Systemic)" : "Systemic", color: "var(--color-primary)" };
+    return { name: isJa ? "AIネイティブ (AI-Native)" : "AI-Native", color: "var(--color-success)" };
   };
 
   // --- TAB 3: ROI STATE ---
@@ -89,98 +89,28 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
   };
 
   return (
-    <div className="glass-panel command-center-container" style={{
-      marginTop: "2rem",
-      padding: "2rem",
-      borderRadius: "1.5rem",
-      border: "1px solid var(--color-outline-variant)",
-      background: "var(--glass-bg)"
-    }}>
-      <style>{`
-        .tab-btn {
-          padding: 0.5rem 1rem;
-          border-radius: var(--radius-sm, 8px);
-          border: 1px solid var(--color-outline-variant);
-          background: transparent;
-          color: var(--color-on-background);
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .tab-btn.active {
-          background: var(--color-primary);
-          color: var(--color-on-primary);
-          border-color: var(--color-primary);
-        }
-        .tab-btn:hover:not(.active) {
-          border-color: var(--color-primary);
-          background: var(--color-surface-variant);
-        }
-        .slider-group {
-          margin-bottom: 1.25rem;
-        }
-        .slider-label {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.9rem;
-          margin-bottom: 0.4rem;
-          font-weight: 500;
-        }
-        .custom-slider {
-          width: 100%;
-          accent-color: var(--color-primary);
-        }
-        .metric-card {
-          padding: 1.25rem;
-          border-radius: var(--radius-md, 12px);
-          border: 1px solid var(--color-outline-variant);
-          background: rgba(255, 255, 255, 0.4);
-          text-align: center;
-        }
-        .metric-title {
-          font-size: 0.85rem;
-          color: var(--color-on-surface-variant);
-          margin-bottom: 0.5rem;
-        }
-        .metric-value {
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: var(--color-primary);
-        }
-      `}</style>
-
-      {/* Header Info */}
-      <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem", borderBottom: "1px solid var(--color-outline-variant)", paddingBottom: "1rem" }}>
+    <div className="glass-panel command-center-container">
+      <div className="tool-surface-header">
         <div>
-          <span style={{
-            display: "inline-block",
-            padding: "0.25rem 0.6rem",
-            borderRadius: "9999px",
-            backgroundColor: "var(--color-secondary-container)",
-            color: "var(--color-on-secondary-container)",
-            fontSize: "0.75rem",
-            fontWeight: 700,
-            marginBottom: "0.5rem"
-          }}>
+          <span className="tool-badge">
             {isJa ? "デモアプリケーション" : "Interactive Demo"}
           </span>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 700, fontFamily: "var(--font-serif)", color: "var(--color-primary)" }}>
+          <h2 className="tool-title">
             {isJa ? "AI変革コマンドセンター" : "AI Transformation Command Center"}
           </h2>
         </div>
 
-        {/* Tab Buttons */}
-        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
-          <button className={`tab-btn ${activeTab === "dashboard" ? "active" : ""}`} onClick={() => setActiveTab("dashboard")}>
+        <div className="tool-tab-list" role="tablist" aria-label={isJa ? "コマンドセンター表示" : "Command Center views"}>
+          <button type="button" className={`tool-tab-button ${activeTab === "dashboard" ? "active" : ""}`} onClick={() => setActiveTab("dashboard")} aria-selected={activeTab === "dashboard"} role="tab">
             {isJa ? "ポートフォリオ" : "Portfolio"}
           </button>
-          <button className={`tab-btn ${activeTab === "maturity" ? "active" : ""}`} onClick={() => setActiveTab("maturity")}>
+          <button type="button" className={`tool-tab-button ${activeTab === "maturity" ? "active" : ""}`} onClick={() => setActiveTab("maturity")} aria-selected={activeTab === "maturity"} role="tab">
             {isJa ? "成熟度評価" : "Maturity"}
           </button>
-          <button className={`tab-btn ${activeTab === "roi" ? "active" : ""}`} onClick={() => setActiveTab("roi")}>
+          <button type="button" className={`tool-tab-button ${activeTab === "roi" ? "active" : ""}`} onClick={() => setActiveTab("roi")} aria-selected={activeTab === "roi"} role="tab">
             {isJa ? "ROIシミュレーター" : "ROI Simulator"}
           </button>
-          <button className={`tab-btn ${activeTab === "discovery" ? "active" : ""}`} onClick={() => setActiveTab("discovery")}>
+          <button type="button" className={`tool-tab-button ${activeTab === "discovery" ? "active" : ""}`} onClick={() => setActiveTab("discovery")} aria-selected={activeTab === "discovery"} role="tab">
             {isJa ? "アイディア検出" : "Discovery"}
           </button>
         </div>
@@ -189,38 +119,31 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
       {/* Tab Contents */}
       {activeTab === "dashboard" && (
         <div>
-          <p style={{ fontSize: "0.9rem", color: "var(--color-on-surface-variant)", marginBottom: "1.5rem" }}>
+          <p className="tool-copy">
             {isJa 
               ? "企業全体のAIプロジェクト状況、投資予算、および推定ROI状況を一覧で管理するエグゼクティブ・ポートフォリオ画面です。" 
               : "Executive view of all corporate AI project phases, investment budgets, and estimated returns across the organization."}
           </p>
 
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem" }}>
+          <div className="command-table-wrap">
+            <table className="command-table">
               <thead>
-                <tr style={{ borderBottom: "2px solid var(--color-outline-variant)", textAlign: "left" }}>
-                  <th style={{ padding: "0.75rem 0.5rem", fontWeight: 600 }}>{isJa ? "プロジェクト名" : "Project Name"}</th>
-                  <th style={{ padding: "0.75rem 0.5rem", fontWeight: 600 }}>{isJa ? "ステータス" : "Status"}</th>
-                  <th style={{ padding: "0.75rem 0.5rem", fontWeight: 600 }}>{isJa ? "投資額" : "Spend"}</th>
-                  <th style={{ padding: "0.75rem 0.5rem", fontWeight: 600 }}>{isJa ? "推定ROI" : "Est. ROI"}</th>
+                <tr>
+                  <th>{isJa ? "プロジェクト名" : "Project Name"}</th>
+                  <th>{isJa ? "ステータス" : "Status"}</th>
+                  <th>{isJa ? "投資額" : "Spend"}</th>
+                  <th>{isJa ? "推定ROI" : "Est. ROI"}</th>
                 </tr>
               </thead>
               <tbody>
                 {demoProjects.map((p) => (
-                  <tr key={p.id} style={{ borderBottom: "1px solid var(--color-outline-variant)" }}>
-                    <td style={{ padding: "0.75rem 0.5rem", fontWeight: 500 }}>{p.name}</td>
-                    <td style={{ padding: "0.75rem 0.5rem" }}>
-                      <span style={{
-                        padding: "0.2rem 0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        backgroundColor: p.status === "Active" ? "var(--color-primary-container)" : p.status === "Completed" ? "rgba(16, 185, 129, 0.15)" : "var(--color-surface-variant)",
-                        color: p.status === "Active" ? "var(--color-on-primary-container)" : p.status === "Completed" ? "#10b981" : "var(--color-on-surface-variant)"
-                      }}>{p.status}</span>
+                  <tr key={p.id}>
+                    <td>{p.name}</td>
+                    <td>
+                      <span className="status-pill" data-status={p.status.toLowerCase()}>{p.status}</span>
                     </td>
-                    <td style={{ padding: "0.75rem 0.5rem" }}>{formatCurrency(p.spend)}</td>
-                    <td style={{ padding: "0.75rem 0.5rem", fontWeight: 600, color: "var(--color-secondary)" }}>{p.roi}</td>
+                    <td>{formatCurrency(p.spend)}</td>
+                    <td className="command-roi">{p.roi}</td>
                   </tr>
                 ))}
               </tbody>
@@ -230,9 +153,9 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
       )}
 
       {activeTab === "maturity" && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", flexWrap: "wrap" }}>
+        <div className="tool-two-column">
           <div>
-            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1rem", color: "var(--color-primary)" }}>
+            <h3 className="tool-section-title">
               {isJa ? "成熟度アセスメント入力" : "Maturity Self-Assessment"}
             </h3>
             
@@ -277,8 +200,8 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
             </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "1.5rem", borderRadius: "1rem", backgroundColor: "var(--color-surface-variant)" }}>
-            <h4 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+          <div className="tool-result-card">
+            <h4>
               {isJa ? "総合AI変革成熟度" : "Overall AI Maturity Level"}
             </h4>
             <div style={{
@@ -301,11 +224,11 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
 
       {activeTab === "roi" && (
         <div>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1.5rem", color: "var(--color-primary)" }}>
+          <h3 className="tool-section-title">
             {isJa ? "AI投資ROIシミュレーター" : "AI ROI & Financial Projections"}
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+          <div className="tool-two-column is-spaced">
             <div>
               <div className="slider-group">
                 <div className="slider-label">
@@ -351,7 +274,7 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem" }}>
+          <div className="metric-grid">
             <div className="metric-card">
               <div className="metric-title">{isJa ? "売上増加益" : "Revenue Uplift"}</div>
               <div className="metric-value">{formatCurrency(currentRevenue * (revenueIncreasePct / 100))}</div>
@@ -366,7 +289,7 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
             </div>
             <div className="metric-card">
               <div className="metric-title">{isJa ? "純現在便益 (1年次)" : "Net Benefit (Yr 1)"}</div>
-              <div className="metric-value" style={{ color: roiMetrics.netBenefit >= 0 ? "#10b981" : "#ef4444" }}>
+              <div className="metric-value" style={{ color: roiMetrics.netBenefit >= 0 ? "var(--color-success)" : "var(--color-error)" }}>
                 {formatCurrency(roiMetrics.netBenefit)}
               </div>
             </div>
@@ -388,28 +311,20 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
 
       {activeTab === "discovery" && (
         <div>
-          <p style={{ fontSize: "0.9rem", color: "var(--color-on-surface-variant)", marginBottom: "1.5rem" }}>
+          <p className="tool-copy">
             {isJa 
               ? "選択した業種で最もROIや実現可能性の高い優先AI活用ユースケースを提案する検出機能です。" 
               : "Generate and rank high-priority AI application use cases based on industry-specific complexity and business impact."}
           </p>
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <label style={{ fontSize: "0.95rem", fontWeight: 600, display: "block", marginBottom: "0.5rem" }}>
+          <div className="tool-field">
+            <label className="tool-field-label">
               {isJa ? "対象業界を選択" : "Select Target Industry"}
             </label>
             <select 
               value={selectedIndustry} 
               onChange={(e) => setSelectedIndustry(e.target.value as "healthcare" | "finance" | "manufacturing" | "retail")}
-              style={{
-                padding: "0.5rem 1rem",
-                borderRadius: "8px",
-                border: "1px solid var(--color-outline)",
-                background: "var(--color-surface)",
-                color: "var(--color-on-surface)",
-                fontWeight: 500,
-                outline: "none"
-              }}
+              className="tool-select"
             >
               <option value="healthcare">{isJa ? "ヘルスケア (Healthcare)" : "Healthcare"}</option>
               <option value="finance">{isJa ? "金融・ファイナンス (Finance)" : "Finance"}</option>
@@ -418,19 +333,19 @@ export default function CommandCenterDashboard({ locale }: CommandCenterDashboar
             </select>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
-            {useCases[selectedIndustry].map((u, i) => (
-              <div key={i} className="glass-card" style={{ padding: "1.25rem", borderRadius: "12px", border: "1px solid var(--color-outline-variant)" }}>
-                <h4 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-primary)", marginBottom: "0.75rem" }}>{u.title}</h4>
-                <div style={{ display: "flex", gap: "0.5rem", fontSize: "0.75rem", marginBottom: "0.75rem" }}>
-                  <span style={{ padding: "0.2rem 0.5rem", borderRadius: "4px", backgroundColor: "var(--color-primary-container)", color: "var(--color-on-primary-container)", fontWeight: 600 }}>
+          <div className="use-case-grid">
+            {useCases[selectedIndustry].map((u) => (
+              <div key={u.title} className="use-case-card">
+                <h4>{u.title}</h4>
+                <div className="use-case-chips">
+                  <span className="status-pill" data-status="active">
                     {isJa ? `インパクト: ${u.impact}` : `Impact: ${u.impact}`}
                   </span>
-                  <span style={{ padding: "0.2rem 0.5rem", borderRadius: "4px", backgroundColor: "var(--color-surface-variant)", color: "var(--color-on-surface-variant)", fontWeight: 600 }}>
+                  <span className="status-pill" data-status="planning">
                     {isJa ? `実現性: ${u.feasibility}` : `Feasibility: ${u.feasibility}`}
                   </span>
                 </div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--color-secondary)" }}>
+                <div className="use-case-roi">
                   {isJa ? `推定効果(ROI): ${u.roi}` : `Est. ROI: ${u.roi}`}
                 </div>
               </div>

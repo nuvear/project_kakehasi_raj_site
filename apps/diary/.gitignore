@@ -1,0 +1,9 @@
+.next/
+.next-dev/
+node_modules/
+*.tsbuildinfo
+.env*
+!.env.example
+
+# Restricted manuscript; restored from the private build archive.
+content/diary.json

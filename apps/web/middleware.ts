@@ -3,9 +3,16 @@ import type { NextRequest } from "next/server";
 
 const locales = ["en", "ja"];
 const defaultLocale = "en";
+const directRuntimePrefixes = [
+  "/apps/ai-transformation-command-center"
+];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (directRuntimePrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
+    return;
+  }
   
   // Check if pathname has a supported locale prefix
   const pathnameHasLocale = locales.some(

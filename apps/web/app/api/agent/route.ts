@@ -2,10 +2,59 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@kakehashi/db";
 import { getEmbedding, generateUIPlanFromAI } from "@/lib/ai";
 import { UIPlanSchema, UIPlan } from "@/lib/ui-schema";
+import { getEntityRoute } from "@/lib/entity-routes";
 import admin from "firebase-admin";
 
 // Simple in-memory cache for mock mode
 const mockCache = new Map<string, UIPlan>();
+const LIVE_CACHE_VERSION = "profile-guide-v3";
+
+function addSourceId(sourceIds: string[], entityId: string, revision = "rev-live") {
+  if (sourceIds.some((source) => source.split("@")[0] === entityId)) {
+    return;
+  }
+  sourceIds.push(`${entityId}@${revision}`);
+}
+
+function normalizeGeneratedPlan(plan: Record<string, unknown>, sourceIds: string[]) {
+  if (Array.isArray(plan.components)) {
+    const nullableOptionalKeys = ["dataRef", "variant", "entityIds", "title", "content", "props"];
+    for (const component of plan.components) {
+      if (!component || typeof component !== "object") continue;
+      const componentRecord = component as Record<string, unknown>;
+      for (const key of nullableOptionalKeys) {
+        if (componentRecord[key] === null) {
+          delete componentRecord[key];
+        }
+      }
+    }
+  }
+
+  if (plan.cachePolicy === null) {
+    delete plan.cachePolicy;
+  }
+
+  if (sourceIds.length > 0) {
+    plan.sources = sourceIds;
+  }
+}
+
+function isBroadProfileQuery(queryLower: string) {
+  return [
+    "profile",
+    "background",
+    "overview",
+    "summary",
+    "who is",
+    "career",
+    "experience",
+    "education",
+    "venture",
+    "ventures",
+    "everything",
+    "all about"
+  ].some((term) => queryLower.includes(term));
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -244,6 +293,7 @@ export async function POST(req: NextRequest) {
           cachePolicy: { scope: "public", maxAgeSeconds: 3600 }
         };
       } else if (
+        queryLower.includes("innuir") ||
         queryLower.includes("nuvear") ||
         queryLower.includes("health") ||
         queryLower.includes("wearable")
@@ -253,7 +303,7 @@ export async function POST(req: NextRequest) {
           surface: "project-detail",
           locale: locale as "en" | "ja",
           entityId: "venture.nuvear",
-          title: locale === "ja" ? "Nuvear ヘルステック (Mock)" : "Nuvear Tech Health Analytics (Mock)",
+          title: locale === "ja" ? "Innuir ヘルステック (Mock)" : "Innuir Health Analytics (Mock)",
           components: [
             {
               id: "hero-1",
@@ -325,7 +375,7 @@ export async function POST(req: NextRequest) {
     const firestore = admin.firestore();
 
     // Cache lookup using base64 encoded slug of query
-    const cacheDocId = Buffer.from(`${locale}:${queryLower}`).toString("base64url");
+    const cacheDocId = Buffer.from(`${LIVE_CACHE_VERSION}:${locale}:${queryLower}`).toString("base64url");
     try {
       const cachedDoc = await firestore.collection("ui_plan_cache").doc(cacheDocId).get();
       if (cachedDoc.exists) {
@@ -340,7 +390,7 @@ export async function POST(req: NextRequest) {
     }
 
     // A. Embed user query
-    const embedding = await getEmbedding(userQuery);
+    const embedding = await getEmbedding(userQuery, "RETRIEVAL_QUERY");
 
     // B. Similarity search on Firestore content vector collection
     const db = await getDatabase();
@@ -354,7 +404,7 @@ export async function POST(req: NextRequest) {
         const { runMetadataAudit } = await import("@/lib/seo-scanner");
         const issues = await runMetadataAudit();
         auditIssuesText = `PROGRAMMATIC METADATA SEO AUDIT RESULTS:\n` + JSON.stringify(issues, null, 2) + `\n\n`;
-        sourceIds.push("system.seo-scanner@rev-live");
+        addSourceId(sourceIds, "system.seo-scanner");
       } catch (err) {
         console.error("Programmatic metadata audit failed in route:", err);
       }
@@ -373,8 +423,9 @@ export async function POST(req: NextRequest) {
       if (entity) {
         contextText += `Entity ID: ${entity.id}\n`;
         contextText += `Type: ${entity.type}\n`;
+        contextText += `Public Path: ${getEntityRoute(entity.id, locale as "en" | "ja") || "No public page"}\n`;
         contextText += `Metadata: ${JSON.stringify(entity)}\n`;
-        sourceIds.push(`${entity.id}@rev-live`);
+        addSourceId(sourceIds, entity.id);
       }
       if (translation) {
         contextText += `Title: ${translation.frontmatter.title}\n`;
@@ -391,9 +442,33 @@ export async function POST(req: NextRequest) {
       const translation = await db.getTranslation(defaultEntityId, locale);
       if (entity && translation) {
         contextText += `Entity ID: ${entity.id}\nType: ${entity.type}\nMetadata: ${JSON.stringify(entity)}\n`;
+        contextText += `Public Path: ${getEntityRoute(entity.id, locale as "en" | "ja") || "No public page"}\n`;
         contextText += `Title: ${translation.frontmatter.title}\nSummary: ${translation.frontmatter.summary}\nMarkdown Details:\n${translation.content_markdown}\n`;
-        sourceIds.push(`${entity.id}@rev-fallback`);
+        addSourceId(sourceIds, entity.id, "rev-fallback");
       }
+    }
+
+    try {
+      const allEntities = await db.listEntities();
+      const citeCatalog = isBroadProfileQuery(queryLower) || sourceIds.length === 0;
+      contextText += `\nPROFILE ROUTING CATALOG:\nUse this catalog to understand the complete public profile and guide visitors to the right page. Prefer detailed matched records above for explanation; use this catalog for routing and adjacent context.\n`;
+
+      for (const entity of allEntities.sort((a, b) => a.id.localeCompare(b.id))) {
+        const translation = await db.getTranslation(entity.id, locale);
+        const publicPath = getEntityRoute(entity.id, locale as "en" | "ja") || "";
+        contextText += `- Entity ID: ${entity.id}\n`;
+        contextText += `  Type: ${entity.type}\n`;
+        contextText += `  Public Path: ${publicPath || "No public page"}\n`;
+        if (translation) {
+          contextText += `  Title: ${translation.frontmatter.title}\n`;
+          contextText += `  Summary: ${translation.frontmatter.summary}\n`;
+        }
+        if (citeCatalog) {
+          addSourceId(sourceIds, entity.id);
+        }
+      }
+    } catch (err) {
+      console.warn("Profile routing catalog lookup failed, continuing with matched context:", err);
     }
 
     // D. Request Gemini 2.5 Flash to generate UI Plan
@@ -413,10 +488,7 @@ export async function POST(req: NextRequest) {
     }
 
     const generatedPlanObj = JSON.parse(cleanJson);
-    // Ensure sources lists correct live revs
-    if (!generatedPlanObj.sources || generatedPlanObj.sources.length === 0) {
-      generatedPlanObj.sources = sourceIds;
-    }
+    normalizeGeneratedPlan(generatedPlanObj, sourceIds);
 
     // F. Validate returned plan against Zod schema
     const validationResult = UIPlanSchema.safeParse(generatedPlanObj);

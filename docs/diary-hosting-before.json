@@ -1,0 +1,82 @@
+{
+  "release": "sites/rajagobalan-site/releases/1782358965953000",
+  "version": {
+    "name": "sites/rajagobalan-site/versions/80b00118bd0ff9ef",
+    "status": "FINALIZED",
+    "config": {
+      "headers": [
+        {
+          "headers": {
+            "Cache-Control": "no-cache, no-store, must-revalidate"
+          },
+          "glob": "**/*.html"
+        }
+      ],
+      "redirects": [
+        {
+          "statusCode": 302,
+          "location": "/en/frameworks/enterprise-ai-transformation",
+          "glob": "/framework.html"
+        },
+        {
+          "statusCode": 302,
+          "location": "/en/insights/enterprise-ai-reference-guide",
+          "glob": "/enterprise-ai-reference-guide.html"
+        },
+        {
+          "statusCode": 302,
+          "location": "/en/apps/ai-transformation-command-center",
+          "glob": "/ai-transformation-command-center.html"
+        },
+        {
+          "statusCode": 302,
+          "location": "/en/apps/ai-transformation-command-center/docs/deployment",
+          "glob": "/deployment-guide.html"
+        },
+        {
+          "statusCode": 301,
+          "location": "https://www.rajagobalan.com/:path*",
+          "glob": "**"
+        }
+      ],
+      "rewrites": [
+        {
+          "glob": "/apps/ai-transformation-command-center",
+          "run": {
+            "serviceId": "command-center-web",
+            "region": "us-central1"
+          }
+        },
+        {
+          "glob": "/apps/ai-transformation-command-center/**",
+          "run": {
+            "serviceId": "command-center-web",
+            "region": "us-central1"
+          }
+        },
+        {
+          "glob": "**",
+          "run": {
+            "serviceId": "kakehashi-app",
+            "region": "us-central1"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "createTime": "2026-06-25T03:42:41.623555Z",
+    "createUser": {
+      "email": "Rajkumar.Rajagobalan@gmail.com",
+      "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocIgza2uHWXBPvillNqLfLArU25mIcoZ5No8tKR0Bb65txEPjA=mo"
+    },
+    "finalizeTime": "2026-06-25T03:42:45.564444Z",
+    "finalizeUser": {
+      "email": "Rajkumar.Rajagobalan@gmail.com",
+      "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocIgza2uHWXBPvillNqLfLArU25mIcoZ5No8tKR0Bb65txEPjA=mo"
+    },
+    "fileCount": "7",
+    "versionBytes": "2470"
+  }
+}

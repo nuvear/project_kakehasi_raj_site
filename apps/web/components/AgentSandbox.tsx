@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import UIPlanRenderer from "./UIPlanRenderer";
 import { UIPlan } from "@/lib/ui-schema";
+import { parseEntitySource } from "@/lib/entity-routes";
 
 interface Message {
   role: "user" | "assistant";
@@ -27,21 +28,21 @@ export default function AgentSandbox({ locale }: AgentSandboxProps) {
   // Localization map
   const i18n = {
     en: {
-      agentTitle: "Agent 'Rajagobalan'",
-      agentDesc: "Ask the grounded agent a question about my profile, background, or insights. Grounded with Firestore Vector Search.",
+      agentTitle: "Profile Guide",
+      agentDesc: "Ask about Rajkumar's profile, background, ventures, or insights. Answers are grounded in profile records and point to the right page.",
       placeholder: "Ask about Stanford, Capgemini, or HealthKitSync...",
-      sendBtn: "Ask Agent",
+      sendBtn: "Ask",
       loading: "Thinking...",
       showSources: "Show Grounded Sources",
       hideSources: "Hide Grounded Sources",
       sourceBadge: "Source",
       revisionBadge: "Revision",
-      welcomeMsg: "Hello! I am Rajkumar's AI assistant, grounded in his official career records. Ask me anything about his professional experience, education, or ventures.",
-      offlineError: "Agent offline or request failed. Please try again."
+      welcomeMsg: "Ask about Rajkumar's experience, education, ventures, or enterprise AI work, and this guide will point you to the right page.",
+      offlineError: "The profile guide is offline or the request failed. Please try again."
     },
     ja: {
-      agentTitle: "エージェント「Rajagobalan」",
-      agentDesc: "私の経歴、実績、考察に関する質問をエージェントに投げかけることができます。Firestoreのネイティブベクトル検索でグラウンディングされています。",
+      agentTitle: "プロフィールガイド",
+      agentDesc: "Rajkumarのプロフィール、経歴、ベンチャー、インサイトについて質問できます。公式プロフィール記録に基づいて回答し、関連ページへ案内します。",
       placeholder: "スタンフォード、キャップジェミニ、HealthKitSyncについて尋ねる...",
       sendBtn: "送信",
       loading: "考案中...",
@@ -49,8 +50,8 @@ export default function AgentSandbox({ locale }: AgentSandboxProps) {
       hideSources: "参照ソースを非表示",
       sourceBadge: "ソース",
       revisionBadge: "リビジョン",
-      welcomeMsg: "こんにちは！私はラジクマールのAIアシスタントです。彼の職歴、学歴、起業プロジェクトについて、公式データに基づいてお答えします。",
-      offlineError: "エージェントがオフラインか、リクエストが失敗しました。もう一度お試しください。"
+      welcomeMsg: "Rajkumarの職歴、学歴、ベンチャー、エンタープライズAIの取り組みについて質問できます。公式プロフィール記録に基づき、関連ページへ案内します。",
+      offlineError: "プロフィールガイドがオフライン、またはリクエストに失敗しました。もう一度お試しください。"
     }
   }[activeLocale];
 
@@ -134,25 +135,6 @@ export default function AgentSandbox({ locale }: AgentSandboxProps) {
       ...prev,
       [idx]: !prev[idx]
     }));
-  };
-
-  const parseSource = (src: string) => {
-    const [idPart, revPart] = src.split("@");
-    const dotIdx = idPart.indexOf(".");
-    const entityType = dotIdx !== -1 ? idPart.substring(0, dotIdx) : "unknown";
-    const entitySlug = dotIdx !== -1 ? idPart.substring(dotIdx + 1) : idPart;
-    const revision = revPart || "latest";
-
-    let pathType = "experience";
-    if (entityType === "education") pathType = "education";
-    else if (entityType === "venture") pathType = "ventures";
-
-    return {
-      type: entityType,
-      slug: entitySlug,
-      revision,
-      path: `/${activeLocale}/${pathType}/${entitySlug}`
-    };
   };
 
   return (
@@ -316,7 +298,7 @@ export default function AgentSandbox({ locale }: AgentSandboxProps) {
                               }}
                             >
                               {plan.sources.map((src: string) => {
-                                const parsed = parseSource(src);
+                                const parsed = parseEntitySource(src, activeLocale);
                                 return (
                                   <div 
                                     key={src} 
@@ -340,17 +322,17 @@ export default function AgentSandbox({ locale }: AgentSandboxProps) {
                                         backgroundColor: parsed.type === "education" ? "var(--color-secondary-container)" : parsed.type === "venture" ? "var(--color-tertiary-container)" : "var(--color-primary-container)",
                                         color: parsed.type === "education" ? "var(--color-on-secondary-container)" : parsed.type === "venture" ? "var(--color-on-tertiary-container)" : "var(--color-on-primary-container)"
                                       }}>
-                                        {parsed.type}
+                                        {parsed.typeLabel}
                                       </span>
-                                      {parsed.type !== "unknown" ? (
+                                      {parsed.path ? (
                                         <a 
                                           href={parsed.path}
                                           style={{ color: "var(--color-primary)", textDecoration: "none", fontWeight: 600 }}
                                         >
-                                          {parsed.slug}
+                                          {parsed.label}
                                         </a>
                                       ) : (
-                                        <span style={{ fontWeight: 600 }}>{parsed.slug}</span>
+                                        <span style={{ fontWeight: 600 }}>{parsed.label}</span>
                                       )}
                                     </div>
                                     <span style={{ fontSize: "0.7rem", color: "var(--color-on-surface-variant)" }}>
