@@ -1,0 +1,81 @@
+{
+  "base": "http://127.0.0.1:3105",
+  "surface": "Codex in-app browser",
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "paths": [
+    "/en",
+    "/en/apps/ai-transformation-command-center",
+    "/en/credentials",
+    "/en/education/american-college-physics",
+    "/en/education/anaheim-university-mba",
+    "/en/education/madras-institute-technology-electronics",
+    "/en/education/mit-coo-program",
+    "/en/education/shizuoka-university-systems-engineering",
+    "/en/education/stanford-executive-program",
+    "/en/experience/capgemini-apac-delivery-gpo",
+    "/en/experience/capgemini-japan",
+    "/en/experience/dassault-systemes-delmia",
+    "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "/en/experience/mahindra-satyam-pfizer-japan",
+    "/en/experience/ys-inc-factory-automation",
+    "/en/insights",
+    "/en/insights/enterprise-ai-reference-guide",
+    "/en/ventures/aagnaa",
+    "/en/ventures/nuvear",
+    "/ja",
+    "/ja/apps/ai-transformation-command-center",
+    "/ja/credentials",
+    "/ja/education/american-college-physics",
+    "/ja/education/anaheim-university-mba",
+    "/ja/education/madras-institute-technology-electronics",
+    "/ja/education/mit-coo-program",
+    "/ja/education/shizuoka-university-systems-engineering",
+    "/ja/education/stanford-executive-program",
+    "/ja/experience/capgemini-apac-delivery-gpo",
+    "/ja/experience/capgemini-japan",
+    "/ja/experience/dassault-systemes-delmia",
+    "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "/ja/experience/mahindra-satyam-pfizer-japan",
+    "/ja/experience/ys-inc-factory-automation",
+    "/ja/insights",
+    "/ja/insights/enterprise-ai-reference-guide",
+    "/ja/ventures/aagnaa",
+    "/ja/ventures/nuvear"
+  ],
+  "checks": 190,
+  "assertions": [
+    "one h1 per page",
+    "document width does not exceed viewport width"
+  ],
+  "failures": [],
+  "portrait": {
+    "source": "Owner-supplied Raj (2).png",
+    "asset": "/images/raj-executive-portrait.png",
+    "alteration": "none; original photograph copied",
+    "mobile_render": {
+      "width": 300,
+      "height": 375,
+      "loaded": true,
+      "filter": "none"
+    },
+    "desktop_render": {
+      "width": 340,
+      "height": 425
+    },
+    "screenshot_review": [
+      "desktop light",
+      "phone light"
+    ]
+  },
+  "interactions": [
+    "mobile menu and language navigation",
+    "light/dark theme",
+    "reference guide chapter navigation"
+  ]
+}

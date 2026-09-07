@@ -1,0 +1,116 @@
+[
+  {
+    "url": "https://www.rajagobalan.com/blogs",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.rajagobalan.com/blogs.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/blogs.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/framework.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/en/frameworks/enterprise-ai-transformation",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/enterprise-ai-reference-guide.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/en/insights/enterprise-ai-reference-guide",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/ai-transformation-command-center.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/en/apps/ai-transformation-command-center",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/deployment-guide.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/en/apps/ai-transformation-command-center/docs/deployment",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/singapore-ai-strategy-status.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/singapore-ai-strategy-status.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/singapore-ai-strategy-infographics.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/singapore-ai-strategy-infographics.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/responsible-ai-governance-adoption.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/responsible-ai-governance-adoption.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/responsible-ai-infographic.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/responsible-ai-infographic.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/ai-executive-talking-points.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/ai-executive-talking-points.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/ai-talking-points-infographic.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/ai-talking-points-infographic.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/blood-pressure-app-design.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/blood-pressure-app-design.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/bp-chart-infographic.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/bp-chart-infographic.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/bp.html",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/bp.html",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.rajagobalan.com/foodie/",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.rajagobalan.com/discipline/",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.rajagobalan.com/diary",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/diary",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://healthkitsync.rajagobalan.com",
+    "status": 200,
+    "final": "https://healthkitsync.rajagobalan.com",
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://rajagobalan.com",
+    "status": 200,
+    "final": "https://www.rajagobalan.com/en",
+    "contentType": "text/html; charset=utf-8"
+  }
+]

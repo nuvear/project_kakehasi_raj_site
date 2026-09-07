@@ -16,9 +16,12 @@ export default function SiteFooter({ locale }: { locale: string }) {
         <nav aria-label={ja ? "フッターナビゲーション" : "Footer navigation"}>
           <Link href={`/${locale}`}>{ja ? "プロフィール" : "Profile"}</Link>
           <Link href={`/${locale}/insights`}>
-            {ja ? "知見とツール" : "Insights & tools"}
+            {ja ? "AI学習リソース" : "AI learning resources"}
           </Link>
-          <Link href="/diary">AI Leadership Diary</Link>
+          <Link href={`/${locale}/apps/ai-transformation-command-center`}>GATE</Link>
+          {/* Diary is a separate Cloud Run application and needs document navigation. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/diary">AI Leadership Diary</a>
           <Link href={`/${locale}/credentials`}>
             {ja ? "資格" : "Credentials"}
           </Link>

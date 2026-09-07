@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { getEmbedding } from "@/lib/ai";
 
 export async function POST(req: NextRequest) {

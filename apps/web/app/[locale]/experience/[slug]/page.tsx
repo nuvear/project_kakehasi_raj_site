@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { ExperienceMetadata } from "@kakehashi/content-schema";
 import type { Metadata } from "next";
 import DetailPageShell from "@/components/DetailPageShell";
@@ -91,6 +92,7 @@ export default async function ExperiencePage({ params }: PageProps) {
         title={translation.frontmatter.title}
       >
         <MarkdownArticle content={translation.content_markdown} />
+        {slug === "capgemini-apac-delivery-gpo" && <p className="reading-next"><Link href={`/${locale}/experience/capgemini-japan`}>{isJa ? "Capgemini Japanでのデジタルエンジニアリングの職歴を見る →" : "View the related Capgemini Japan role →"}</Link></p>}
       </DetailPageShell>
     </>
   );

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { EducationMetadata, ExperienceMetadata, VentureMetadata } from "@kakehashi/content-schema";
 
 export async function POST(req: NextRequest) {

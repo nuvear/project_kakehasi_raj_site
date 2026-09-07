@@ -1,4 +1,4 @@
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { FullTranslation } from "@kakehashi/content-schema";
 
 export interface SEOAuditIssue {

@@ -136,7 +136,7 @@ export default function CopilotDeck({ contactEmail, footerCopy, locale, slides, 
           <div className="copilot-stage-grid">
             <div className="copilot-stage">
               <figure className="copilot-portrait-card" aria-label={isJa ? "Rajkumarの写真" : "Portrait of Rajkumar"}>
-                <Image src="/raj-headshot.png" alt="" width={1122} height={1402} priority />
+                <Image src="/images/raj-executive-portrait.png" alt="" width={1122} height={1402} priority />
               </figure>
 
               <div className="copilot-stage-copy">

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { VentureMetadata } from "@kakehashi/content-schema";
 import type { Metadata } from "next";
 import DetailPageShell from "@/components/DetailPageShell";

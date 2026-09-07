@@ -1,36 +1,42 @@
 ---
 locale: ja
 title: エンタープライズAIリファレンスガイド
-summary: エンタープライズAIソリューションを大規模に設計、展開、管理するための包括的なリファレンスガイド。
+summary: AI戦略、根拠、ガバナンス、投資判断を考えるための日本語概要。全文は英語で公開しています。
 translation_status: review_required
-last_editorial_review: "2026-06-20"
-seo:
-  title: エンタープライズAIリファレンスガイド | ラジクマール・ラジャゴバラン
-  description: エンタープライズAIソリューションを大規模に設計、展開、管理するためのリファレンスガイド。
-  keywords:
-    - エンタープライズAI
-    - AI戦略
-    - AIガバナンス
+last_editorial_review: "2026-09-07"
 ---
 
-これはエンタープライズAIリファレンスガイドの日本語レビュー待ちページです。
+## このガイドの使い方
 
-英語版には、Enterprise AI Transformation Framework v8 の完全な参照ガイドとして、戦略基盤、6つの柱、成熟度モデル、ロードマップ、エージェントアーキテクチャ、ガバナンス、AI経済性、12週間の演習、エグゼクティブ向けトーキングポイントが含まれています。
+GATE — Governed AI Transformation for Enterprises™ は、企業のAIプロジェクト、根拠資料、意思決定をつなぐコマンドセンターです。このガイドは、その背後にあるマネジメント上の問いを学ぶための資料です。
 
-## レビュー状態
+このページは日本語の概要です。[英語の全文を読む](/en/insights/enterprise-ai-reference-guide)。アプリケーションの操作手順は、[GATEユーザーマニュアル](https://gate-enterprise.praba.chatgpt.site/guide)に掲載しています。マニュアルの閲覧には現在GATEのアクセス権が必要です。
 
-この日本語版は現在レビュー待ちです。完全な日本語翻訳と用語確認が完了するまで、英語版を正式なソースとして扱います。
+## レビューで確認する6つの問い
 
-## 英語版の主な構成
+1. **戦略：** 解決する問題は何か。AI以外の選択肢と比較したか。
+2. **データ：** 誰が、どの目的で、どの情報を使えるか。
+3. **技術：** 評価基準、失敗時の対応、運用体制は明確か。
+4. **責任：** プロジェクト、サービス、判断の責任者は誰か。
+5. **ガバナンス：** 必要な承認、影響を受ける人の権利、専門家の確認は何か。
+6. **価値：** 実測した効果と仮定を区別し、総費用を把握しているか。
 
-- Part I: Strategic Foundation
-- Part II: Six Pillars Framework
-- Part III: Maturity Model
-- Part IV: Transformation Roadmap
-- Part V: Retail CEO Scenario
-- Part VI: Agent Architecture and Governance
-- Part VII: Sentinel / TSIA Framework
-- Part VIII: Model Routing
-- Part IX: Agentic Workflows
-- Part XIV: AI Economics
-- Part XIX: 12-Week Exercises
+## 5つの経営視点
+
+- **CEO：** 他の選択肢と比べて、次の投資を進めるべきか。
+- **CFO：** 効果は実証されているか。費用と不確実性をどう扱うか。
+- **CIO：** データ、連携、アクセス、継続運用の責任は明確か。
+- **CTO：** 評価結果と運用上の対策は、次の段階を正当化するか。
+- **法務：** 適用される義務と影響を受ける権利は何か。
+
+## 根拠から意思決定へ
+
+根拠には、出典、版、承認状態、責任者、未解決の疑問を記録します。検索結果や引用があるだけで、結論の正しさが証明されるわけではありません。エージェントが使えるツールや権限にも上限を設け、人が承認する場面を明確にします。
+
+投資判断では、実際の支出削減、生まれる余力、追加利益を区別してください。同じ時間の削減を複数の利益として計上しないことが重要です。評価結果が不十分な場合は、調査、保留、中止も選択肢になります。
+
+## 学びを実践する
+
+英語版には、戦略、エージェント設計、RAG、ガバナンス、経済性、運用と定着、12週間の演習を含む21の章があります。演習は架空の学習課題であり、成果保証や業界ベンチマークではありません。この資料は認証審査や法的助言の代わりにはなりません。
+
+[GATEを見る](/ja/apps/ai-transformation-command-center)ことで、現在の機能とパイロット導入について確認できます。[エグゼクティブ・シミュレーション](https://gate-enterprise.praba.chatgpt.site/simulation)は実際のプロジェクトを変更しない練習環境です。現在はGATEのアクセス権が必要です。[AI Leadership Diary](/diary)は別のアカウントで利用する個人の振り返りスペースです。

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDatabase } from "@kakehashi/db";
+import { getDatabase } from "@/lib/public-database";
 import { getEmbedding, generateUIPlanFromAI } from "@/lib/ai";
 import { UIPlanSchema, UIPlan } from "@/lib/ui-schema";
 import { getEntityRoute } from "@/lib/entity-routes";
@@ -7,7 +7,7 @@ import admin from "firebase-admin";
 
 // Simple in-memory cache for mock mode
 const mockCache = new Map<string, UIPlan>();
-const LIVE_CACHE_VERSION = "profile-guide-v3";
+const LIVE_CACHE_VERSION = "gate-publication-v4";
 
 function addSourceId(sourceIds: string[], entityId: string, revision = "rev-live") {
   if (sourceIds.some((source) => source.split("@")[0] === entityId)) {

@@ -33,7 +33,7 @@ export default function SiteHeader({
         education: "学歴",
         credentials: "資格",
         ventures: "ベンチャー",
-        insights: "知見",
+        insights: "リソース",
         switchLang: "English",
         switchPath: languageHref || defaultSwitchPath,
         languageLabel: "Switch language to English",
@@ -46,7 +46,7 @@ export default function SiteHeader({
         education: "Education",
         credentials: "Credentials",
         ventures: "Ventures",
-        insights: "Insights",
+        insights: "Resources",
         switchLang: "日本語",
         switchPath: languageHref || defaultSwitchPath,
         languageLabel: "日本語に切り替える",
@@ -88,9 +88,7 @@ export default function SiteHeader({
         <a className="site-nav-link" href={`${sectionPrefix}#education`}>
           {copy.education}
         </a>
-        <a className="site-nav-link" href={`${sectionPrefix}#credentials`}>
-          {copy.credentials}
-        </a>
+        <Link className="site-nav-link" href={`${sectionPrefix}/apps/ai-transformation-command-center`}>GATE</Link>
         <a className="site-nav-link" href={`${sectionPrefix}#ventures`}>
           {copy.ventures}
         </a>

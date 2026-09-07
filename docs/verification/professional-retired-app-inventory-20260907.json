@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "status": 200
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "status": 200
+  }
+]

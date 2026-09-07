@@ -115,11 +115,11 @@ export default function CampusHome({
         >
           <div className="campus-portrait">
             <Image
-              src="/raj-headshot.png"
+              src="/images/raj-executive-portrait.png"
               alt={ja ? "ラジクマール・ラジャゴバラン" : "Rajkumar Rajagobalan"}
-              width="440"
-              height="440"
-              sizes="340px"
+              width={1122}
+              height={1402}
+              sizes="(max-width: 760px) 300px, (max-width: 1100px) 270px, 340px"
             />
             <span>
               {ja
@@ -167,7 +167,7 @@ export default function CampusHome({
               </h2>
             </div>
             <Link className="campus-text-link" href={`/${locale}/insights`}>
-              {ja ? "すべての知見" : "All insights"}
+              {ja ? "すべてのリソース" : "All resources"}
               <span aria-hidden="true">↗</span>
             </Link>
           </div>
@@ -182,40 +182,19 @@ export default function CampusHome({
                   <span>{item.eyebrow}</span>
                   <span aria-hidden="true">↗</span>
                 </div>
-                <div className="campus-tool-art" aria-hidden="true">
-                  {i === 0 ? (
-                    <div className="campus-pillars">
-                      {[1, 2, 3, 4, 5, 6].map((n) => (
-                        <i key={n} />
-                      ))}
-                    </div>
-                  ) : i === 1 ? (
-                    <div className="campus-book">
-                      <span>
-                        ENTERPRISE
-                        <br />
-                        AI
-                      </span>
-                      <b>Reference Guide</b>
-                    </div>
-                  ) : (
-                    <div className="campus-chart">
-                      {[30, 55, 42, 72, 65, 94].map((n, j) => (
-                        <i key={j} style={{ height: `${n}%` }} />
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <p className="campus-tool-word" aria-hidden="true">{(ja ? ["判断する", "理解する", "練習する"] : ["Govern.", "Understand.", "Practise."])[i]}</p>
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
                 <span className="campus-tool-bottom">
-                  {ja ? "詳しく見る" : "Explore"}
+                  {item.proofPoints?.[0]}
                   <span aria-hidden="true">→</span>
                 </span>
               </Link>
             ))}
           </div>
-          <Link className="campus-diary" href="/diary">
+          {/* Diary is a separate Cloud Run application and needs document navigation. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a className="campus-diary" href="/diary">
             <span className="campus-diary-icon" aria-hidden="true">
               ↗
             </span>
@@ -236,7 +215,7 @@ export default function CampusHome({
               {ja ? "ダイアリーを開く" : "Open the diary"}
               <span aria-hidden="true">↗</span>
             </span>
-          </Link>
+          </a>
         </section>
         <section
           id="experience"

@@ -10,6 +10,8 @@ const ENTITY_ROUTE_SEGMENTS: Record<string, string> = {
 };
 
 export function getEntityRoute(entityId: string, locale: PublicLocale): string | undefined {
+  if (entityId === "framework.enterprise-ai-transformation") return `/${locale}/apps/ai-transformation-command-center`;
+  if (entityId === "app.to-do-list") return undefined;
   const [entityType, ...slugParts] = entityId.split(".");
   const slug = slugParts.join(".");
 

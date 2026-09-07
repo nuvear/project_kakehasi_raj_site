@@ -14,52 +14,37 @@
       ],
       "redirects": [
         {
+          "source": "/apps/ai-transformation-command-center",
+          "destination": "/en/apps/ai-transformation-command-center",
+          "type": 301
+        },
+        {
+          "source": "/apps/ai-transformation-command-center/**",
+          "destination": "/en/apps/ai-transformation-command-center",
+          "type": 301
+        },
+        {
           "source": "/framework.html",
-          "destination": "/en/frameworks/enterprise-ai-transformation",
-          "type": 302
+          "destination": "/en/apps/ai-transformation-command-center",
+          "type": 301
         },
         {
           "source": "/enterprise-ai-reference-guide.html",
           "destination": "/en/insights/enterprise-ai-reference-guide",
-          "type": 302
+          "type": 301
         },
         {
           "source": "/ai-transformation-command-center.html",
           "destination": "/en/apps/ai-transformation-command-center",
-          "type": 302
+          "type": 301
         },
         {
           "source": "/deployment-guide.html",
-          "destination": "/en/apps/ai-transformation-command-center/docs/deployment",
-          "type": 302
-        },
-        {
-          "source": "**",
-          "destination": "https://www.rajagobalan.com/:path*",
-          "type": 301,
-          "has": [
-            {
-              "type": "host",
-              "value": "rajagobalan.com"
-            }
-          ]
+          "destination": "/en/apps/ai-transformation-command-center",
+          "type": 301
         }
       ],
       "rewrites": [
-        {
-          "source": "/apps/ai-transformation-command-center",
-          "run": {
-            "serviceId": "command-center-web",
-            "region": "us-central1"
-          }
-        },
-        {
-          "source": "/apps/ai-transformation-command-center/**",
-          "run": {
-            "serviceId": "command-center-web",
-            "region": "us-central1"
-          }
-        },
         {
           "source": "/diary",
           "run": {
@@ -102,12 +87,7 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ],
+      "rewrites": [],
       "headers": [
         {
           "source": "**/*.html",
@@ -117,6 +97,13 @@
               "value": "no-cache, no-store, must-revalidate"
             }
           ]
+        }
+      ],
+      "redirects": [
+        {
+          "source": "**",
+          "destination": "https://www.rajagobalan.com/en/ventures/nuvear",
+          "type": 301
         }
       ]
     }

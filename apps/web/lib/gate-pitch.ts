@@ -5,7 +5,7 @@ export const gatePitch = {
   en: {
     title: "GATE — Your AI Transformation Command Center",
     summary: "Bring AI projects, evidence and executive decisions into one governed workspace. Explore GATE, a working pilot for enterprise AI transformation.",
-    back: "Insights & tools", language: "日本語", switchLabel: "日本語に切り替える",
+    back: "AI learning resources", language: "日本語", switchLabel: "日本語に切り替える",
     eyebrow: "GATE · AI TRANSFORMATION COMMAND CENTER",
     headline: "Lead your AI portfolio with evidence.",
     lead: "GATE brings AI projects, approved knowledge and accountable decisions into one workspace. Give leadership a clearer view of what to advance, what needs intervention and what should pause.",

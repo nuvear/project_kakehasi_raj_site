@@ -23,8 +23,8 @@ function routeBySource(source: string) {
   return manifest.routes.find((route) => route.source === source);
 }
 
-describe("Project Kakehashi active migration wave", () => {
-  test("keeps only the three enterprise-AI migration items active", () => {
+describe("Project Kakehashi public routes and GATE consolidation", () => {
+  test("consolidates framework and command center into GATE and retains the guide", () => {
     const activeRoutes = [
       routeBySource("/enterprise-ai-reference-guide.html"),
       routeBySource("/framework.html"),
@@ -42,7 +42,7 @@ describe("Project Kakehashi active migration wave", () => {
         expect.objectContaining({
           status: "active",
           migration_wave: "6.1",
-          target_en: "/en/frameworks/enterprise-ai-transformation"
+          target_en: "/en/apps/ai-transformation-command-center"
         }),
         expect.objectContaining({
           status: "active",
@@ -52,7 +52,7 @@ describe("Project Kakehashi active migration wave", () => {
         expect.objectContaining({
           status: "active",
           migration_wave: "7.1",
-          target_en: "/en/apps/ai-transformation-command-center/docs/deployment"
+          target_en: "/en/apps/ai-transformation-command-center"
         })
       ])
     );
@@ -74,13 +74,15 @@ describe("Project Kakehashi active migration wave", () => {
     }
   });
 
-  test("migrates the Enterprise AI Reference Guide from the full legacy markdown source", () => {
+  test("preserves the original guide and publishes its reviewed learning replacement", () => {
     const content = read("content/insights/enterprise-ai-reference-guide/en.md");
 
     expect(content).toContain("# Enterprise AI Transformation — The Reference Guide");
     expect(content).toContain("# Part I: The Strategic Foundation");
-    expect(content).toContain("# Part XXI: Senior Partner's Cheat Sheet");
-    expect(content.split("\n").length).toBeGreaterThan(500);
+    expect(content).toContain("# Part XXI: The Portfolio Review Checklist");
+    expect(read("docs/archive/pre-gate-review/reference-guide-en.md")).toContain("# Part XXI: Senior Partner's Cheat Sheet");
+    expect(content).toContain("The exercises are fictional");
+    expect(content).not.toContain("Zero Hallucination Risk");
   });
 
   test("marks Japanese active-wave stubs as review_required", () => {
@@ -96,95 +98,36 @@ describe("Project Kakehashi active migration wave", () => {
     }
   });
 
-  test("restores Framework v8 metadata and deterministic content", () => {
-    const entity = yaml.load(
-      read("content/frameworks/enterprise-ai-transformation/entity.yaml")
-    ) as Record<string, unknown>;
-    const content = read("content/frameworks/enterprise-ai-transformation/en.md");
-    const route = read("apps/web/app/[locale]/frameworks/[slug]/page.tsx");
-
+  test("archives the previous framework and retires its interactive demo", () => {
+    const entity = yaml.load(read("content/frameworks/enterprise-ai-transformation/entity.yaml")) as Record<string, unknown>;
+    expect(entity.publish_status).toBe("archived");
     expect(entity.version).toBe("8.0");
-    expect(content).toContain("# Enterprise AI Transformation Framework v8");
-    expect(content).toContain("## Six Pillars");
-    expect(content).toContain("## 12-Week Curriculum");
-    expect(content).toContain("## Agent Architecture");
-    expect(route).toContain("EnterpriseAIFrameworkInteractive");
-    expect(fs.existsSync(path.join(root, "apps/web/components/EnterpriseAIFrameworkInteractive.tsx"))).toBe(true);
+    const route = read("apps/web/app/[locale]/frameworks/[slug]/page.tsx");
+    expect(route).toContain("permanentRedirect");
+    expect(route).toContain("/apps/ai-transformation-command-center");
+    expect(fs.existsSync(path.join(root, "apps/web/components/EnterpriseAIFrameworkInteractive.tsx"))).toBe(false);
   });
 
-  test("positions GATE as the localized command center while preserving the legacy runtime docs", () => {
-    const appContent = read("content/apps/ai-transformation-command-center/en.md");
-    const appRoute = "apps/web/app/[locale]/apps/[slug]/page.tsx";
-    const docsRoute = "apps/web/app/[locale]/apps/[slug]/docs/deployment/page.tsx";
-    const deploymentRoute = read(docsRoute);
-
-    expect(appContent).toContain("GATE — Governed AI Transformation for Enterprises™");
-    expect(appContent).toContain("https://gate-enterprise.praba.chatgpt.site");
-    expect(appContent).toContain("private owner preview");
-    expect(appContent).not.toContain("Real-time visibility");
-    expect(fs.existsSync(path.join(root, "apps/web/app/[locale]/apps/ai-transformation-command-center/page.tsx"))).toBe(true);
-    expect(deploymentRoute).toContain("## API Boundary");
-    expect(deploymentRoute).toContain("access-control-allow-origin");
-    expect(fs.existsSync(path.join(root, appRoute))).toBe(true);
-    expect(fs.existsSync(path.join(root, docsRoute))).toBe(true);
+  test("positions GATE as the single command center without the demo claims", () => {
+    const content = read("content/apps/ai-transformation-command-center/en.md");
+    expect(content).toContain("GATE — Governed AI Transformation for Enterprises™");
+    expect(content).toContain("https://gate-enterprise.praba.chatgpt.site");
+    expect(content).toContain("private owner preview");
+    expect(content).not.toContain("Real-time visibility");
+    expect(read("apps/web/app/[locale]/apps/[slug]/docs/deployment/page.tsx")).toContain("permanentRedirect");
+    expect(fs.existsSync(path.join(root, "apps/web/components/CommandCenterDashboard.tsx"))).toBe(false);
   });
 
-  test("configures Firebase so localized app entries stay in Kakehashi and runtime stays on Cloud Run", () => {
+  test("redirects the retired runtime and preserves independent Diary routing", () => {
     const firebase = JSON.parse(read("firebase.json"));
     const hosting = firebase.hosting.find((target: { target: string }) => target.target === "main");
-    const redirects = hosting.redirects as Array<Record<string, string>>;
-    const rewrites = hosting.rewrites as Array<Record<string, string | Record<string, string>>>;
-
-    expect(redirects).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          source: "/ai-transformation-command-center.html",
-          destination: "/en/apps/ai-transformation-command-center",
-          type: 302
-        }),
-        expect.objectContaining({
-          source: "/deployment-guide.html",
-          destination: "/en/apps/ai-transformation-command-center/docs/deployment",
-          type: 302
-        })
-      ])
-    );
-
-    expect(rewrites).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          source: "/apps/ai-transformation-command-center",
-          run: expect.objectContaining({ serviceId: "command-center-web" })
-        }),
-        expect.objectContaining({
-          source: "/apps/ai-transformation-command-center/**",
-          run: expect.objectContaining({ serviceId: "command-center-web" })
-        })
-      ])
-    );
-
-    const runtimeRewriteIndex = rewrites.findIndex(
-      (rewrite) => rewrite.source === "/apps/ai-transformation-command-center"
-    );
-    const nestedRuntimeRewriteIndex = rewrites.findIndex(
-      (rewrite) => rewrite.source === "/apps/ai-transformation-command-center/**"
-    );
-    const catchAllRewriteIndex = rewrites.findIndex((rewrite) => rewrite.source === "**");
-
-    expect(runtimeRewriteIndex).toBeGreaterThanOrEqual(0);
-    expect(nestedRuntimeRewriteIndex).toBeGreaterThanOrEqual(0);
-    expect(catchAllRewriteIndex).toBeGreaterThanOrEqual(0);
-    expect(runtimeRewriteIndex).toBeLessThan(catchAllRewriteIndex);
-    expect(nestedRuntimeRewriteIndex).toBeLessThan(catchAllRewriteIndex);
-    expect(rewrites[catchAllRewriteIndex]).toEqual(
-      expect.objectContaining({
-        run: expect.objectContaining({ serviceId: "kakehashi-app" })
-      })
-    );
-
-    expect(
-      rewrites.some((rewrite) => String(rewrite.source).startsWith("/*/apps/ai-transformation-command-center"))
-    ).toBe(false);
+    for (const source of ["/framework.html", "/deployment-guide.html", "/ai-transformation-command-center.html", "/apps/ai-transformation-command-center", "/apps/ai-transformation-command-center/**"]) {
+      expect(hosting.redirects).toContainEqual(expect.objectContaining({source, destination: "/en/apps/ai-transformation-command-center", type: 301}));
+    }
+    expect(hosting.rewrites.map((r: {source: string}) => r.source)).toEqual(["/diary", "/diary/**", "**"]);
+    expect(hosting.rewrites[0].run.serviceId).toBe("ai-leadership-diary");
+    expect(hosting.rewrites[2].run.serviceId).toBe("kakehashi-app");
+    expect(firebase.hosting.find((h: {target: string}) => h.target === "healthkitsync").public).toBe("healthkitsync");
   });
 
   test("keeps direct runtime paths out of locale middleware and insight pages", () => {
@@ -247,16 +190,15 @@ describe("Project Kakehashi active migration wave", () => {
     expect(dockerIgnore).not.toContain("\ndocs/");
     expect(gcloudIgnore).toContain("/docs/");
     expect(gcloudIgnore).not.toContain("\ndocs/");
-    expect(guide?.content_markdown).toContain("Part XXI: Senior Partner's Cheat Sheet");
+    expect(guide?.content_markdown).toContain("Part XXI: The Portfolio Review Checklist");
     expect(framework).toEqual(expect.objectContaining({ version: "8.0" }));
     expect(commandCenter?.content_markdown).toContain("Lead your AI portfolio with evidence.");
   });
 
-  test("ingestion can locate bundled content in the standalone runtime image", () => {
-    const ingestRoute = read("apps/web/app/api/ingest/route.ts");
-
-    expect(ingestRoute).toContain("process.env.KAKEHASHI_CONTENT_DIR");
-    expect(ingestRoute).toContain("apps/web/.next/standalone/content");
-    expect(ingestRoute).toContain(".next/standalone/content");
+  test("public maintenance requests cannot rewrite production content", async () => {
+    const { GET } = await import("../../apps/web/app/api/ingest/route");
+    const response = await GET();
+    expect(response.status).toBe(410);
+    expect(await response.json()).toEqual({error: "Public content ingestion has been retired."});
   });
 });
