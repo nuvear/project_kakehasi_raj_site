@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/images/education/madras-entrance.jpg",
+    "status": 200,
+    "exact_source_match": true
+  },
+  {
+    "image": "madras-entrance",
+    "optimized_status": 200,
+    "optimized_bytes": 109047
+  },
+  {
+    "locale": "en",
+    "status": 200,
+    "slideshow_present": true
+  },
+  {
+    "locale": "ja",
+    "status": 200,
+    "slideshow_present": true
+  }
+]

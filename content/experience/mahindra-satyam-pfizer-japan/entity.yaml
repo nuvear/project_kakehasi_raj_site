@@ -1,0 +1,20 @@
+id: experience.mahindra-satyam-pfizer-japan
+type: experience
+canonical_slug: mahindra-satyam-pfizer-japan
+visibility: public
+publish_status: published
+sensitivity: public
+agent_use: true
+claims_policy:
+  may_summarize: true
+  may_infer_relationships: true
+  may_change_credential_wording: false
+ui_capabilities:
+  - company_hero
+  - timeline
+company:
+  id: company.mahindra-satyam
+  official_name: Mahindra Satyam
+role: Portfolio Manager | Pfizer Japan AMS Head
+start_date: 2006-01
+end_date: 2011-01

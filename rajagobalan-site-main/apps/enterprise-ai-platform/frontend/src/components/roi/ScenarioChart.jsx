@@ -17,7 +17,7 @@ export default function ScenarioChart({ scenarios }) {
 
   const getChartData = () => {
     const labels = ['Base', 'Optimistic (1.3x)', 'Pessimistic (0.7x)'];
-    const colors = ['#3b82f6', '#10b981', '#ef4444'];
+    const colors = ['#4d6471', '#10b981', '#ef4444'];
 
     let datasets = [];
 

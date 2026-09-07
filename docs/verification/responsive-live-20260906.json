@@ -1,0 +1,1787 @@
+[
+  {
+    "path": "/en",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/credentials",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/american-college-physics",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/anaheim-university-mba",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/madras-institute-technology-electronics",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/mit-coo-program",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/shizuoka-university-systems-engineering",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/stanford-executive-program",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/capgemini-apac-delivery-gpo",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/dassault-systemes-delmia",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/mahindra-satyam-pfizer-japan",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/ys-inc-factory-automation",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/frameworks/enterprise-ai-transformation",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights/enterprise-ai-reference-guide",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/aagnaa",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/nuvear",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/credentials",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/american-college-physics",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/anaheim-university-mba",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/madras-institute-technology-electronics",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/mit-coo-program",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/shizuoka-university-systems-engineering",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/stanford-executive-program",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/capgemini-apac-delivery-gpo",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/dassault-systemes-delmia",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/ys-inc-factory-automation",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/frameworks/enterprise-ai-transformation",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights/enterprise-ai-reference-guide",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/aagnaa",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/nuvear",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/diary",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clipped": []
+  },
+  {
+    "path": "/en",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/credentials",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/american-college-physics",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/anaheim-university-mba",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/madras-institute-technology-electronics",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/mit-coo-program",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/shizuoka-university-systems-engineering",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/stanford-executive-program",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/capgemini-apac-delivery-gpo",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/dassault-systemes-delmia",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/mahindra-satyam-pfizer-japan",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/ys-inc-factory-automation",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/frameworks/enterprise-ai-transformation",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights/enterprise-ai-reference-guide",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/aagnaa",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/nuvear",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/credentials",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/american-college-physics",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/anaheim-university-mba",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/madras-institute-technology-electronics",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/mit-coo-program",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/shizuoka-university-systems-engineering",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/stanford-executive-program",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/capgemini-apac-delivery-gpo",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/dassault-systemes-delmia",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/ys-inc-factory-automation",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/frameworks/enterprise-ai-transformation",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights/enterprise-ai-reference-guide",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/aagnaa",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/nuvear",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/diary",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clipped": []
+  },
+  {
+    "path": "/en",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/credentials",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/american-college-physics",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/anaheim-university-mba",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/madras-institute-technology-electronics",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/mit-coo-program",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/shizuoka-university-systems-engineering",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/stanford-executive-program",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/capgemini-apac-delivery-gpo",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/dassault-systemes-delmia",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/mahindra-satyam-pfizer-japan",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/ys-inc-factory-automation",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/frameworks/enterprise-ai-transformation",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights/enterprise-ai-reference-guide",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/aagnaa",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/nuvear",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/credentials",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/american-college-physics",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/anaheim-university-mba",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/madras-institute-technology-electronics",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/mit-coo-program",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/shizuoka-university-systems-engineering",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/stanford-executive-program",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/capgemini-apac-delivery-gpo",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/dassault-systemes-delmia",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/ys-inc-factory-automation",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/frameworks/enterprise-ai-transformation",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights/enterprise-ai-reference-guide",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/aagnaa",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/nuvear",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/diary",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clipped": []
+  },
+  {
+    "path": "/en",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/credentials",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/american-college-physics",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/anaheim-university-mba",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/madras-institute-technology-electronics",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/mit-coo-program",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/shizuoka-university-systems-engineering",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/stanford-executive-program",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/capgemini-apac-delivery-gpo",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/dassault-systemes-delmia",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/mahindra-satyam-pfizer-japan",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/ys-inc-factory-automation",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/frameworks/enterprise-ai-transformation",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights/enterprise-ai-reference-guide",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/aagnaa",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/nuvear",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/credentials",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/american-college-physics",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/anaheim-university-mba",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/madras-institute-technology-electronics",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/mit-coo-program",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/shizuoka-university-systems-engineering",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/stanford-executive-program",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/capgemini-apac-delivery-gpo",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/dassault-systemes-delmia",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/ys-inc-factory-automation",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/frameworks/enterprise-ai-transformation",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights/enterprise-ai-reference-guide",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/aagnaa",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/nuvear",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/diary",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clipped": []
+  },
+  {
+    "path": "/en",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/credentials",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/american-college-physics",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/anaheim-university-mba",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/madras-institute-technology-electronics",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/mit-coo-program",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/shizuoka-university-systems-engineering",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/education/stanford-executive-program",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/capgemini-apac-delivery-gpo",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/dassault-systemes-delmia",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/mahindra-satyam-pfizer-japan",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/experience/ys-inc-factory-automation",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/frameworks/enterprise-ai-transformation",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/insights/enterprise-ai-reference-guide",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/aagnaa",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/ventures/nuvear",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/credentials",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/american-college-physics",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/anaheim-university-mba",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/madras-institute-technology-electronics",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/mit-coo-program",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/shizuoka-university-systems-engineering",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/education/stanford-executive-program",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/capgemini-apac-delivery-gpo",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/dassault-systemes-delmia",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/mahindra-satyam-pfizer-japan",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/experience/ys-inc-factory-automation",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/frameworks/enterprise-ai-transformation",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/insights/enterprise-ai-reference-guide",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/aagnaa",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/ventures/nuvear",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/en/apps/ai-transformation-command-center/docs/deployment",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/ja/apps/ai-transformation-command-center/docs/deployment",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/dashboard",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/discovery",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/portfolio",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/maturity",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roi",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/architecture",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/wardley",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/roadmap",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/apps/ai-transformation-command-center/slides",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  },
+  {
+    "path": "/diary",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clipped": []
+  }
+]

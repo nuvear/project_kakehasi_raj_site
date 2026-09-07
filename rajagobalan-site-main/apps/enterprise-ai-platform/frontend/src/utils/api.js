@@ -55,8 +55,12 @@ export const generateWardley = (data) =>
   request(`${BASE}/wardley/generate`, { method: 'POST', body: JSON.stringify(data) });
 
 // ─── Slides ───
-export const exportSlides = (data) =>
-  request(`${BASE}/slides/export`, { method: 'POST', body: JSON.stringify(data), responseType: 'blob' });
+export const exportSlides = (companyId, data = {}) =>
+  request(`${BASE}/slides/export?company_id=${encodeURIComponent(companyId)}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    responseType: 'blob'
+  });
 
 // ─── Health ───
 export const checkHealth = () =>

@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '--build-arg', 'NEXT_PUBLIC_API_URL=https://command-center-api-537634522206.us-central1.run.app',
+    '-t', 'gcr.io/rajagobalan-site/command-center-web:latest',
+    '.'
+  ]
+images:
+- 'gcr.io/rajagobalan-site/command-center-web:latest'

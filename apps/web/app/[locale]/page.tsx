@@ -1,132 +1,288 @@
-import Link from "next/link";
+import { Geist, Geist_Mono } from "next/font/google";
+import CampusHome from "@/components/CampusHome";
 import { getDatabase } from "@kakehashi/db";
+import type {
+  EntityMetadata,
+  EntityType,
+  FullTranslation,
+} from "@kakehashi/content-schema";
 import type { Metadata } from "next";
-import AgentSandbox from "@/components/AgentSandbox";
+import {
+  type CopilotDeckItem,
+  type CopilotDeckSlide,
+} from "@/components/CopilotDeck";
+import SiteHeader from "@/components/SiteHeader";
+import { formatDateRange } from "@/lib/date-format";
+import { getProfileCredentials } from "@/lib/profile-credentials";
 
-function renderMarkdown(text: string) {
-  if (!text) return null;
-
-  const lines = text.split("\n");
-  const elements: React.ReactNode[] = [];
-  let listItems: string[] = [];
-
-  const flushList = (key: number) => {
-    if (listItems.length > 0) {
-      elements.push(
-        <ul 
-          key={`list-${key}`} 
-          style={{ 
-            paddingLeft: "1.5rem", 
-            margin: "0.75rem 0 1rem 0", 
-            display: "flex", 
-            flexDirection: "column", 
-            gap: "0.5rem",
-            listStyleType: "disc" 
-          }}
-        >
-          {listItems.map((item, idx) => (
-            <li 
-              key={`li-${idx}`}
-              style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--color-on-surface-variant)" }}
-              dangerouslySetInnerHTML={{ __html: formatInline(item) }}
-            />
-          ))}
-        </ul>
-      );
-      listItems = [];
-    }
-  };
-
-  const formatInline = (str: string): string => {
-    let formatted = str.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    formatted = formatted.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); text-decoration: underline;">$1</a>');
-    return formatted;
-  };
-
-  lines.forEach((line, idx) => {
-    const trimmed = line.trim();
-
-    if (trimmed.startsWith("### ")) {
-      flushList(idx);
-      elements.push(
-        <h4 
-          key={idx} 
-          style={{ 
-            fontFamily: "var(--font-sans)", 
-            fontSize: "1.15rem", 
-            fontWeight: 700, 
-            color: "var(--color-secondary)", 
-            margin: "1.25rem 0 0.5rem 0" 
-          }}
-        >
-          {trimmed.substring(4)}
-        </h4>
-      );
-    } else if (trimmed.startsWith("## ")) {
-      flushList(idx);
-      elements.push(
-        <h3 
-          key={idx} 
-          style={{ 
-            fontFamily: "var(--font-serif)", 
-            fontSize: "1.4rem", 
-            fontWeight: 700, 
-            color: "var(--color-primary)", 
-            margin: "1.5rem 0 0.5rem 0" 
-          }}
-        >
-          {trimmed.substring(3)}
-        </h3>
-      );
-    } else if (trimmed.startsWith("# ")) {
-      flushList(idx);
-      elements.push(
-        <h2 
-          key={idx} 
-          style={{ 
-            fontFamily: "var(--font-serif)", 
-            fontSize: "1.8rem", 
-            fontWeight: 700, 
-            color: "var(--color-primary)", 
-            margin: "1.75rem 0 0.75rem 0" 
-          }}
-        >
-          {trimmed.substring(2)}
-        </h2>
-      );
-    } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
-      listItems.push(trimmed.substring(2));
-    } else if (trimmed === "") {
-      flushList(idx);
-    } else {
-      flushList(idx);
-      elements.push(
-        <p 
-          key={idx} 
-          style={{ 
-            fontSize: "1rem", 
-            lineHeight: 1.6, 
-            color: "var(--color-on-surface)", 
-            marginBottom: "0.75rem" 
-          }}
-          dangerouslySetInnerHTML={{ __html: formatInline(trimmed) }}
-        />
-      );
-    }
-  });
-
-  flushList(lines.length);
-  return elements;
-}
+const profileSans = Geist({ variable: "--font-profile-sans", subsets: ["latin"] });
+const profileMono = Geist_Mono({ variable: "--font-profile-mono", subsets: ["latin"] });
 
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+interface LoadedEntity {
+  entity: EntityMetadata;
+  translation: FullTranslation;
+}
+
+const routeByType: Partial<Record<EntityType, string>> = {
+  app: "apps",
+  education: "education",
+  experience: "experience",
+  framework: "frameworks",
+  insight: "insights",
+  venture: "ventures",
+};
+
+function stripMarkdown(value: string) {
+  return value
+    .replace(/\[(.*?)\]\((.*?)\)/g, "$1")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/`/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractProofPoints(markdown: string) {
+  return markdown
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("- ") || line.startsWith("◆"))
+    .map((line) =>
+      stripMarkdown(line.replace(/^-\s*/, "").replace(/^◆\s*/, "")),
+    )
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+function getEntityHref(locale: string, entity: EntityMetadata) {
+  const route = routeByType[entity.type];
+  return route ? `/${locale}/${route}/${entity.canonical_slug}` : `/${locale}`;
+}
+
+function getEntityMeta(entity: EntityMetadata, locale: string) {
+  if (entity.type === "experience") {
+    const company = entity.company?.official_name || "";
+    return [
+      company,
+      formatDateRange(entity.start_date, entity.end_date, locale),
+    ]
+      .filter(Boolean)
+      .join(" | ");
+  }
+
+  if (entity.type === "education") {
+    const institution = entity.institution?.official_name || "";
+    return [
+      institution,
+      formatDateRange(entity.start_date, entity.end_date, locale),
+    ]
+      .filter(Boolean)
+      .join(" | ");
+  }
+
+  if (entity.type === "venture") {
+    return [
+      entity.company_name,
+      formatDateRange(entity.start_date, entity.end_date, locale),
+    ]
+      .filter(Boolean)
+      .join(" | ");
+  }
+
+  return "";
+}
+
+function shortenVisualLabel(value: string) {
+  return value
+    .replace("Stanford University Graduate School of Business", "Stanford GSB")
+    .replace("Massachusetts Institute of Technology", "MIT")
+    .replace("Capgemini Japan K.K.", "Capgemini Japan")
+    .replace("Capgemini Engineering", "Capgemini")
+    .replace("Innuir Pte. Ltd.", "Innuir")
+    .replace("HCL Technologies", "HCL")
+    .replace("Mahindra Satyam", "Pfizer Japan")
+    .replace("Dassault Systemes DELMIA", "DELMIA")
+    .trim();
+}
+
+function getVisualKind(entity: EntityMetadata): CopilotDeckItem["visualKind"] {
+  switch (entity.type) {
+    case "app":
+      return "app";
+    case "education":
+      return "education";
+    case "experience":
+      return "experience";
+    case "framework":
+    case "insight":
+      return "insight";
+    case "venture":
+      return "venture";
+    default:
+      return "profile";
+  }
+}
+
+function getEntityVisualLabel(entity: EntityMetadata) {
+  if (entity.type === "experience") {
+    return shortenVisualLabel(entity.company?.official_name || "Experience");
+  }
+
+  if (entity.type === "education") {
+    return shortenVisualLabel(entity.institution?.official_name || "Education");
+  }
+
+  if (entity.type === "venture") {
+    return shortenVisualLabel(entity.company_name || "Venture");
+  }
+
+  return shortenVisualLabel(entity.canonical_slug.replace(/-/g, " "));
+}
+
+function getCredentialVisualLabel(issuer: string) {
+  if (issuer.includes("Stanford")) {
+    return "Stanford";
+  }
+  if (issuer.includes("Massachusetts")) {
+    return "MIT";
+  }
+  if (issuer.includes("AWS")) {
+    return "AWS";
+  }
+  if (issuer.includes("Blockchain")) {
+    return "BTA";
+  }
+  return shortenVisualLabel(issuer);
+}
+
+function entityToDeckItem(locale: string, item: LoadedEntity): CopilotDeckItem {
+  return {
+    href: getEntityHref(locale, item.entity),
+    id: item.entity.id,
+    meta: getEntityMeta(item.entity, locale),
+    proofPoints: extractProofPoints(item.translation.content_markdown),
+    summary: item.translation.frontmatter.summary,
+    title: item.translation.frontmatter.title,
+    visualKind: getVisualKind(item.entity),
+    visualLabel: getEntityVisualLabel(item.entity),
+  };
+}
+
+const capgeminiExperienceIds = new Set([
+  "experience.capgemini-apac-delivery-gpo",
+  "experience.capgemini-japan",
+]);
+
+function getCombinedDateRange(items: LoadedEntity[], locale: string) {
+  const starts = items
+    .map((item) => item.entity.start_date)
+    .filter((value): value is string => Boolean(value))
+    .sort();
+  const ends = items
+    .map((item) => {
+      const ent = item.entity;
+      if (
+        ent.type === "experience" ||
+        ent.type === "education" ||
+        ent.type === "venture"
+      ) {
+        return ent.end_date;
+      }
+      return null;
+    })
+    .filter((value): value is string => Boolean(value))
+    .sort();
+
+  return formatDateRange(starts[0], ends[ends.length - 1], locale);
+}
+
+function buildExperienceDeckItems(locale: string, experience: LoadedEntity[]) {
+  const isJa = locale === "ja";
+  const capgeminiItems = experience.filter((item) =>
+    capgeminiExperienceIds.has(item.entity.id),
+  );
+
+  if (capgeminiItems.length < 2) {
+    return experience.map((item) => entityToDeckItem(locale, item));
+  }
+
+  const primary =
+    capgeminiItems.find(
+      (item) => item.entity.id === "experience.capgemini-apac-delivery-gpo",
+    ) || capgeminiItems[0];
+  const otherItems = experience.filter(
+    (item) => !capgeminiExperienceIds.has(item.entity.id),
+  );
+  const dateRange = getCombinedDateRange(capgeminiItems, locale);
+
+  const combinedCapgemini: CopilotDeckItem = {
+    href: getEntityHref(locale, primary.entity),
+    id: "experience.capgemini-enterprise-scale",
+    meta: ["Capgemini", dateRange].filter(Boolean).join(" | "),
+    proofPoints: isJa
+      ? [
+          "APACデリバリー、P&L、グローバルPMO",
+          "日本市場でのデジタルエンジニアリング",
+          "産業IoT、AI変革、Altran統合",
+        ]
+      : [
+          "APAC delivery, P&L, and global PMO",
+          "Digital engineering leadership in Japan",
+          "Industrial IoT, AI transformation, and Altran integration",
+        ],
+    summary: isJa
+      ? "Capgemini JapanとCapgemini Engineeringを通じ、日本市場のデジタルエンジニアリング、APACデリバリーガバナンス、P&L規律、統合実行を一つの実績として提示します。"
+      : "A combined Capgemini story across Japan digital engineering and APAC delivery: portfolio governance, P&L discipline, industrial IoT, AI transformation, and integration execution.",
+    title: isJa
+      ? "Capgemini: APACデリバリー & デジタルエンジニアリング"
+      : "Capgemini: APAC Delivery & Digital Engineering",
+    visualKind: "experience",
+    visualLabel: "Capgemini",
+  };
+
+  return [
+    combinedCapgemini,
+    ...otherItems.map((item) => entityToDeckItem(locale, item)),
+  ];
+}
+
+function sortNewestFirst(a: LoadedEntity, b: LoadedEntity) {
+  const startA = a.entity.start_date || "";
+  const startB = b.entity.start_date || "";
+  return startB.localeCompare(startA);
+}
+
+async function loadTypedEntities(type: EntityType, locale: string) {
+  const db = await getDatabase();
+  const entities = await db.listEntities(type);
+  const loaded = await Promise.all(
+    entities.map(async (entity) => {
+      const translation = await db.getTranslation(entity.id, locale);
+      return translation ? { entity, translation } : null;
+    }),
+  );
+
+  return loaded
+    .filter((item): item is LoadedEntity => Boolean(item))
+    .sort(sortNewestFirst);
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const title = locale === "ja" ? "ラジクマール・ラジャゴバラン — AIネイティブエンタープライズの構築" : "Rajkumar Rajagobalan — Building AI-Native Enterprises";
-  const description = locale === "ja" ? "エンタープライズAI変革のリーダー、ヘルステック創業者（Nuvear）、スタンフォード大学経営大学院修了生、MIT修了生。" : "Enterprise AI Transformation Leader, HealthTech Founder (Nuvear), Stanford SEP Alumni, MIT Alumni.";
+  const title =
+    locale === "ja"
+      ? "ラジクマール・ラジャゴバラン - エグゼクティブプロフィール"
+      : "Rajkumar Rajagobalan | About me";
+  const description =
+    locale === "ja"
+      ? "エンタープライズAI変革のリーダー、ヘルステック創業者、Stanford GSBおよびMITアルムナイ。"
+      : "A personal introduction to Rajkumar Rajagobalan: engineering, enterprise AI, healthcare, and the work and learning that connect them.";
+
   return {
     title,
     description,
@@ -142,340 +298,293 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
+  const isJa = locale === "ja";
   const db = await getDatabase();
 
-  // Load dynamic content from database layer
-  const aboutTranslation = await db.getTranslation("profile.about", locale);
-
-  const rawMarkdown = aboutTranslation?.content_markdown || "";
-  const parts = rawMarkdown.split("---");
-  const bodyContent = parts.length > 2 ? parts.slice(2).join("---").trim() : rawMarkdown.trim();
-
-  const educationEntities = await db.listEntities("education");
-  const experienceEntities = await db.listEntities("experience");
-  const ventureEntities = await db.listEntities("venture");
-
-  // Fetch translations for lists
-  const educationList = await Promise.all(
-    educationEntities.map(async (e) => ({
-      entity: e,
-      translation: await db.getTranslation(e.id, locale)
-    }))
+  const [aboutTranslation, experience, education, ventures] = await Promise.all(
+    [
+      db.getTranslation("profile.about", locale),
+      loadTypedEntities("experience", locale),
+      loadTypedEntities("education", locale),
+      loadTypedEntities("venture", locale),
+    ],
   );
 
-  const experienceList = await Promise.all(
-    experienceEntities.map(async (e) => ({
-      entity: e,
-      translation: await db.getTranslation(e.id, locale)
-    }))
+  const { credentials } = getProfileCredentials(locale);
+  const localizedCredentials = credentials.map<CopilotDeckItem>(
+    (credential) => ({
+      eyebrow: credential.category,
+      href: credential.relatedHref
+        ? `/${locale}${credential.relatedHref}`
+        : `/${locale}/credentials`,
+      id: `credential.${credential.title}`,
+      meta: `${credential.issuer} | ${credential.year}`,
+      proofPoints: credential.items || [credential.category, credential.issuer],
+      summary: credential.summary,
+      title: credential.title,
+      visualKind: "credential",
+      visualLabel: getCredentialVisualLabel(credential.issuer),
+    }),
   );
 
-  const ventureList = await Promise.all(
-    ventureEntities.map(async (e) => ({
-      entity: e,
-      translation: await db.getTranslation(e.id, locale)
-    }))
-  );
+  const copy = isJa
+    ? {
+        footer: "シンガポール | 日本 | AI変革",
+        profileEyebrow: "CxO Profile",
+        profileTitle: "AI変革を実行へ",
+        profileSummary:
+          aboutTranslation?.frontmatter.summary ||
+          "シンガポールと日本のCxOに向けた、AI変革、ヘルステック創業、事業運営のプロフィール。",
+        experienceTitle: "実行実績",
+        experienceSummary:
+          "APACでのP&L、プログラムガバナンス、エンジニアリングデリバリー。",
+        educationTitle: "戦略を支える学び",
+        educationSummary:
+          "Stanford、MIT、静岡大学、経営大学院で培った戦略・運営・工学の基盤。",
+        credentialsTitle: "資格スタック",
+        credentialsSummary:
+          "リーダーシップ、オペレーション、応用AI、IoT、ブロックチェーン、データサイエンス。",
+        venturesTitle: "創業活動",
+        venturesSummary:
+          "ヘルスインテリジェンス、IoT、AR/VR、デジタルエンジニアリングの事業構築。",
+        insightsTitle: "AI実行システム",
+        insightsSummary:
+          "フレームワーク、ガイド、コマンドセンターで構成するCxO向け実行モデル。",
+        facts: [
+          { value: "27+", label: "年の変革実績" },
+          { value: "APAC", label: "日本・シンガポール" },
+          { value: "AI", label: "戦略から実装" },
+        ],
+      }
+    : {
+        footer: "Singapore | Japan | AI Transformation",
+        profileEyebrow: "CxO Profile",
+        profileTitle: "AI Transformation, Delivered",
+        profileSummary:
+          aboutTranslation?.frontmatter.summary ||
+          "A CxO-facing profile for Singapore and Japan: AI transformation, HealthTech founding, and operating leadership.",
+        experienceTitle: "Executive Delivery Record",
+        experienceSummary:
+          "Some of the teams and organizations I’ve worked with across Japan and APAC.",
+        educationTitle: "Strategic Education",
+        educationSummary:
+          "From physics and engineering to management and leadership, these studies have given me different ways to look at problems.",
+        credentialsTitle: "Credential Stack",
+        credentialsSummary:
+          "Leadership, operations, applied AI, IoT, blockchain, and data science credentials.",
+        venturesTitle: "Founder Work",
+        venturesSummary:
+          "Different ventures, connected by an interest in how technology can be useful in everyday life.",
+        insightsTitle: "AI Transformation System",
+        insightsSummary:
+          "A framework, guide, and command center for board-to-delivery execution.",
+        facts: [
+          { value: "27+", label: "Years of delivery" },
+          { value: "APAC", label: "Japan and Singapore" },
+          { value: "AI", label: "Strategy to execution" },
+        ],
+      };
 
-  // Sorting helper: newest first
-  const sortTimeline = (
-    a: { entity: Record<string, unknown> },
-    b: { entity: Record<string, unknown> }
-  ) => {
-    const startA = (a.entity.start_date as string) || "";
-    const startB = (b.entity.start_date as string) || "";
-    return startB.localeCompare(startA);
-  };
+  const primaryExperience =
+    experience.find(
+      (item) => item.entity.id === "experience.capgemini-apac-delivery-gpo",
+    ) || experience[0];
+  const primaryVenture =
+    ventures.find((item) => item.entity.id === "venture.nuvear") || ventures[0];
+  const primaryEducation =
+    education.find(
+      (item) => item.entity.id === "education.stanford-executive-program",
+    ) || education[0];
 
-  const sortedEducation = educationList.filter(item => item.translation).sort(sortTimeline);
-  const sortedExperience = experienceList.filter(item => item.translation).sort(sortTimeline);
-  const sortedVentures = ventureList.filter(item => item.translation).sort(sortTimeline);
-
-  // Localization resources
-  const i18nMap = {
-    en: {
-      siteTitle: "Rajkumar Rajagobalan",
-      aboutTitle: "About Me",
-      educationTitle: "Education",
-      experienceTitle: "Professional Experience",
-      venturesTitle: "Ventures & Labs",
-      agentSandboxTitle: "Agent 'Rajagobalan'",
-      agentSandboxDesc: "Ask the grounded agent a question about my profile, background, or insights. Grounded with Firestore Vector Search.",
-      agentPlaceholder: "Ask about Stanford, Capgemini, or HealthKitSync...",
-      agentBtn: "Ask Agent",
-      navAbout: "About",
-      navExperience: "Experience",
-      navEducation: "Education",
-      navVentures: "Ventures",
-      navInsights: "Insights",
-      switchLang: "日本語",
-      switchPath: "/ja",
-      to: "to",
-      current: "Present"
+  const profileItems: CopilotDeckItem[] = [
+    {
+      eyebrow: isJa ? "変革" : "Transformation",
+      href: `/${locale}/frameworks/enterprise-ai-transformation`,
+      id: "profile.enterprise-ai",
+      proofPoints: isJa
+        ? ["フレームワーク", "リファレンスガイド", "コマンドセンター"]
+        : ["Framework", "Reference guide", "Command center"],
+      summary: isJa
+        ? "企業AIを技術導入ではなく、意思決定、ガバナンス、実行モデルを変える事業変革として提示します。"
+        : "Positions AI as operating-model change: decision systems, governance, execution rhythm, and measurable value.",
+      title: isJa ? "AI変革システム" : "AI Transformation System",
+      visualKind: "insight",
+      visualLabel: "AI",
     },
-    ja: {
-      siteTitle: "ラジクマール・ラジャゴバラン",
-      aboutTitle: "略歴",
-      educationTitle: "学歴・修了歴",
-      experienceTitle: "職歴・プロジェクト",
-      venturesTitle: "起業・ラボ",
-      agentSandboxTitle: "エージェント「Rajagobalan」",
-      agentSandboxDesc: "私の経歴、実績、考察に関する質問をエージェントに投げかけることができます。Firestoreのネイティブベクトル検索でグラウンディングされています。",
-      agentPlaceholder: "スタンフォード、キャップジェミニ、HealthKitSyncについて尋ねる...",
-      agentBtn: "送信",
-      navAbout: "略歴",
-      navExperience: "職歴",
-      navEducation: "学歴",
-      navVentures: "ベンチャー",
-      navInsights: "インサイト",
-      switchLang: "English",
-      switchPath: "/en",
-      to: "〜",
-      current: "現在"
-    }
-  };
-  const i18n = i18nMap[locale as "en" | "ja"] || i18nMap.en;
+    {
+      eyebrow: isJa ? "規模" : "Scale",
+      href: primaryExperience
+        ? getEntityHref(locale, primaryExperience.entity)
+        : `/${locale}#experience`,
+      id: "profile.enterprise-scale",
+      proofPoints: isJa
+        ? ["APACデリバリー", "日本市場", "デジタルエンジニアリング"]
+        : ["APAC delivery", "Japan market", "Digital engineering"],
+      summary:
+        primaryExperience?.translation.frontmatter.summary ||
+        (isJa
+          ? "APACと日本でのエンタープライズ規模のデリバリー経験。"
+          : "Enterprise-scale delivery experience across APAC and Japan."),
+      title: isJa ? "APACデリバリー" : "APAC Delivery Scale",
+      visualKind: "experience",
+      visualLabel: "APAC",
+    },
+    {
+      eyebrow: isJa ? "創業" : "Founder",
+      href: primaryVenture
+        ? getEntityHref(locale, primaryVenture.entity)
+        : `/${locale}#ventures`,
+      id: "profile.founder-dna",
+      proofPoints: isJa
+        ? ["Innuir", "HealthKitSync", "AAGNAA"]
+        : ["Innuir", "HealthKitSync", "AAGNAA"],
+      summary:
+        primaryVenture?.translation.frontmatter.summary ||
+        (isJa
+          ? "ヘルステックと応用AIを軸にした創業活動。"
+          : "Founder-led work in HealthTech and applied AI."),
+      title: isJa
+        ? "ヘルスインテリジェンス創業"
+        : "Health Intelligence Founder",
+      visualKind: "venture",
+      visualLabel: "Innuir",
+    },
+    {
+      eyebrow: isJa ? "学術" : "Scholarship",
+      href: primaryEducation
+        ? getEntityHref(locale, primaryEducation.entity)
+        : `/${locale}#education`,
+      id: "profile.academic-foundation",
+      proofPoints: isJa
+        ? ["Stanford GSB", "MIT", "Shizuoka University"]
+        : ["Stanford GSB", "MIT", "Shizuoka University"],
+      summary:
+        primaryEducation?.translation.frontmatter.summary ||
+        (isJa
+          ? "戦略、オペレーション、工学をつなぐ学術的基盤。"
+          : "Academic foundations connecting strategy, operations, and engineering."),
+      title: isJa ? "Stanford + MIT Lens" : "Stanford + MIT Lens",
+      visualKind: "education",
+      visualLabel: "GSB",
+    },
+    {
+      eyebrow: isJa ? "資格" : "Credentials",
+      href: `/${locale}/credentials`,
+      id: "profile.credentials",
+      proofPoints: localizedCredentials
+        .slice(0, 3)
+        .map((credential) => credential.title),
+      summary: copy.credentialsSummary,
+      title: copy.credentialsTitle,
+      visualKind: "credential",
+      visualLabel: "Certs",
+    },
+  ];
 
-  const formatDate = (dateStr: string) => {
-    if (!dateStr) return "";
-    const [year, month] = dateStr.split("-");
-    const monthNames = {
-      en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      ja: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-    }[locale as "en" | "ja"] || [];
-    const monthIdx = parseInt(month, 10) - 1;
-    return locale === "ja" ? `${year}年${monthNames[monthIdx]}` : `${monthNames[monthIdx]} ${year}`;
-  };
+  const insightItems: CopilotDeckItem[] = [
+    {
+      eyebrow: isJa ? "方法論" : "Framework",
+      href: `/${locale}/frameworks/enterprise-ai-transformation`,
+      id: "insight.framework",
+      proofPoints: isJa
+        ? ["6つの柱", "成熟度", "実行モデル"]
+        : ["Six pillars", "Maturity model", "Execution model"],
+      summary: isJa
+        ? "企業AI変革の成熟度を評価し、優先順位を調整し、実行に移すためのインタラクティブなフレームワーク。"
+        : "Interactive model to assess maturity, align priorities, and move transformation into execution.",
+      title: isJa ? "Transformation Framework" : "Transformation Framework",
+      visualKind: "insight",
+      visualLabel: "6 Pillars",
+    },
+    {
+      eyebrow: isJa ? "ガイド" : "Guide",
+      href: `/${locale}/insights/enterprise-ai-reference-guide`,
+      id: "insight.reference-guide",
+      proofPoints: isJa
+        ? ["アーキテクチャ", "展開", "ガバナンス"]
+        : ["Architecture", "Deployment", "Governance"],
+      summary: isJa
+        ? "大規模な企業AIソリューションを設計、展開、管理するためのリファレンスガイド。"
+        : "Architecture, deployment, and governance guidance for AI solutions at scale.",
+      title: isJa ? "Reference Guide" : "Reference Guide",
+      visualKind: "insight",
+      visualLabel: "Guide",
+    },
+    {
+      eyebrow: isJa ? "ツール" : "Command Center",
+      href: `/${locale}/apps/ai-transformation-command-center`,
+      id: "insight.command-center",
+      proofPoints: isJa
+        ? ["ポートフォリオ", "リスク", "ガバナンス"]
+        : ["Portfolio", "Risk", "Governance"],
+      summary: isJa
+        ? "組織全体のAIイニシアチブ、リスク、ガバナンスを可視化する実行ダッシュボード。"
+        : "Operational dashboard for simulating, tracking, and monitoring initiatives, risk, and governance.",
+      title: isJa ? "Command Center" : "Command Center",
+      visualKind: "app",
+      visualLabel: "Ops",
+    },
+  ];
+
+  const slides: CopilotDeckSlide[] = [
+    {
+      eyebrow: copy.profileEyebrow,
+      id: "about",
+      items: profileItems,
+      navLabel: isJa ? "プロフィール" : "Profile",
+      summary: copy.profileSummary,
+      title: copy.profileTitle,
+    },
+    {
+      eyebrow: isJa ? "APAC Delivery" : "APAC Delivery",
+      id: "experience",
+      items: buildExperienceDeckItems(locale, experience),
+      navLabel: isJa ? "職歴" : "Experience",
+      summary: copy.experienceSummary,
+      title: copy.experienceTitle,
+    },
+    {
+      eyebrow: isJa ? "Strategy + Operations" : "Strategy + Operations",
+      id: "education",
+      items: education.map((item) => entityToDeckItem(locale, item)),
+      navLabel: isJa ? "学歴" : "Education",
+      summary: copy.educationSummary,
+      title: copy.educationTitle,
+    },
+    {
+      eyebrow: isJa ? "Credential Stack" : "Credential Stack",
+      id: "credentials",
+      items: localizedCredentials,
+      navLabel: isJa ? "資格" : "Credentials",
+      summary: copy.credentialsSummary,
+      title: copy.credentialsTitle,
+    },
+    {
+      eyebrow: isJa ? "Founder Work" : "Founder Work",
+      id: "ventures",
+      items: ventures.map((item) => entityToDeckItem(locale, item)),
+      navLabel: isJa ? "ベンチャー" : "Ventures",
+      summary: copy.venturesSummary,
+      title: copy.venturesTitle,
+    },
+    {
+      eyebrow: isJa ? "Board-to-Delivery System" : "Board-to-Delivery System",
+      id: "insights",
+      items: insightItems,
+      navLabel: isJa ? "知見" : "Insights",
+      summary: copy.insightsSummary,
+      title: copy.insightsTitle,
+    },
+  ];
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--color-background)" }}>
-      {/* Navigation Bar */}
-      <header className="glass-panel" style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        padding: "1rem 2rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <div style={{ fontWeight: 700, fontSize: "1.2rem", color: "var(--color-primary)" }}>
-          {i18n.siteTitle}
-        </div>
-        <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-          <a href="#about" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navAbout}</a>
-          <a href="#experience" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navExperience}</a>
-          <a href="#education" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navEducation}</a>
-          <a href="#ventures" style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navVentures}</a>
-          <Link href={`/${locale}/insights`} style={{ fontWeight: 500, fontSize: "0.95rem" }}>{i18n.navInsights}</Link>
-          <Link 
-            href={i18n.switchPath} 
-            aria-label={locale === "ja" ? "Switch language to English" : "日本語に切り替える"}
-            style={{
-              padding: "0.4rem 0.8rem",
-              borderRadius: "9999px",
-              border: "1px solid var(--color-outline)",
-              fontSize: "0.85rem",
-              fontWeight: 600,
-              color: "var(--color-primary)"
-            }}
-          >
-            {i18n.switchLang}
-          </Link>
-        </nav>
-      </header>
-
-      {/* Hero Section */}
-      <section id="about" style={{
-        padding: "4rem 2rem",
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        gap: "2rem",
-        maxWidth: "1200px",
-        margin: "0 auto"
-      }}>
-        <div className="glass-panel" style={{
-          padding: "2.5rem",
-          borderRadius: "1.5rem",
-          border: "1px solid var(--color-outline-variant)"
-        }}>
-          <h2 style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: "2rem",
-            color: "var(--color-primary)",
-            marginBottom: "1rem"
-          }}>
-            {aboutTranslation?.frontmatter.title}
-          </h2>
-          <p style={{
-            fontSize: "1.1rem",
-            color: "var(--color-on-surface-variant)",
-            marginBottom: "1.5rem",
-            lineHeight: 1.6
-          }}>
-            {aboutTranslation?.frontmatter.summary}
-          </p>
-          <div style={{
-            lineHeight: 1.7,
-            fontSize: "1rem"
-          }}>
-            {renderMarkdown(bodyContent)}
-          </div>
-        </div>
-      </section>
-
-      {/* Two-Column Main Content & Sandbox Grid */}
-      <section style={{
-        padding: "0 2rem 4rem 2rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-        gap: "2.5rem"
-      }}>
-        {/* Left Column: Timeline Sections */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-          {/* Experience */}
-          <div id="experience">
-            <h3 style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "1.6rem",
-              color: "var(--color-primary)",
-              marginBottom: "1.5rem"
-            }}>
-              {i18n.experienceTitle}
-            </h3>
-            <div style={{
-              borderLeft: "2px solid var(--color-outline-variant)",
-              paddingLeft: "1.5rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "2rem"
-            }}>
-              {sortedExperience.map(({ entity, translation }) => (
-                <div key={entity.id} style={{ position: "relative" }}>
-                  <div style={{
-                    position: "absolute",
-                    left: "-1.9rem",
-                    top: "0.2rem",
-                    width: "12px",
-                    height: "12px",
-                    borderRadius: "50%",
-                    backgroundColor: "var(--color-primary)",
-                    border: "2px solid var(--color-background)"
-                  }} />
-                  <div style={{ fontWeight: 700, fontSize: "1.05rem" }}>
-                    <Link href={`/${locale}/experience/${entity.canonical_slug}`} style={{ color: "var(--color-primary)", textDecoration: "none" }}>
-                      {translation?.frontmatter.title}
-                    </Link>
-                  </div>
-                  <div style={{
-                    fontSize: "0.85rem",
-                    color: "var(--color-on-surface-variant)",
-                    marginBottom: "0.5rem"
-                  }}>
-                    {formatDate((entity as { start_date: string }).start_date)} {i18n.to} {(entity as { end_date: string | null }).end_date ? formatDate((entity as { end_date: string }).end_date) : i18n.current}
-                  </div>
-                  <div style={{ fontSize: "0.95rem", lineHeight: 1.5 }}>
-                    {translation?.frontmatter.summary}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Education */}
-          <div id="education">
-            <h3 style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "1.6rem",
-              color: "var(--color-primary)",
-              marginBottom: "1.5rem"
-            }}>
-              {i18n.educationTitle}
-            </h3>
-            <div style={{
-              borderLeft: "2px solid var(--color-outline-variant)",
-              paddingLeft: "1.5rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "2rem"
-            }}>
-              {sortedEducation.map(({ entity, translation }) => (
-                <div key={entity.id} style={{ position: "relative" }}>
-                  <div style={{
-                    position: "absolute",
-                    left: "-1.9rem",
-                    top: "0.2rem",
-                    width: "12px",
-                    height: "12px",
-                    borderRadius: "50%",
-                    backgroundColor: "var(--color-secondary)",
-                    border: "2px solid var(--color-background)"
-                  }} />
-                  <div style={{ fontWeight: 700, fontSize: "1.05rem" }}>
-                    <Link href={`/${locale}/education/${entity.canonical_slug}`} style={{ color: "var(--color-primary)", textDecoration: "none" }}>
-                      {translation?.frontmatter.title}
-                    </Link>
-                  </div>
-                  <div style={{
-                    fontSize: "0.85rem",
-                    color: "var(--color-on-surface-variant)",
-                    marginBottom: "0.5rem"
-                  }}>
-                    {formatDate((entity as { start_date: string }).start_date)} {i18n.to} {(entity as { end_date: string | null }).end_date ? formatDate((entity as { end_date: string }).end_date) : i18n.current}
-                  </div>
-                  <div style={{ fontSize: "0.95rem", lineHeight: 1.5 }}>
-                    {translation?.frontmatter.summary}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Ventures */}
-          <div id="ventures">
-            <h3 style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "1.6rem",
-              color: "var(--color-primary)",
-              marginBottom: "1.5rem"
-            }}>
-              {i18n.venturesTitle}
-            </h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem" }}>
-              {sortedVentures.map(({ entity, translation }) => (
-                <div key={entity.id} className="glass-card" style={{
-                  padding: "1.5rem"
-                }}>
-                  <div style={{ fontWeight: 700, fontSize: "1.1rem", marginBottom: "0.25rem" }}>
-                    <Link href={`/${locale}/ventures/${entity.canonical_slug}`} style={{ color: "var(--color-primary)", textDecoration: "none" }}>
-                      {translation?.frontmatter.title}
-                    </Link>
-                  </div>
-                  <div style={{
-                    fontSize: "0.8rem",
-                    color: "var(--color-on-surface-variant)",
-                    marginBottom: "0.75rem"
-                  }}>
-                    {formatDate((entity as { start_date: string }).start_date)} {i18n.to} {(entity as { end_date: string | null }).end_date ? formatDate((entity as { end_date: string }).end_date) : i18n.current}
-                  </div>
-                  <div style={{ fontSize: "0.95rem", lineHeight: 1.5 }}>
-                    {translation?.frontmatter.summary}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Dynamic Agent Sandbox */}
-        <div>
-          <div style={{ position: "sticky", top: "6rem" }}>
-            <AgentSandbox locale={locale} />
-          </div>
-        </div>
-      </section>
+    <div className={isJa ? undefined : `profile-typography ${profileSans.variable} ${profileMono.variable}`}>
+      <SiteHeader locale={locale} active="home" />
+      <CampusHome
+        locale={locale}
+        slides={slides}
+        summary={isJa ? copy.profileSummary : "I work across engineering, AI, and healthcare. Based in Singapore, with many years of work in Japan, I’m currently building Innuir and exploring how technology can make care more connected."}
+      />
     </div>
   );
 }

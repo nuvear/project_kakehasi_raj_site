@@ -6,16 +6,17 @@ import admin from "firebase-admin";
 import { getEmbedding } from "@/lib/ai";
 
 const CONTENT_DIR = (() => {
-  const localPath = "/Users/rajkumarrajagobalan/raj-site/content";
-  if (fs.existsSync(localPath)) return localPath;
-
   const cwd = process.cwd();
   const pathsToTry = [
-    path.join(cwd, "../../content"),
+    process.env.KAKEHASHI_CONTENT_DIR,
+    "/Users/rajkumarrajagobalan/raj-site/content",
+    path.join(cwd, "apps/web/.next/standalone/content"),
+    path.join(cwd, ".next/standalone/content"),
     path.join(cwd, "content"),
-    path.join(cwd, "apps/web/content"),
-    "/workspace/content"
-  ];
+    path.join(cwd, "../../content"),
+    path.join(cwd, "../content")
+  ].filter(Boolean) as string[];
+
   for (const p of pathsToTry) {
     if (fs.existsSync(p)) return p;
   }
@@ -142,7 +143,7 @@ export async function GET() {
           const title = (frontmatter?.title as string | undefined) || "";
           const summary = (frontmatter?.summary as string | undefined) || "";
           const textToEmbed = `Title: ${title}\nSummary: ${summary}\nContent: ${content_markdown}`;
-          const embedding = await getEmbedding(textToEmbed);
+          const embedding = await getEmbedding(textToEmbed, "RETRIEVAL_DOCUMENT");
 
           const vectorDocId = `${entityId}_${locale}`;
           

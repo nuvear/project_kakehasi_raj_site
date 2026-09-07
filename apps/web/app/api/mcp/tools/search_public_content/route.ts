@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
 
     let embedding = inputEmbedding;
     if (!embedding && query) {
-      embedding = await getEmbedding(query);
+      embedding = await getEmbedding(query, "RETRIEVAL_QUERY");
     }
 
     const db = await getDatabase();
