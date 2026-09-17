@@ -1,15 +1,11 @@
 ---
 locale: en
-title: Innuir
-summary: Bilingual health analytics and synchronized wearable intelligence platform.
+title: Nuvear
+summary: Current venture. Founder since October 2025.
 translation_status: published
-last_editorial_review: 2026-06-24
+last_editorial_review: 2026-09-17
 ---
 
-## HealthKitSync & Innuir
+## Founder
 
-Founded Innuir, formerly Nuvear, to develop HealthKitSync, a next-generation decentralized health intelligence platform that correlates wearable data (Apple Health, Garmin, Fitbit) into actionable personalized health indicators.
-
-### Key Milestones
-- Established clean API adapters for syncing iOS HealthKit data safely.
-- Built a private dashboard highlighting biometric metrics.
+Nuvear is a current venture. I have been founder since October 2025.

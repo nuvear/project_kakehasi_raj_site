@@ -42,14 +42,6 @@ export default function CampusHome({
         summary: "My work at Y.S Inc involved designing and programming factory automation systems for electro-ceramics manufacturing in Japan." };
       return item;
     });
-    ventures.items = ventures.items.map((item) => {
-      if (item.href.includes("nuvear") || item.href.includes("innuir")) return { ...item,
-        title: "Innuir", visualLabel: "Founder CEO · October 2025–present · Singapore",
-        summary: "I’m building Innuir to help people maintain a connected health history as they move between care providers. The work brings together patient identity, consent, and AI, with privacy and responsible data sharing built into the approach." };
-      if (item.href.includes("aagnaa")) return { ...item,
-        summary: "I founded AAGNAA to explore how IoT and AR/VR could make retail experiences more personal. The venture raised $700K and secured patents for its work." };
-      return item;
-    });
   }
   return (
     <>
@@ -308,11 +300,9 @@ export default function CampusHome({
             <div className="campus-section-heading">
               <div>
                 <p className="campus-eyebrow">
-                  04 / {ja ? "創業活動" : "Building ventures"}
+                  04 / {ja ? "ベンチャー" : "Ventures"}
                 </p>
-                <h2>
-                  {ja ? "可能性を、事業に。" : "What I’m building—and have built."}
-                </h2>
+                <h2>{ventures.title}</h2>
               </div>
               <p>{ventures.summary}</p>
             </div>

@@ -14,6 +14,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import { formatDateRange } from "@/lib/date-format";
 import { getProfileCredentials } from "@/lib/profile-credentials";
+import { ventureBandEyebrow } from "@/lib/venture-band";
 
 const profileSans = Geist({ variable: "--font-profile-sans", subsets: ["latin"] });
 const profileMono = Geist_Mono({ variable: "--font-profile-mono", subsets: ["latin"] });
@@ -168,6 +169,22 @@ function entityToDeckItem(locale: string, item: LoadedEntity): CopilotDeckItem {
     title: item.translation.frontmatter.title,
     visualKind: getVisualKind(item.entity),
     visualLabel: getEntityVisualLabel(item.entity),
+  };
+}
+
+function ventureToDeckItem(locale: string, item: LoadedEntity): CopilotDeckItem {
+  const entity = item.entity;
+  const startDate = entity.type === "venture" ? entity.start_date : undefined;
+  const endDate = entity.type === "venture" ? entity.end_date : null;
+  const role = entity.type === "venture" ? entity.role : "";
+  return {
+    ...entityToDeckItem(locale, item),
+    visualLabel: ventureBandEyebrow({
+      locale,
+      period: formatDateRange(startDate, endDate, locale),
+      role,
+      endDate,
+    }),
   };
 }
 
@@ -344,9 +361,9 @@ export default async function HomePage({ params }: PageProps) {
         credentialsTitle: "資格スタック",
         credentialsSummary:
           "リーダーシップ、オペレーション、応用AI、IoT、ブロックチェーン、データサイエンス。",
-        venturesTitle: "創業活動",
+        venturesTitle: "起業家としての歩み",
         venturesSummary:
-          "ヘルスインテリジェンス、IoT、AR/VR、デジタルエンジニアリングの事業構築。",
+          "NuvearとInnuirが現在の事業です。AAGNAAは以前の事業です。",
         insightsTitle: "AI実行システム",
         insightsSummary:
           "フレームワーク、ガイド、コマンドセンターで構成するCxO向け実行モデル。",
@@ -372,9 +389,9 @@ export default async function HomePage({ params }: PageProps) {
         credentialsTitle: "Credential Stack",
         credentialsSummary:
           "Leadership, operations, applied AI, IoT, blockchain, and data science credentials.",
-        venturesTitle: "Founder Work",
+        venturesTitle: "My Entrepreneurial Journey",
         venturesSummary:
-          "Different ventures, connected by an interest in how technology can be useful in everyday life.",
+          "Nuvear and Innuir are current ventures. AAGNAA is an earlier venture.",
         insightsTitle: "AI Transformation System",
         insightsSummary:
           "A framework, guide, and command center for board-to-delivery execution.",
@@ -560,9 +577,9 @@ export default async function HomePage({ params }: PageProps) {
       title: copy.credentialsTitle,
     },
     {
-      eyebrow: isJa ? "Founder Work" : "Founder Work",
+      eyebrow: isJa ? "起業家としての歩み" : "My Entrepreneurial Journey",
       id: "ventures",
-      items: ventures.map((item) => entityToDeckItem(locale, item)),
+      items: ventures.map((item) => ventureToDeckItem(locale, item)),
       navLabel: isJa ? "ベンチャー" : "Ventures",
       summary: copy.venturesSummary,
       title: copy.venturesTitle,

@@ -94,6 +94,7 @@ export async function GET() {
     const firestore = admin.firestore();
 
     const entityFolders = getEntityFolders(CONTENT_DIR);
+    const skipEntityIds = new Set(["app.to-do-list"]);
     const results = [];
 
     for (const folder of entityFolders) {
@@ -105,6 +106,10 @@ export async function GET() {
 
       if (!entityId) {
         console.warn(`Entity folder at ${folder} is missing ID field in entity.yaml`);
+        continue;
+      }
+
+      if (skipEntityIds.has(entityId)) {
         continue;
       }
 

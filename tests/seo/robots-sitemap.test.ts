@@ -73,12 +73,13 @@ describe("marketing XML sitemap", () => {
       "https://www.rajagobalan.com/en/experience/capgemini-apac-delivery-gpo",
     );
     expect(urls).toContain("https://www.rajagobalan.com/en/ventures/nuvear");
+    expect(urls).toContain("https://www.rajagobalan.com/en/ventures/innuir");
+    expect(urls).toContain("https://www.rajagobalan.com/ja/ventures/innuir");
     expect(urls).toContain("https://www.rajagobalan.com/en/credentials");
 
     expect(urls.some((url) => url.includes("/diary"))).toBe(false);
     expect(urls.some((url) => url.includes("/100days"))).toBe(false);
     expect(urls.some((url) => url.includes("to-do-list"))).toBe(false);
-    expect(urls.some((url) => url.includes("/ventures/innuir"))).toBe(false);
 
     const home = entries.find(
       (entry) => entry.url === "https://www.rajagobalan.com/en",
