@@ -1,0 +1,225 @@
+{
+  "checked_at": "2026-09-17T22:46:42.473938+00:00",
+  "revision": "kakehashi-app-00041-han",
+  "results": [
+    {
+      "path": "/en/experience",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Experience | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/en/experience/capgemini-apac-delivery-gpo",
+        "/en/experience/capgemini-japan",
+        "/en/experience/dassault-systemes-delmia",
+        "/en/experience/hcl-eli-lilly-co-innovation-lab",
+        "/en/experience/mahindra-satyam-pfizer-japan",
+        "/en/experience/ys-inc-factory-automation"
+      ],
+      "interior_nav": [
+        "/en/apps",
+        "/en/credentials",
+        "/en/education",
+        "/en/experience",
+        "/en/insights",
+        "/en/ventures",
+        "/ja/experience"
+      ],
+      "home_hashes": []
+    },
+    {
+      "path": "/ja/experience",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "職歴 | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/ja/experience/capgemini-apac-delivery-gpo",
+        "/ja/experience/capgemini-japan",
+        "/ja/experience/dassault-systemes-delmia",
+        "/ja/experience/hcl-eli-lilly-co-innovation-lab",
+        "/ja/experience/mahindra-satyam-pfizer-japan",
+        "/ja/experience/ys-inc-factory-automation"
+      ],
+      "interior_nav": [
+        "/en/experience",
+        "/ja/apps",
+        "/ja/credentials",
+        "/ja/education",
+        "/ja/experience",
+        "/ja/insights",
+        "/ja/ventures"
+      ],
+      "home_hashes": []
+    },
+    {
+      "path": "/en/education",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Education | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/en/education/american-college-physics",
+        "/en/education/anaheim-university-mba",
+        "/en/education/madras-institute-technology-electronics",
+        "/en/education/mit-coo-program",
+        "/en/education/shizuoka-university-systems-engineering",
+        "/en/education/stanford-executive-program"
+      ]
+    },
+    {
+      "path": "/ja/education",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "学歴 | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/ja/education/american-college-physics",
+        "/ja/education/anaheim-university-mba",
+        "/ja/education/madras-institute-technology-electronics",
+        "/ja/education/mit-coo-program",
+        "/ja/education/shizuoka-university-systems-engineering",
+        "/ja/education/stanford-executive-program"
+      ]
+    },
+    {
+      "path": "/en/ventures",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Ventures | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/en/ventures/aagnaa",
+        "/en/ventures/innuir",
+        "/en/ventures/nuvear"
+      ],
+      "has_innuir": true,
+      "has_nuvear": true,
+      "has_aagnaa": true,
+      "oct_2025": true,
+      "aug_2026": true
+    },
+    {
+      "path": "/ja/ventures",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "ベンチャー | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/ja/ventures/aagnaa",
+        "/ja/ventures/innuir",
+        "/ja/ventures/nuvear"
+      ],
+      "has_innuir": true,
+      "has_nuvear": true,
+      "has_aagnaa": true,
+      "oct_2025": true,
+      "aug_2026": true
+    },
+    {
+      "path": "/en/apps",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "Apps | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/en/apps/ai-transformation-command-center"
+      ],
+      "has_todo": false
+    },
+    {
+      "path": "/ja/apps",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "title": "アプリ | Rajkumar Rajagobalan",
+      "default_next_404": false,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "children": [
+        "/ja/apps/ai-transformation-command-center"
+      ],
+      "has_todo": false
+    },
+    {
+      "path": "/experience",
+      "status": 307,
+      "location": "/en/experience",
+      "content_type": "text/html"
+    },
+    {
+      "path": "/education",
+      "status": 307,
+      "location": "/en/education",
+      "content_type": "text/html"
+    },
+    {
+      "path": "/ventures",
+      "status": 307,
+      "location": "/en/ventures",
+      "content_type": "text/html"
+    },
+    {
+      "path": "/apps",
+      "status": 307,
+      "location": "/en/apps",
+      "content_type": "text/html"
+    },
+    {
+      "path": "/en",
+      "status": 200,
+      "location": "",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/ja",
+      "status": 200,
+      "location": "",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "location": "",
+      "content_type": "text/plain",
+      "body_start": "User-Agent: *\nAllow: /\nDisallow: /diary\nDisallow: /diary/\n\nHost: https://www.raj"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "location": "",
+      "content_type": "application/xml",
+      "loc_count": 52,
+      "indexes": [
+        "https://www.rajagobalan.com/en/apps",
+        "https://www.rajagobalan.com/en/education",
+        "https://www.rajagobalan.com/en/experience",
+        "https://www.rajagobalan.com/en/ventures",
+        "https://www.rajagobalan.com/ja/apps",
+        "https://www.rajagobalan.com/ja/education",
+        "https://www.rajagobalan.com/ja/experience",
+        "https://www.rajagobalan.com/ja/ventures"
+      ],
+      "has_diary": false,
+      "has_100days": false,
+      "has_todo": false
+    },
+    {
+      "path": "/diary",
+      "status": 200,
+      "location": "",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/100days",
+      "status": 303,
+      "location": "/100days/sign-in",
+      "content_type": "text/html"
+    }
+  ]
+}
