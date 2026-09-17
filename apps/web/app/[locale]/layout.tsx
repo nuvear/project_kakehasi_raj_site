@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { DM_Sans, Libre_Caslon_Display } from "next/font/google";
 import ThemeDock from "@/components/ThemeDock";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { isPublicLocale, PUBLIC_LOCALES } from "@/lib/i18n";
+import { isPublicLocale } from "@/lib/i18n";
 import { themeBootScript } from "@/lib/theme-script";
 import "../globals.css";
 import "../campus.css";
@@ -24,10 +24,6 @@ export const metadata: Metadata = {
   description:
     "Enterprise AI Transformation Leader, HealthTech Founder (Innuir), Stanford SEP Alumni, MIT Alumni.",
 };
-
-export function generateStaticParams() {
-  return PUBLIC_LOCALES.map((locale) => ({ locale }));
-}
 
 export default async function LocaleLayout({
   children,
