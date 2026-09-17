@@ -275,7 +275,10 @@ export default function CampusHome({
                 {ja ? "実践が築いた視点。" : "Leading teams, learning together."}
               </h2>
             </div>
-            <p>{experience.summary}</p>
+            <Link className="campus-text-link" href={`/${locale}/experience`}>
+              {ja ? "職歴一覧" : "All experience"}
+              <span aria-hidden="true">↗</span>
+            </Link>
           </div>
           <div className="campus-career-list">
             {experience.items.map((item, i) => (
@@ -304,7 +307,10 @@ export default function CampusHome({
                 </p>
                 <h2>{ventures.title}</h2>
               </div>
-              <p>{ventures.summary}</p>
+              <Link className="campus-text-link" href={`/${locale}/ventures`}>
+                {ja ? "ベンチャー一覧" : "All ventures"}
+                <span aria-hidden="true">↗</span>
+              </Link>
             </div>
             <div className="campus-ventures">
               {ventures.items.map((item) => (
@@ -335,7 +341,10 @@ export default function CampusHome({
                 {ja ? "学び続ける、という原動力。" : "Places I’ve learned."}
               </h2>
             </div>
-            <p>{education.summary}</p>
+            <Link className="campus-text-link" href={`/${locale}/education`}>
+              {ja ? "学歴一覧" : "All education"}
+              <span aria-hidden="true">↗</span>
+            </Link>
           </div>
           <EducationSlideshow locale={locale} />
           <div className="campus-education">

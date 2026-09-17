@@ -33,6 +33,8 @@ describe("locale prefix middleware helpers", () => {
   test("still prefixes ordinary marketing paths and leaves localized ones alone", () => {
     expect(shouldSkipLocalePrefix("/credentials")).toBe(false);
     expect(shouldSkipLocalePrefix("/insights")).toBe(false);
+    expect(shouldSkipLocalePrefix("/experience")).toBe(false);
+    expect(shouldSkipLocalePrefix("/apps")).toBe(false);
     expect(hasPublicLocalePrefix("/en")).toBe(true);
     expect(hasPublicLocalePrefix("/ja/insights")).toBe(true);
     expect(shouldSkipLocalePrefix("/apps/ai-transformation-command-center")).toBe(
@@ -61,6 +63,10 @@ describe("marketing XML sitemap", () => {
     expect(urls).toContain("https://www.rajagobalan.com/en");
     expect(urls).toContain("https://www.rajagobalan.com/ja");
     expect(urls).toContain("https://www.rajagobalan.com/en/insights");
+    expect(urls).toContain("https://www.rajagobalan.com/en/experience");
+    expect(urls).toContain("https://www.rajagobalan.com/ja/education");
+    expect(urls).toContain("https://www.rajagobalan.com/en/ventures");
+    expect(urls).toContain("https://www.rajagobalan.com/ja/apps");
     expect(urls).toContain(
       "https://www.rajagobalan.com/ja/frameworks/enterprise-ai-transformation",
     );

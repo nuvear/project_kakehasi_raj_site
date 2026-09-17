@@ -3,9 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import {
+  languageSwitchPath,
+  siteNavHref,
+  type SiteNavActive,
+  type SiteNavSection,
+} from "@/lib/site-nav";
 
 interface SiteHeaderProps {
-  active?: "home" | "insights" | "none";
+  active?: SiteNavActive;
   languageHref?: string;
   locale: string;
 }
@@ -18,11 +24,6 @@ export default function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const isJa = locale === "ja";
   const isHome = active === "home";
-  const isInsights = active === "insights";
-  const oppositeLocale = isJa ? "en" : "ja";
-  const defaultSwitchPath = isInsights
-    ? `/${oppositeLocale}/insights`
-    : `/${oppositeLocale}`;
 
   const copy = isJa
     ? {
@@ -33,9 +34,9 @@ export default function SiteHeader({
         education: "学歴",
         credentials: "資格",
         ventures: "ベンチャー",
+        apps: "アプリ",
         insights: "知見",
         switchLang: "English",
-        switchPath: languageHref || defaultSwitchPath,
         languageLabel: "Switch language to English",
       }
     : {
@@ -46,13 +47,26 @@ export default function SiteHeader({
         education: "Education",
         credentials: "Credentials",
         ventures: "Ventures",
+        apps: "Apps",
         insights: "Insights",
         switchLang: "日本語",
-        switchPath: languageHref || defaultSwitchPath,
         languageLabel: "日本語に切り替える",
       };
 
   const sectionPrefix = `/${locale}`;
+  const switchPath = languageSwitchPath(active, locale, languageHref);
+
+  const navItems: Array<{
+    key: SiteNavSection;
+    label: string;
+  }> = [
+    { key: "experience", label: copy.experience },
+    { key: "education", label: copy.education },
+    { key: "credentials", label: copy.credentials },
+    { key: "ventures", label: copy.ventures },
+    { key: "apps", label: copy.apps },
+    { key: "insights", label: copy.insights },
+  ];
 
   return (
     <header className="site-header glass-panel">
@@ -82,24 +96,25 @@ export default function SiteHeader({
             {copy.about}
           </a>
         )}
-        <a className="site-nav-link" href={`${sectionPrefix}#experience`}>
-          {copy.experience}
-        </a>
-        <a className="site-nav-link" href={`${sectionPrefix}#education`}>
-          {copy.education}
-        </a>
-        <a className="site-nav-link" href={`${sectionPrefix}#credentials`}>
-          {copy.credentials}
-        </a>
-        <a className="site-nav-link" href={`${sectionPrefix}#ventures`}>
-          {copy.ventures}
-        </a>
-        <Link
-          className={`site-nav-link ${isInsights ? "is-active" : ""}`}
-          href={`${sectionPrefix}/insights`}
-        >
-          {copy.insights}
-        </Link>
+        {navItems.map((item) => {
+          const href = siteNavHref(item.key, locale, isHome);
+          const isActive = active === item.key;
+          const className = `site-nav-link ${isActive ? "is-active" : ""}`;
+
+          if (href.includes("#")) {
+            return (
+              <a className={className} href={href} key={item.key}>
+                {item.label}
+              </a>
+            );
+          }
+
+          return (
+            <Link className={className} href={href} key={item.key}>
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
 
       <button
@@ -115,7 +130,7 @@ export default function SiteHeader({
         <ThemeToggle locale={locale} />
         <Link
           className="language-link"
-          href={copy.switchPath}
+          href={switchPath}
           aria-label={copy.languageLabel}
         >
           {copy.switchLang}

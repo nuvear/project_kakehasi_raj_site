@@ -76,9 +76,9 @@ export default async function AppDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <DetailPageShell
-        active="insights"
-        backHref={`/${locale}/insights`}
-        backLabel={isJa ? "知見・ツールへ戻る" : "Back to Insights & Tools"}
+        active="apps"
+        backHref={`/${locale}/apps`}
+        backLabel={isJa ? "アプリ一覧へ戻る" : "Back to Apps"}
         badge={isJa ? "アプリ" : "Application"}
         languageHref={`/${oppositeLocale}/apps/${slug}`}
         locale={locale}

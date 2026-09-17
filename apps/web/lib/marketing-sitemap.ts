@@ -2,14 +2,16 @@ import type { MetadataRoute } from "next";
 import { getDatabase } from "@kakehashi/db";
 import { getEntityRoute, type PublicLocale } from "@/lib/entity-routes";
 import { PUBLIC_LOCALES, SITE_ORIGIN } from "@/lib/i18n";
-
-/** Catalogue pages that exist in source but are not on the live marketing tree. */
-const EXCLUDED_ENTITY_IDS = new Set(["app.to-do-list"]);
+import { isLiveMarketingEntity } from "@/lib/marketing-entities";
 
 /** Locale-prefixed marketing indexes and docs that are not content entities. */
 const EXTRA_LOCALE_PATHS = [
   "/insights",
   "/credentials",
+  "/experience",
+  "/education",
+  "/ventures",
+  "/apps",
   "/apps/ai-transformation-command-center/docs/deployment",
 ] as const;
 
@@ -49,10 +51,7 @@ export async function getMarketingSitemapEntries(): Promise<
 
   const entities = await db.listEntities();
   for (const entity of entities) {
-    if (EXCLUDED_ENTITY_IDS.has(entity.id)) {
-      continue;
-    }
-    if (entity.visibility !== "public" || entity.publish_status !== "published") {
+    if (!isLiveMarketingEntity(entity)) {
       continue;
     }
 

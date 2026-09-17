@@ -36,7 +36,7 @@ export default async function CredentialsPage({ params }: PageProps) {
 
   return (
     <DetailPageShell
-      active="none"
+      active="credentials"
       backHref={`/${locale}#credentials`}
       backLabel={copy.backLabel}
       badge={copy.badge}

@@ -74,9 +74,9 @@ export default async function EducationPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <DetailPageShell
-        active="none"
-        backHref={`/${locale}`}
-        backLabel={isJa ? "ホームへ戻る" : "Back to Home"}
+        active="education"
+        backHref={`/${locale}/education`}
+        backLabel={isJa ? "学歴一覧へ戻る" : "Back to Education"}
         badge={isJa ? "学歴" : "Education"}
         languageHref={`/${oppositeLocale}/education/${slug}`}
         locale={locale}

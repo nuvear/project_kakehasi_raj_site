@@ -74,9 +74,9 @@ export default async function VenturePage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <DetailPageShell
-        active="none"
-        backHref={`/${locale}`}
-        backLabel={isJa ? "ホームへ戻る" : "Back to Home"}
+        active="ventures"
+        backHref={`/${locale}/ventures`}
+        backLabel={isJa ? "ベンチャー一覧へ戻る" : "Back to Ventures"}
         badge={isJa ? "ベンチャー" : "Venture"}
         languageHref={`/${oppositeLocale}/ventures/${slug}`}
         locale={locale}

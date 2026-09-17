@@ -15,6 +15,16 @@ export default function SiteFooter({ locale, heading }: { locale: string; headin
         </div>
         <nav aria-label={ja ? "フッターナビゲーション" : "Footer navigation"}>
           <Link href={`/${locale}`}>{ja ? "プロフィール" : "Profile"}</Link>
+          <Link href={`/${locale}/experience`}>
+            {ja ? "職歴" : "Experience"}
+          </Link>
+          <Link href={`/${locale}/education`}>
+            {ja ? "学歴" : "Education"}
+          </Link>
+          <Link href={`/${locale}/ventures`}>
+            {ja ? "ベンチャー" : "Ventures"}
+          </Link>
+          <Link href={`/${locale}/apps`}>{ja ? "アプリ" : "Apps"}</Link>
           <Link href={`/${locale}/insights`}>
             {ja ? "知見とツール" : "Insights & tools"}
           </Link>

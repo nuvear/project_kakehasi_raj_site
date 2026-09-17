@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import type { SiteNavActive } from "@/lib/site-nav";
 
 export interface DetailMetaItem {
   label?: string;
@@ -9,7 +10,7 @@ export interface DetailMetaItem {
 }
 
 interface DetailPageShellProps {
-  active?: "home" | "insights" | "none";
+  active?: SiteNavActive;
   aside?: ReactNode;
   backHref: string;
   backLabel: string;

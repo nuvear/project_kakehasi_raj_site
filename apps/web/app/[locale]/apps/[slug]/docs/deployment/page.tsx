@@ -133,7 +133,7 @@ export default async function CommandCenterDeploymentPage({ params }: PageProps)
 
   return (
     <DetailPageShell
-      active="insights"
+      active="apps"
       backHref={`/${locale}/apps/${slug}`}
       backLabel={copy.back}
       badge={copy.badge}

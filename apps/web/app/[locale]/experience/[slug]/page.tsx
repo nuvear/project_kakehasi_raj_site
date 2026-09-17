@@ -76,9 +76,9 @@ export default async function ExperiencePage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <DetailPageShell
-        active="none"
-        backHref={`/${locale}`}
-        backLabel={isJa ? "ホームへ戻る" : "Back to Home"}
+        active="experience"
+        backHref={`/${locale}/experience`}
+        backLabel={isJa ? "職歴一覧へ戻る" : "Back to Experience"}
         badge={isJa ? "職歴" : "Experience"}
         languageHref={`/${oppositeLocale}/experience/${slug}`}
         locale={locale}
