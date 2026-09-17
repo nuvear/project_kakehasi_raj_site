@@ -10,6 +10,7 @@ import { getMarketingSitemapEntries } from "../../apps/web/lib/marketing-sitemap
 
 process.env.MOCK_DB = "true";
 delete process.env.FIREBASE_PROJECT_ID;
+delete process.env.KAKEHASHI_CONTENT_DIR;
 
 describe("locale prefix middleware helpers", () => {
   test("treats only en and ja as public locales", () => {

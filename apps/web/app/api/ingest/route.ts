@@ -9,12 +9,11 @@ const CONTENT_DIR = (() => {
   const cwd = process.cwd();
   const pathsToTry = [
     process.env.KAKEHASHI_CONTENT_DIR,
-    "/Users/rajkumarrajagobalan/raj-site/content",
-    path.join(cwd, "apps/web/.next/standalone/content"),
-    path.join(cwd, ".next/standalone/content"),
     path.join(cwd, "content"),
     path.join(cwd, "../../content"),
-    path.join(cwd, "../content")
+    path.join(cwd, "../content"),
+    path.join(cwd, "apps/web/.next/standalone/content"),
+    path.join(cwd, ".next/standalone/content"),
   ].filter(Boolean) as string[];
 
   for (const p of pathsToTry) {

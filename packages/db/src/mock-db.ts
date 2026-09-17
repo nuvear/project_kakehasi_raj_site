@@ -23,11 +23,11 @@ let fileBackedContentCache: FileBackedContent | null = null;
 function findContentDir(): string | null {
   const candidates = [
     process.env.KAKEHASHI_CONTENT_DIR,
-    path.join(process.cwd(), "apps/web/.next/standalone/content"),
-    path.join(process.cwd(), ".next/standalone/content"),
     path.join(process.cwd(), "content"),
     path.join(process.cwd(), "../../content"),
-    path.join(process.cwd(), "../content")
+    path.join(process.cwd(), "../content"),
+    path.join(process.cwd(), "apps/web/.next/standalone/content"),
+    path.join(process.cwd(), ".next/standalone/content"),
   ].filter(Boolean) as string[];
 
   return candidates.find((candidate) => fs.existsSync(candidate)) || null;
