@@ -18,9 +18,15 @@ export function formatMonthDate(date: string | null | undefined, locale: string)
   return `${monthNames[monthNumber - 1]} ${year}`;
 }
 
-export function formatDateRange(startDate: string | null | undefined, endDate: string | null | undefined, locale: string) {
+export function formatDateRange(
+  startDate: string | null | undefined,
+  endDate: string | null | undefined,
+  locale: string,
+): string {
   const start = formatMonthDate(startDate, locale);
-  const end = endDate ? formatMonthDate(endDate, locale) : locale === "ja" ? "現在" : "Present";
+  const end =
+    (endDate ? formatMonthDate(endDate, locale) : null) ??
+    (locale === "ja" ? "現在" : "Present");
 
   if (!start) {
     return end;
