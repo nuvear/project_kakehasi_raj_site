@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-09-17T09:47:43Z",
+  "revision": "kakehashi-app-00037-tid",
+  "image": "us-central1-docker.pkg.dev/rajagobalan-site/cloud-run-source-deploy/kakehashi-app@sha256:45ba00c6e3f9b673b932d89dd5d68b05a0fa78c6396529c904afde89dc09ba4c",
+  "hosting_version": "sites/rajagobalan-site/versions/d3ad5f6433a14ad4",
+  "hosting_release": "sites/rajagobalan-site/releases/1789638453747000",
+  "routes": [
+    {
+      "url": "https://www.rajagobalan.com/robots.txt",
+      "status": 200,
+      "content_type": "text/plain",
+      "body_starts_with": "User-Agent: *"
+    },
+    {
+      "url": "https://www.rajagobalan.com/sitemap.xml",
+      "status": 200,
+      "content_type": "application/xml",
+      "loc_count": 42,
+      "excludes": ["/diary", "/100days", "to-do-list"]
+    },
+    {
+      "url": "https://www.rajagobalan.com/en",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+    },
+    {
+      "url": "https://www.rajagobalan.com/ja",
+      "status": 200,
+      "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+    },
+    {
+      "url": "https://www.rajagobalan.com/diary",
+      "status": 200
+    },
+    {
+      "url": "https://www.rajagobalan.com/diary/api/health",
+      "status": 200,
+      "body": "{\"status\":\"ok\"}"
+    },
+    {
+      "url": "https://www.rajagobalan.com/100days",
+      "status": 303,
+      "location": "/100days/sign-in"
+    },
+    {
+      "url": "https://www.rajagobalan.com/ads.txt",
+      "status": 404
+    }
+  ]
+}
